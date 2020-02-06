@@ -7,6 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "StateMachine.hpp"
+#include "StateFactory.hpp"
 #include "KeyboardManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -24,6 +26,8 @@ public:
 private:
     sf::RenderWindow window;
     KeyboardManager keyboardManager;
+    StateFactory stateFactory;
+    StateMachine stateMachine;
 
     void handleEvents();
     void update(const std::chrono::milliseconds& deltaTime);

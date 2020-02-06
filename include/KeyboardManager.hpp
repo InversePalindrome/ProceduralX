@@ -9,11 +9,17 @@ https://inversepalindrome.com/
 
 #include <Thor/Input/ActionMap.hpp>
 
+#include <SFML/Window/Window.hpp>
+
 
 class KeyboardManager
 {
 public:
-    enum class Action{};
+    enum class Action{ Up, Down, Left, Right };
+
+    void update(sf::Window& window);
+
+    bool isPressed(Action action) const;
 
 private:
     thor::ActionMap<Action> keyBindings;

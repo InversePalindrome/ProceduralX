@@ -13,6 +13,7 @@ https://inversepalindrome.com/
 Application::Application() :
     window(sf::VideoMode(2048u, 1536u), "ProceduralX")
 {
+    stateMachine.pushState(stateFactory.createState(StateID::Splash));
 }
 
 void Application::run()
@@ -45,17 +46,22 @@ void Application::handleEvents()
             window.close();
             break;
         }
+
+        stateMachine.handleEvent(event);
     }
 }
 
 void Application::update(const std::chrono::milliseconds& deltaTime)
 {
-
+    keyboardManager.update(window);
+    stateMachine.update(deltaTime);
 }
 
 void Application::render()
 {
     window.clear();
+
+    stateMachine.render();
 
     window.display();
 }
