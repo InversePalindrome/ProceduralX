@@ -20,12 +20,13 @@ class StateFactory
     using StatePtr = std::unique_ptr<State>;
 
 public:
-    StateFactory();
+    explicit StateFactory(sf::RenderWindow& window);
 
     StatePtr createState(StateID stateID);
 
 private:
     std::unordered_map<StateID, std::function<StatePtr()>> factory;
+    sf::RenderWindow& window;
 
     template<typename T>
     void registerState(StateID stateID);
@@ -34,5 +35,5 @@ private:
 template<typename T>
 void StateFactory::registerState(StateID stateID)
 {
-    factory[stateID] = []() { return std::make_unique<T>(); };
+    factory[stateID] = [this]() { return std::make_unique<T>(window); };
 }

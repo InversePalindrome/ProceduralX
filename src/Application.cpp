@@ -6,13 +6,17 @@ https://inversepalindrome.com/
 
 
 #include "Application.hpp"
+#include "ResourceManager.hpp"
 
 #include <SFML/Window/Event.hpp>
 
 
 Application::Application() :
-    window(sf::VideoMode(2048u, 1536u), "ProceduralX")
+    window(sf::VideoMode(2048u, 1536u), "ProceduralX"),
+    stateFactory(window)
 {
+    loadResources();
+
     stateMachine.pushState(stateFactory.createState(StateID::Splash));
 }
 
@@ -59,9 +63,14 @@ void Application::update(const std::chrono::milliseconds& deltaTime)
 
 void Application::render()
 {
-    window.clear();
+    window.clear(sf::Color::White);
 
     stateMachine.render();
 
     window.display();
+}
+
+void Application::loadResources()
+{
+    ResourceManager::getInstance().loadTexture(TextureID::SplashLogo, "Resources/Textures/InversePalindromeLogo.png");
 }

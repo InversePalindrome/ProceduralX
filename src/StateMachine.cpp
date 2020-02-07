@@ -10,7 +10,7 @@ https://inversepalindrome.com/
 
 void StateMachine::pushState(StatePtr state)
 {
-    states.push(state);
+    states.push(std::move(state));
 }
 
 void StateMachine::popState()

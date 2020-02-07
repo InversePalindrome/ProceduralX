@@ -32,4 +32,6 @@ private:
     void handleEvents();
     void update(const std::chrono::milliseconds& deltaTime);
     void render();
+
+    void loadResources();
 };

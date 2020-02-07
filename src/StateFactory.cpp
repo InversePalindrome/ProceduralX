@@ -10,7 +10,8 @@ https://inversepalindrome.com/
 #include "SplashState.hpp"
 
 
-StateFactory::StateFactory()
+StateFactory::StateFactory(sf::RenderWindow& window) :
+    window(window)
 {
     registerState<SplashState>(StateID::Splash);
 }
