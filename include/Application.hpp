@@ -7,9 +7,11 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "EventID.hpp"
 #include "StateMachine.hpp"
 #include "StateFactory.hpp"
 #include "KeyboardManager.hpp"
+#include "EventDispatcher.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -28,10 +30,11 @@ private:
     KeyboardManager keyboardManager;
     StateFactory stateFactory;
     StateMachine stateMachine;
+    EventDispatcher eventDispatcher;
 
     void handleEvents();
-    void update(const std::chrono::milliseconds& deltaTime);
+    void update(const std::chrono::nanoseconds& deltaTime);
     void render();
 
-    void loadResources();
+    void addEventListeners();
 };

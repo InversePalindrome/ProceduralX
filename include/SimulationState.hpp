@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SplashState.hpp
+ProceduralX - SimulationState.hpp
 https://inversepalindrome.com/
 */
 
@@ -9,20 +9,13 @@ https://inversepalindrome.com/
 
 #include "State.hpp"
 
-#include <SFML/Graphics/Sprite.hpp>
 
-
-class SplashState : public State
+class SimulationState : public State
 {
 public:
-    SplashState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
+    SimulationState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
 
     virtual void handleEvent(const sf::Event& event) override;
     virtual void update(const std::chrono::nanoseconds& deltaTime) override;
     virtual void render() override;
-
-private:
-    sf::Sprite splashScreen;
-
-    std::chrono::nanoseconds splashTime;
 };

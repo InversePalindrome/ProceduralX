@@ -8,12 +8,15 @@ https://inversepalindrome.com/
 #include "StateFactory.hpp"
 
 #include "SplashState.hpp"
+#include "SimulationState.hpp"
 
 
-StateFactory::StateFactory(sf::RenderWindow& window) :
-    window(window)
+StateFactory::StateFactory(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
+    window(window),
+    eventDispatcher(eventDispatcher)
 {
     registerState<SplashState>(StateID::Splash);
+    registerState<SimulationState>(StateID::Simulation);
 }
 
 StateFactory::StatePtr StateFactory::createState(StateID stateID)

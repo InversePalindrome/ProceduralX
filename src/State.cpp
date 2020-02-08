@@ -8,7 +8,8 @@ https://inversepalindrome.com/
 #include "State.hpp"
 
 
-State::State(sf::RenderWindow& window) :
-    window(window)
+State::State(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
+    window(window),
+    eventDispatcher(eventDispatcher)
 {
 }

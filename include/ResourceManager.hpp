@@ -25,6 +25,8 @@ public:
     ResourceManager& operator=(const ResourceManager&) = delete;
     ResourceManager& operator=(ResourceManager&&) = delete;
 
+    void loadResources(const std::string& filename);
+
     sf::Texture& getTexture(TextureID textureID);
     void loadTexture(TextureID textureID, const std::string& filename);
 

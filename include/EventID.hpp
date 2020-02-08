@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - StateID.hpp
+ProceduralX - EventID.hpp
 https://inversepalindrome.com/
 */
 
@@ -8,4 +8,4 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class StateID { Splash, Simulation };
+enum class EventID { ChangeState };
