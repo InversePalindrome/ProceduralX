@@ -6,6 +6,7 @@ https://inversepalindrome.com/
 
 
 #include "Application.hpp"
+#include "AppConstants.hpp"
 #include "ResourceManager.hpp"
 #include "ChangeStateEvent.hpp"
 
@@ -17,7 +18,7 @@ https://inversepalindrome.com/
 using namespace std::chrono_literals;
 
 Application::Application() :
-    window(sf::VideoMode(2048u, 1536u), "ProceduralX"),
+    window(sf::VideoMode(AppConstants::WINDOW_WIDTH, AppConstants::WINDOW_HEIGHT), AppConstants::APP_NAME),
     stateFactory(window, eventDispatcher)
 {
     ResourceManager::getInstance().loadResources("Resources/XML/Resources.xml");
@@ -32,7 +33,6 @@ void Application::run()
 {
     std::chrono::high_resolution_clock clock;
     std::chrono::nanoseconds elapsedTime(0ms);
-    const std::chrono::nanoseconds TIME_PER_FRAME(16ms);
 
     auto startTime = clock.now();
 
@@ -43,13 +43,13 @@ void Application::run()
         startTime = clock.now();
         elapsedTime += deltaTime;
 
-        while (elapsedTime >= TIME_PER_FRAME)
+        while (elapsedTime >= AppConstants::TIME_PER_FRAME)
         {
             handleEvents();
-            update(TIME_PER_FRAME);
+            update(AppConstants::TIME_PER_FRAME);
             render();
 
-            elapsedTime -= TIME_PER_FRAME;
+            elapsedTime -= AppConstants::TIME_PER_FRAME;
         }
     }
 
@@ -78,8 +78,8 @@ void Application::update(const std::chrono::nanoseconds& deltaTime)
 {
     keyboardManager.update(window);
     stateMachine.update(deltaTime);
-    ImGui::SFML::Update(window, sf::milliseconds(std::chrono::duration_cast
-        <std::chrono::milliseconds>(deltaTime).count()));
+    ImGui::SFML::Update(window, sf::milliseconds(static_cast<sf::Int32>(std::chrono::duration_cast
+        <std::chrono::milliseconds>(deltaTime).count())));
 }
 
 void Application::render()
