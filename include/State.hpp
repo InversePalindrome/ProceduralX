@@ -19,6 +19,11 @@ class State
 {
 public:
     State(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
+    State(const State&) = delete;
+    State& operator=(const State&) = delete;
+    State(State&&) = default;
+    State& operator=(State&&) = default;
+
     virtual ~State() = default;
 
     virtual void handleEvent(const sf::Event& event) = 0;

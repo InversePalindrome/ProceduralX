@@ -16,6 +16,10 @@ class System
 {
 public:
     explicit System(entt::registry& registry);
+    System(const System&) = delete;
+    System& operator=(const System&) = delete;
+    System(System&&) = default;
+    System& operator=(System&&) = default;
 
     virtual ~System() = default;
 
