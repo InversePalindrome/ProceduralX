@@ -18,11 +18,11 @@ public:
     SplashState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
 
     virtual void handleEvent(const sf::Event& event) override;
-    virtual void update(const std::chrono::nanoseconds& deltaTime) override;
+    virtual void update(const Seconds& deltaTime) override;
     virtual void render() override;
 
 private:
     sf::Sprite splashScreen;
 
-    std::chrono::nanoseconds splashTime;
+    Seconds splashTime;
 };

@@ -9,3 +9,6 @@ https://inversepalindrome.com/
 
 
 enum class TextureID { SplashLogo };
+enum class ImageID {};
+enum class FontID {};
+enum class SoundID {};

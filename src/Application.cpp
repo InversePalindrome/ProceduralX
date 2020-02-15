@@ -32,7 +32,7 @@ Application::Application() :
 void Application::run()
 {
     std::chrono::high_resolution_clock clock;
-    std::chrono::nanoseconds elapsedTime(0ms);
+    Seconds elapsedTime(0ms);
 
     auto startTime = clock.now();
 
@@ -74,12 +74,10 @@ void Application::handleEvents()
     }
 }
 
-void Application::update(const std::chrono::nanoseconds& deltaTime)
+void Application::update(const Seconds& deltaTime)
 {
-    keyboardManager.update(window);
     stateMachine.update(deltaTime);
-    ImGui::SFML::Update(window, sf::milliseconds(static_cast<sf::Int32>(std::chrono::duration_cast
-        <std::chrono::milliseconds>(deltaTime).count())));
+    ImGui::SFML::Update(window, sf::seconds(deltaTime.count()));
 }
 
 void Application::render()

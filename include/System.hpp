@@ -7,9 +7,9 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include <entt/entt.hpp>
+#include "Seconds.hpp"
 
-#include <chrono>
+#include <entt/entt.hpp>
 
 
 class System
@@ -23,7 +23,7 @@ public:
 
     virtual ~System() = default;
 
-    virtual void update(const std::chrono::nanoseconds& deltaTime) = 0;
+    virtual void update(const Seconds& deltaTime) = 0;
 
 protected:
     entt::registry& registry;

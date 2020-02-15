@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - PhysicsSystem.hpp
+ProceduralX - InputSystem.hpp
 https://inversepalindrome.com/
 */
 
@@ -8,17 +8,16 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "System.hpp"
+#include "InputManager.hpp"
 
-#include <box2d/b2_world.h>
 
-
-class PhysicsSystem : public System
+class InputSystem : public System
 {
 public:
-    explicit PhysicsSystem(entt::registry& registry);
+    explicit InputSystem(entt::registry& registry);
 
     virtual void update(const Seconds& deltaTime) override;
 
 private:
-    b2World world;
+    InputManager& inputManager;
 };

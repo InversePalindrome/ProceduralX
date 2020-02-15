@@ -22,7 +22,7 @@ public:
     void popState();
 
     void handleEvent(const sf::Event& event);
-    void update(const std::chrono::nanoseconds& deltaTime);
+    void update(const Seconds& deltaTime);
     void render();
 
     bool isEmpty() const;

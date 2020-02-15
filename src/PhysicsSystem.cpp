@@ -5,6 +5,7 @@ https://inversepalindrome.com/
 */
 
 
+#include "AppConstants.hpp"
 #include "PhysicsSystem.hpp"
 
 
@@ -14,7 +15,10 @@ PhysicsSystem::PhysicsSystem(entt::registry& registry) :
 {
 }
 
-void PhysicsSystem::update(const std::chrono::nanoseconds& deltaTime)
+void PhysicsSystem::update(const Seconds& deltaTime)
 {
-    //world.Step()
+    const int VELOCITY_ITERATIONS = 6;
+    const int POSITION_ITERATIONS = 2;
+
+    world.Step(deltaTime.count(), VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }

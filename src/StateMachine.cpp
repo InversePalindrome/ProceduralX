@@ -23,7 +23,7 @@ void StateMachine::handleEvent(const sf::Event& event)
     states.top()->handleEvent(event);
 }
 
-void StateMachine::update(const std::chrono::nanoseconds& deltaTime)
+void StateMachine::update(const Seconds& deltaTime)
 {
     states.top()->update(deltaTime);
 }

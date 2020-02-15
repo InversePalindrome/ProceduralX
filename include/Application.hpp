@@ -8,9 +8,9 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "EventID.hpp"
+#include "Seconds.hpp"
 #include "StateMachine.hpp"
 #include "StateFactory.hpp"
-#include "KeyboardManager.hpp"
 #include "EventDispatcher.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -27,13 +27,12 @@ public:
 
 private:
     sf::RenderWindow window;
-    KeyboardManager keyboardManager;
     StateFactory stateFactory;
     StateMachine stateMachine;
     EventDispatcher eventDispatcher;
 
     void handleEvents();
-    void update(const std::chrono::nanoseconds& deltaTime);
+    void update(const Seconds& deltaTime);
     void render();
 
     void addEventListeners();

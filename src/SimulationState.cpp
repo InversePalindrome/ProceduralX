@@ -22,7 +22,7 @@ void SimulationState::handleEvent(const sf::Event& event)
 
 }
 
-void SimulationState::update(const std::chrono::nanoseconds& deltaTime)
+void SimulationState::update(const Seconds& deltaTime)
 {
     for (auto&& system : systems)
     {

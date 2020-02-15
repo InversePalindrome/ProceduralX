@@ -16,7 +16,7 @@ using namespace std::chrono_literals;
 SplashState::SplashState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher),
     splashScreen(ResourceManager::getInstance().getTexture(TextureID::SplashLogo)),
-    splashTime(2500ms)
+    splashTime(3s)
 {
     splashScreen.setScale(0.3f, 0.3f);
     splashScreen.setOrigin(splashScreen.getLocalBounds().width / 2.f, splashScreen.getLocalBounds().height / 2.f);
@@ -28,7 +28,7 @@ void SplashState::handleEvent(const sf::Event& event)
 
 }
 
-void SplashState::update(const std::chrono::nanoseconds& deltaTime)
+void SplashState::update(const Seconds& deltaTime)
 {
     splashTime -= deltaTime;
 

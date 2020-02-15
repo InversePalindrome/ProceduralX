@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - KeyboardManager.hpp
+ProceduralX - InputManager.hpp
 https://inversepalindrome.com/
 */
 
@@ -12,9 +12,16 @@ https://inversepalindrome.com/
 #include <SFML/Window/Window.hpp>
 
 
-class KeyboardManager
+class InputManager
 {
 public:
+    static InputManager& getInstance();
+
+    InputManager(const InputManager&) = delete;
+    InputManager(InputManager&&) = delete;
+    InputManager& operator=(const InputManager&) = delete;
+    InputManager& operator=(InputManager&&) = delete;
+
     enum class Action{ Up, Down, Left, Right };
 
     void update(sf::Window& window);
@@ -22,5 +29,7 @@ public:
     bool isPressed(Action action) const;
 
 private:
+    InputManager() = default;
+
     thor::ActionMap<Action> keyBindings;
 };
