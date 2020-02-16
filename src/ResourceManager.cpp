@@ -9,9 +9,6 @@ https://inversepalindrome.com/
 
 #include <Thor/Resources/SfmlLoaders.hpp>
 
-#include <pugixml.hpp>
-#include <magic_enum.hpp>
-
 
 ResourceManager& ResourceManager::getInstance()
 {
@@ -28,15 +25,19 @@ void ResourceManager::loadResources(const std::string& filename)
         {
             if (auto texturesNode = resourcesNode.child("Textures"))
             {
-                for (auto textureNode : texturesNode.children())
-                {
-                    auto textureID = magic_enum::enum_cast<TextureID>(textureNode.name());
-
-                    if (textureID.has_value())
-                    {
-                        loadTexture(textureID.value(), "Resources/Textures/" + std::string(textureNode.text().as_string()));
-                    }
-                }
+                loadResources<TextureID>(texturesNode, "Textures");
+            }
+            else if (auto imagesNode = resourcesNode.child("Images"))
+            {
+                loadResources<ImageID>(imagesNode, "Images");
+            }
+            else if(auto fontsNode = resourcesNode.child("Fonts"))
+            {
+                loadResources<FontID>(fontsNode, "Fonts");
+            }
+            else if (auto soundsNode = resourcesNode.child("Sounds"))
+            {
+                loadResources<SoundID>(soundsNode, "Sounds");
             }
         }
     }
@@ -47,7 +48,40 @@ sf::Texture& ResourceManager::getTexture(TextureID textureID)
     return textures[textureID];
 }
 
-void ResourceManager::loadTexture(TextureID textureID, const std::string& filename)
+sf::Image& ResourceManager::getImage(ImageID imageID)
 {
-    textures.acquire(textureID, thor::Resources::fromFile<sf::Texture>(filename));
+    return images[imageID];
+}
+
+sf::Font& ResourceManager::getFont(FontID fontID)
+{
+    return fonts[fontID];
+}
+
+sf::SoundBuffer& ResourceManager::getSound(SoundID soundID)
+{
+    return sounds[soundID];
+}
+
+ResourceManager::ResourceManager() :
+    resourceLoaders
+    ({ 
+        {"Textures", [this](auto integerID, const auto& filename) 
+        {
+            textures.acquire(TextureID{ integerID }, thor::Resources::fromFile<sf::Texture>(filename));
+        } },
+        {"Images", [this](auto integerID, const auto& filename)
+        {
+            images.acquire(ImageID{ integerID }, thor::Resources::fromFile<sf::Image>(filename));
+        } } ,
+        {"Fonts", [this](auto integerID, const auto& filename)
+        {
+            fonts.acquire(FontID{ integerID }, thor::Resources::fromFile<sf::Font>(filename));
+        } } ,
+        {"Sounds", [this](auto integerID, const auto& filename)
+        {
+            sounds.acquire(SoundID{ integerID }, thor::Resources::fromFile<sf::SoundBuffer>(filename));
+        } } 
+    })
+{
 }

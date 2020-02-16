@@ -13,6 +13,7 @@ https://inversepalindrome.com/
 class BodyComponent
 {
 public:
+    explicit BodyComponent(b2Body* body);
 
 private:
     b2Body* body;

@@ -7,8 +7,10 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include <cstddef>
 
-enum class TextureID { SplashLogo };
-enum class ImageID {};
-enum class FontID {};
-enum class SoundID {};
+
+enum class TextureID : std::size_t { SplashLogo };
+enum class ImageID : std::size_t { One };
+enum class FontID : std::size_t { One };
+enum class SoundID : std::size_t { One};

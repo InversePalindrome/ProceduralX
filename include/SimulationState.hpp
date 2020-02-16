@@ -11,6 +11,7 @@ https://inversepalindrome.com/
 #include "System.hpp"
 
 #include <entt/entt.hpp>
+#include <entt/signal/dispatcher.hpp>
 
 #include <vector>
 #include <memory>
@@ -27,6 +28,8 @@ public:
 
 private:
     entt::registry registry;
+    entt::dispatcher dispatcher;
+    
     std::vector<std::unique_ptr<System>> systems;
 
     void addMenuBar();

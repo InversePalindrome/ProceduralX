@@ -5,6 +5,8 @@ https://inversepalindrome.com/
 */
 
 
+#include "InputSystem.hpp"
+#include "RenderSystem.hpp"
 #include "PhysicsSystem.hpp"
 #include "SimulationState.hpp"
 
@@ -14,6 +16,11 @@ https://inversepalindrome.com/
 SimulationState::SimulationState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher)
 {
+    auto renderSystem = std::make_unique<RenderSystem>(registry);
+    renderSystem->setWindow(&window);
+
+    systems.push_back(std::make_unique<InputSystem>(registry));
+    systems.push_back(std::move(renderSystem));
     systems.push_back(std::make_unique<PhysicsSystem>(registry));
 }
 

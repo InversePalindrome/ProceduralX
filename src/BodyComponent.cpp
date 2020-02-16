@@ -6,3 +6,9 @@ https://inversepalindrome.com/
 
 
 #include "BodyComponent.hpp"
+
+
+BodyComponent::BodyComponent(b2Body* body) :
+    body(body)
+{
+}
