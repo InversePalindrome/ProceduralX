@@ -14,7 +14,7 @@ https://inversepalindrome.com/
 class InputSystem : public System
 {
 public:
-    explicit InputSystem(entt::registry& registry);
+    InputSystem(entt::registry& registry, entt::dispatcher& dispatcher);
 
     virtual void update(const Seconds& deltaTime) override;
 

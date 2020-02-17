@@ -9,8 +9,8 @@ https://inversepalindrome.com/
 #include "PhysicsSystem.hpp"
 
 
-PhysicsSystem::PhysicsSystem(entt::registry& registry) :
-    System(registry),
+PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
+    System(registry, dispatcher),
     world({0.0f, 0.0f})
 {
 }

@@ -15,7 +15,7 @@ https://inversepalindrome.com/
 class PhysicsSystem : public System
 {
 public:
-    explicit PhysicsSystem(entt::registry& registry);
+    PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher);
 
     virtual void update(const Seconds& deltaTime) override;
 

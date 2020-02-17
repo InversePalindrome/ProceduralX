@@ -15,7 +15,7 @@ https://inversepalindrome.com/
 class System
 {
 public:
-    explicit System(entt::registry& registry);
+    System(entt::registry& registry, entt::dispatcher& dispatcher);
     System(const System&) = delete;
     System& operator=(const System&) = delete;
     System(System&&) = default;
@@ -27,4 +27,5 @@ public:
 
 protected:
     entt::registry& registry;
+    entt::dispatcher& dispatcher;
 };

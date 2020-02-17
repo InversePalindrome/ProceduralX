@@ -15,7 +15,7 @@ https://inversepalindrome.com/
 class RenderSystem : public System
 {
 public:
-    explicit RenderSystem(entt::registry& registry);
+    RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher);
 
     virtual void update(const Seconds& deltaTime) override;
 

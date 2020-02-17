@@ -16,12 +16,12 @@ https://inversepalindrome.com/
 SimulationState::SimulationState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher)
 {
-    auto renderSystem = std::make_unique<RenderSystem>(registry);
+    auto renderSystem = std::make_unique<RenderSystem>(registry, dispatcher);
     renderSystem->setWindow(&window);
 
-    systems.push_back(std::make_unique<InputSystem>(registry));
+    systems.push_back(std::make_unique<InputSystem>(registry, dispatcher));
     systems.push_back(std::move(renderSystem));
-    systems.push_back(std::make_unique<PhysicsSystem>(registry));
+    systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
 }
 
 void SimulationState::handleEvent(const sf::Event& event)

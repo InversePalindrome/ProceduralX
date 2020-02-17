@@ -9,8 +9,8 @@ https://inversepalindrome.com/
 #include "SpriteComponent.hpp"
 
 
-RenderSystem::RenderSystem(entt::registry& registry) :
-    System(registry),
+RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
+    System(registry, dispatcher),
     window(nullptr)
 {
 }

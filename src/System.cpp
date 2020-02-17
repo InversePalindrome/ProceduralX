@@ -8,7 +8,8 @@ https://inversepalindrome.com/
 #include "System.hpp"
 
 
-System::System(entt::registry& registry) :
-    registry(registry)
+System::System(entt::registry& registry, entt::dispatcher& dispatcher) :
+    registry(registry),
+    dispatcher(dispatcher)
 {
 }
