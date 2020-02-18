@@ -5,10 +5,9 @@ https://inversepalindrome.com/
 */
 
 
-#include "StateFactory.hpp"
-
+#include "GameState.hpp"
 #include "SplashState.hpp"
-#include "SimulationState.hpp"
+#include "StateFactory.hpp"
 
 
 StateFactory::StateFactory(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
@@ -16,7 +15,7 @@ StateFactory::StateFactory(sf::RenderWindow& window, EventDispatcher& eventDispa
     eventDispatcher(eventDispatcher)
 {
     registerState<SplashState>(StateID::Splash);
-    registerState<SimulationState>(StateID::Simulation);
+    registerState<GameState>(StateID::Game);
 }
 
 StateFactory::StatePtr StateFactory::createState(StateID stateID)

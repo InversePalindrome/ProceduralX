@@ -34,7 +34,7 @@ void SplashState::update(const Seconds& deltaTime)
 
     if (splashTime <= std::chrono::nanoseconds::zero())
     {
-        eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Simulation));
+        eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Game));
     }
 }
 

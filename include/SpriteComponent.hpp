@@ -11,12 +11,16 @@ https://inversepalindrome.com/
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 
-class SpriteComponent : public sf::Drawable
+class SpriteComponent : public sf::Transformable, public sf::Drawable
 {
 public:
-    explicit SpriteComponent(const sf::Sprite& sprite);
+    SpriteComponent() = default;
+    explicit SpriteComponent(const sf::Texture& texture);
+
+    void setTexture(const sf::Texture& texture);
 
 private:
     sf::Sprite sprite;

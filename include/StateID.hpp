@@ -8,4 +8,4 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class StateID { Splash, Simulation };
+enum class StateID { Splash, Game };

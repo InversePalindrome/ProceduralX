@@ -1,19 +1,20 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SimulationState.cpp
+ProceduralX - GameState.cpp
 https://inversepalindrome.com/
 */
 
 
+#include "GameState.hpp"
 #include "InputSystem.hpp"
+#include "EntityParser.hpp"
 #include "RenderSystem.hpp"
 #include "PhysicsSystem.hpp"
-#include "SimulationState.hpp"
 
 #include <imgui.h>
 
 
-SimulationState::SimulationState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
+GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher)
 {
     auto renderSystem = std::make_unique<RenderSystem>(registry, dispatcher);
@@ -22,14 +23,16 @@ SimulationState::SimulationState(sf::RenderWindow& window, EventDispatcher& even
     systems.push_back(std::make_unique<InputSystem>(registry, dispatcher));
     systems.push_back(std::move(renderSystem));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
+
+    Parser::parseEntity(registry, dispatcher, "Resources/XML/Spaceship.xml");
 }
 
-void SimulationState::handleEvent(const sf::Event& event)
+void GameState::handleEvent(const sf::Event& event)
 {
 
 }
 
-void SimulationState::update(const Seconds& deltaTime)
+void GameState::update(const Seconds& deltaTime)
 {
     for (auto&& system : systems)
     {
@@ -37,7 +40,7 @@ void SimulationState::update(const Seconds& deltaTime)
     }
 }
 
-void SimulationState::render()
+void GameState::render()
 {
     bool isOpen = true;
 
@@ -48,7 +51,7 @@ void SimulationState::render()
     ImGui::End();
 }
 
-void SimulationState::addMenuBar()
+void GameState::addMenuBar()
 {
     if (ImGui::BeginMenuBar())
     {

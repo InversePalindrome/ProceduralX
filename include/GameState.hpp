@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SimulationState.hpp
+ProceduralX - GameState.hpp
 https://inversepalindrome.com/
 */
 
@@ -17,10 +17,10 @@ https://inversepalindrome.com/
 #include <memory>
 
 
-class SimulationState : public State
+class GameState : public State
 {
 public:
-    SimulationState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
+    GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
 
     virtual void handleEvent(const sf::Event& event) override;
     virtual void update(const Seconds& deltaTime) override;
