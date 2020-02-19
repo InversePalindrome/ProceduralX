@@ -7,6 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "Components.hpp"
+
 #include <entt/entt.hpp>
 
 #include <pugixml.hpp>
@@ -14,5 +16,5 @@ https://inversepalindrome.com/
 
 namespace Parser
 {
-    void parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
+    ComponentVariant parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
 }

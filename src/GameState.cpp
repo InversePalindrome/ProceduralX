@@ -11,8 +11,6 @@ https://inversepalindrome.com/
 #include "RenderSystem.hpp"
 #include "PhysicsSystem.hpp"
 
-#include <imgui.h>
-
 
 GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher)
@@ -42,33 +40,5 @@ void GameState::update(const Seconds& deltaTime)
 
 void GameState::render()
 {
-    bool isOpen = true;
-
-    ImGui::Begin("ProceduralX", &isOpen, ImGuiWindowFlags_AlwaysAutoResize);
     
-    addMenuBar();
-
-    ImGui::End();
-}
-
-void GameState::addMenuBar()
-{
-    if (ImGui::BeginMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("Open", "Ctrl+O"))
-            {
-                
-            }
-            if (ImGui::MenuItem("Save", "Ctrl+S"))
-            {
-                
-            }
-
-            ImGui::EndMenu();
-        }
-
-        ImGui::EndMenuBar();
-    }
 }

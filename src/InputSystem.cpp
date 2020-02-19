@@ -16,5 +16,13 @@ InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher)
 
 void InputSystem::update(const Seconds& deltaTime)
 {
-    
+    if (registry.valid(playerEntity))
+    {
+
+    }
+}
+
+void InputSystem::onPlayerTagAdded(const ComponentParsed<Player>& event)
+{
+
 }

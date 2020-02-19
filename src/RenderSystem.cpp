@@ -17,7 +17,7 @@ RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatche
 
 void RenderSystem::update(const Seconds& deltaTime)
 {
-    registry.view<SpriteComponent>().each([this](const auto& sprite)
+    registry.view<SpriteComponent>().each([this](auto& sprite)
         {
             window->draw(sprite);
         });

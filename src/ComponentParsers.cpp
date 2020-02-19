@@ -12,7 +12,7 @@ https://inversepalindrome.com/
 #include <magic_enum.hpp>
 
 
-void Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
+ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
 {
     auto sprite = registry.get_or_assign<SpriteComponent>(entity);
 
@@ -25,4 +25,6 @@ void Parser::parseSprite(entt::registry& registry, entt::entity entity, const pu
             sprite.setTexture(ResourceManager::getInstance().getTexture(textureID.value()));
         }
     }
+
+    return sprite;
 }
