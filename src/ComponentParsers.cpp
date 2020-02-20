@@ -22,9 +22,25 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
  
         if (textureID.has_value())
         {
-            sprite.setTexture(ResourceManager::getInstance().getTexture(textureID.value()));
+            sprite.setSprite(sf::Sprite(ResourceManager::getInstance().getTexture(textureID.value())));
         }
     }
 
     return sprite;
+}
+
+ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
+{
+    auto position = registry.get_or_assign<PositionComponent>(entity);
+
+    if (auto xAttribute = positionNode.attribute("x"))
+    {
+        position.setPosition({ xAttribute.as_float(), position.getPosition().y });
+    }
+    if (auto yAttribute = positionNode.attribute("y"))
+    {
+        position.setPosition({ position.getPosition().x, yAttribute.as_float() });
+    }
+
+    return position;
 }

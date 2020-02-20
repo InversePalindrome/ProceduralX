@@ -18,9 +18,9 @@ class SpriteComponent : public sf::Transformable, public sf::Drawable
 {
 public:
     SpriteComponent() = default;
-    explicit SpriteComponent(const sf::Texture& texture);
+    explicit SpriteComponent(const sf::Sprite& sprite);
 
-    void setTexture(const sf::Texture& texture);
+    void setSprite(const sf::Sprite& sprite);
 
 private:
     sf::Sprite sprite;

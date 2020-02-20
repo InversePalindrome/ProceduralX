@@ -12,6 +12,7 @@ InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher)
     System(registry, dispatcher),
     inputManager(InputManager::getInstance())
 {
+    dispatcher.sink<ComponentParsed<Player>>().connect<&InputSystem::onPlayerTagAdded>(this);
 }
 
 void InputSystem::update(const Seconds& deltaTime)
@@ -24,5 +25,5 @@ void InputSystem::update(const Seconds& deltaTime)
 
 void InputSystem::onPlayerTagAdded(const ComponentParsed<Player>& event)
 {
-
+    
 }

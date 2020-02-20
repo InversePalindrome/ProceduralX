@@ -18,6 +18,6 @@ struct EntityParsed
 template<typename T>
 struct ComponentParsed
 {
-    T& component;
+    T component;
     entt::entity entity;
 };

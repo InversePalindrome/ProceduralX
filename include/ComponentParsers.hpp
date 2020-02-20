@@ -17,4 +17,5 @@ https://inversepalindrome.com/
 namespace Parser
 {
     ComponentVariant parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
+    ComponentVariant parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
 }

@@ -19,6 +19,8 @@ public:
 
     virtual void update(const Seconds& deltaTime) override;
 
+    void render();
+
     void setWindow(sf::RenderWindow* window);
 
 private:

@@ -8,20 +8,20 @@ https://inversepalindrome.com/
 #include "GameState.hpp"
 #include "InputSystem.hpp"
 #include "EntityParser.hpp"
-#include "RenderSystem.hpp"
 #include "PhysicsSystem.hpp"
 
 
 GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher)
 {
-    auto renderSystem = std::make_unique<RenderSystem>(registry, dispatcher);
-    renderSystem->setWindow(&window);
+    auto renderSystemPtr = std::make_unique<RenderSystem>(registry, dispatcher);
+    renderSystemPtr->setWindow(&window);
+    renderSystem = renderSystemPtr.get();
 
     systems.push_back(std::make_unique<InputSystem>(registry, dispatcher));
-    systems.push_back(std::move(renderSystem));
+    systems.push_back(std::move(renderSystemPtr));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
-
+    
     Parser::parseEntity(registry, dispatcher, "Resources/XML/Spaceship.xml");
 }
 
@@ -40,5 +40,5 @@ void GameState::update(const Seconds& deltaTime)
 
 void GameState::render()
 {
-    
+    renderSystem->render();
 }

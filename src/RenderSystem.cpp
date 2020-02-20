@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #include "RenderSystem.hpp"
 #include "SpriteComponent.hpp"
+#include "PositionComponent.hpp"
 
 
 RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
@@ -17,7 +18,15 @@ RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatche
 
 void RenderSystem::update(const Seconds& deltaTime)
 {
-    registry.view<SpriteComponent>().each([this](auto& sprite)
+    registry.view<SpriteComponent, PositionComponent>().each([this](auto& sprite, const auto& position)
+        {
+            sprite.setPosition(position.getPosition());
+        });
+}
+
+void RenderSystem::render()
+{
+    registry.view<SpriteComponent>().each([this](const auto& sprite)
         {
             window->draw(sprite);
         });

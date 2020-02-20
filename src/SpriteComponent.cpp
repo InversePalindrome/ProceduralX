@@ -8,14 +8,14 @@ https://inversepalindrome.com/
 #include "SpriteComponent.hpp"
 
 
-SpriteComponent::SpriteComponent(const sf::Texture& texture) :
-    sprite(texture)
+SpriteComponent::SpriteComponent(const sf::Sprite& sprite) :
+    sprite(sprite)
 {
 }
 
-void SpriteComponent::setTexture(const sf::Texture& texture)
+void SpriteComponent::setSprite(const sf::Sprite& sprite) 
 {
-    sprite.setTexture(texture);
+    this->sprite = sprite;
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const

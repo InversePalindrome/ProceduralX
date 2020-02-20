@@ -22,6 +22,7 @@ namespace
         componentParser =
     {
             {"Sprite", [](auto& registry, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
+            {"Position", [](auto& registry, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
             {"Player", [](auto& registry, auto entity, const auto& node) { return registry.assign<Player>(entity); }}
     };
 
@@ -29,9 +30,10 @@ namespace
     {
         for (auto componentNode : entityNode.children())
         {
-            auto component = componentParser.at(componentNode.name())(registry, entity, componentNode);
-
-            //dispatcher.trigger(ComponentParsed{component, entity});
+            std::visit([&dispatcher, entity](auto component) 
+                {
+                    dispatcher.trigger(ComponentParsed<std::decay_t<decltype(component)>>{component, entity});
+                }, componentParser.at(componentNode.name())(registry, entity, componentNode));
         }
     }
 }
