@@ -8,19 +8,19 @@ https://inversepalindrome.com/
 #include "SpriteComponent.hpp"
 
 
-SpriteComponent::SpriteComponent(const sf::Sprite& sprite) :
-    sprite(sprite)
+SpriteComponent::SpriteComponent(const sf::Texture& texture) :
+    sprite(texture)
 {
 }
 
-void SpriteComponent::setSprite(const sf::Sprite& sprite) 
+void SpriteComponent::setTexture(const sf::Texture& texture) 
 {
-    this->sprite = sprite;
+    sprite.setTexture(texture, true);
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-
+    
     target.draw(sprite, states);
 }

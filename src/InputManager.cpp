@@ -8,11 +8,12 @@ https://inversepalindrome.com/
 #include "InputManager.hpp"
 
 
-InputManager& InputManager::getInstance()
+InputManager::InputManager()
 {
-    static InputManager instance;
-
-    return instance;
+    keyBindings[Action::Up] = thor::Action(sf::Keyboard::W, thor::Action::Hold);
+    keyBindings[Action::Down] = thor::Action(sf::Keyboard::S, thor::Action::Hold);
+    keyBindings[Action::Right] = thor::Action(sf::Keyboard::A, thor::Action::Hold);
+    keyBindings[Action::Left] = thor::Action(sf::Keyboard::D, thor::Action::Hold);
 }
 
 void InputManager::update(sf::Window& window)

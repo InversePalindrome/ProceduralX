@@ -23,7 +23,11 @@ namespace
     {
             {"Sprite", [](auto& registry, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
             {"Position", [](auto& registry, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
-            {"Player", [](auto& registry, auto entity, const auto& node) { return registry.assign<Player>(entity); }}
+            {"Player", [](auto& registry, auto entity, const auto& node) 
+            {
+                auto player = registry.assign<Player>(entity);
+                return std::ref(player); 
+            }}
     };
 
     void parseComponents(entt::registry& registry, entt::dispatcher& dispatcher, entt::entity entity, const pugi::xml_node& entityNode)
@@ -32,7 +36,7 @@ namespace
         {
             std::visit([&dispatcher, entity](auto component) 
                 {
-                    dispatcher.trigger(ComponentParsed<std::decay_t<decltype(component)>>{component, entity});
+                   dispatcher.trigger(ComponentParsed<std::decay_t<decltype(component.get())>>{component, entity});
                 }, componentParser.at(componentNode.name())(registry, entity, componentNode));
         }
     }

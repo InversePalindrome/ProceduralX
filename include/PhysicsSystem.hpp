@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "System.hpp"
+#include "Events.hpp"
 
 #include <box2d/b2_world.h>
 
@@ -21,4 +22,6 @@ public:
 
 private:
     b2World world;
+
+    void onMoveEntity(const MoveEntity& event);
 };

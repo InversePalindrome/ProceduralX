@@ -22,9 +22,14 @@ public:
 
     virtual void update(const Seconds& deltaTime) override;
 
+    void setWindow(sf::Window* window);
+
 private:
-    InputManager& inputManager;
+    InputManager inputManager;
     entt::entity playerEntity;
+    
+    sf::Window* window;
 
     void onPlayerTagAdded(const ComponentParsed<Player>& event);
+    void sendKeyPressedEvents();
 };

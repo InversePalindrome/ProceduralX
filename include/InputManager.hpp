@@ -15,12 +15,7 @@ https://inversepalindrome.com/
 class InputManager
 {
 public:
-    static InputManager& getInstance();
-
-    InputManager(const InputManager&) = delete;
-    InputManager(InputManager&&) = delete;
-    InputManager& operator=(const InputManager&) = delete;
-    InputManager& operator=(InputManager&&) = delete;
+    InputManager();
 
     enum class Action{ Up, Down, Left, Right };
 
@@ -29,7 +24,6 @@ public:
     bool isPressed(Action action) const;
 
 private:
-    InputManager() = default;
 
     thor::ActionMap<Action> keyBindings;
 };

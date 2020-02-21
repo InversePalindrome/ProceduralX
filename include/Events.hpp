@@ -7,7 +7,11 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "Direction.hpp"
+
 #include <entt/entt.hpp>
+
+#include <functional>
 
 
 struct EntityParsed
@@ -18,6 +22,12 @@ struct EntityParsed
 template<typename T>
 struct ComponentParsed
 {
-    T component;
+    std::reference_wrapper<T> component;
     entt::entity entity;
+};
+
+struct MoveEntity
+{
+    entt::entity entity;
+    Direction direction;
 };

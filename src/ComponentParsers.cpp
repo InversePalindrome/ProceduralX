@@ -14,7 +14,7 @@ https://inversepalindrome.com/
 
 ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
 {
-    auto sprite = registry.get_or_assign<SpriteComponent>(entity);
+    auto& sprite = registry.get_or_assign<SpriteComponent>(entity);
 
     if (auto textureAttribute = spriteNode.attribute("texture"))
     {
@@ -22,16 +22,16 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
  
         if (textureID.has_value())
         {
-            sprite.setSprite(sf::Sprite(ResourceManager::getInstance().getTexture(textureID.value())));
+            sprite.setTexture(ResourceManager::getInstance().getTexture(textureID.value()));
         }
     }
 
-    return sprite;
+    return std::ref(sprite);
 }
 
 ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
 {
-    auto position = registry.get_or_assign<PositionComponent>(entity);
+    auto& position = registry.get_or_assign<PositionComponent>(entity);
 
     if (auto xAttribute = positionNode.attribute("x"))
     {
@@ -42,5 +42,5 @@ ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity en
         position.setPosition({ position.getPosition().x, yAttribute.as_float() });
     }
 
-    return position;
+    return std::ref(position);
 }

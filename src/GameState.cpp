@@ -18,7 +18,10 @@ GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher)
     renderSystemPtr->setWindow(&window);
     renderSystem = renderSystemPtr.get();
 
-    systems.push_back(std::make_unique<InputSystem>(registry, dispatcher));
+    auto inputSystemPtr = std::make_unique<InputSystem>(registry, dispatcher);
+    inputSystemPtr->setWindow(&window);
+
+    systems.push_back(std::move(inputSystemPtr));
     systems.push_back(std::move(renderSystemPtr));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
     
