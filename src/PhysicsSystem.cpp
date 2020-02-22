@@ -8,8 +8,10 @@ https://inversepalindrome.com/
 #include "AppConstants.hpp"
 #include "PhysicsSystem.hpp"
 #include "BodyComponent.hpp"
+#include "SpeedComponent.hpp"
 #include "PositionComponent.hpp"
 #include "RotationComponent.hpp"
+#include "AccelerationComponent.hpp"
 
 
 PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
@@ -35,5 +37,27 @@ void PhysicsSystem::update(const Seconds& deltaTime)
 
 void PhysicsSystem::onMoveEntity(const MoveEntity& event)
 {
+    auto& body = registry.get<BodyComponent>(event.entity);
+    const auto& speed = registry.get<SpeedComponent>(event.entity);
+    const auto& acceleration = registry.get<AccelerationComponent>(event.entity);
 
+    switch (event.direction)
+    {
+    case Direction::Up:
+        body.applyLinearImpulse({ 0.f, body.getMass() * (b2Min(body.getLinearVelocity().y + 
+            acceleration.getLinearAcceleration(), speed.getLinearSpeed()) - body.getLinearVelocity().y) });
+        break;
+    case Direction::Down:
+        body.applyLinearImpulse({ 0.f, body.getMass() * (b2Max(body.getLinearVelocity().y -
+            acceleration.getLinearAcceleration(), -speed.getLinearSpeed()) - body.getLinearVelocity().y) });
+        break;
+    case Direction::Right:
+        body.applyLinearImpulse({ body.getMass() * (b2Min(body.getLinearVelocity().x + acceleration.getLinearAcceleration(),
+            speed.getLinearSpeed()) - body.getLinearVelocity().x), 0.f });
+        break;
+    case Direction::Left:
+        body.applyLinearImpulse({ body.getMass() * (b2Max(body.getLinearVelocity().x - acceleration.getLinearAcceleration(),
+            -speed.getLinearSpeed()) - body.getLinearVelocity().x), 0.f });
+        break;
+    }
 }

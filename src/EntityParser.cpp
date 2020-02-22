@@ -23,6 +23,9 @@ namespace
     {
             {"Sprite", [](auto& registry, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
             {"Position", [](auto& registry, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
+            {"Body", [](auto& registry, auto entity, const auto& node) { return Parser::parseBody(registry, entity, node); }},
+            {"Speed", [](auto& registry, auto entity, const auto& node) { return Parser::parseSpeed(registry, entity, node); }},
+            {"Acceleration", [](auto& registry, auto entity, const auto& node) { return Parser::parseAcceleration(registry, entity, node); }},
             {"Player", [](auto& registry, auto entity, const auto& node) 
             {
                 auto player = registry.assign<Player>(entity);

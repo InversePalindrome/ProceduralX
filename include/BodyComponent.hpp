@@ -13,13 +13,28 @@ https://inversepalindrome.com/
 class BodyComponent
 {
 public:
+    BodyComponent();
     explicit BodyComponent(b2Body* body);
+
+    b2Body* getBody();
+    void setBody(b2Body* body);
 
     b2Vec2 getPosition() const;
     void setPosition(const b2Vec2& position);
 
     float getAngle() const;
     void setAngle(float angle);
+
+    b2Vec2 getLinearVelocity() const;
+    void setLinearVelocity(const b2Vec2& linearVelocity);
+
+    float getAngularVelocity() const;
+    void setAngularVelocity(float angularVelocity);
+
+    float getMass() const;
+
+    void applyLinearImpulse(const b2Vec2& impulse);
+    void applyAngularImpulse(float impulse);
 
 private:
     b2Body* body;

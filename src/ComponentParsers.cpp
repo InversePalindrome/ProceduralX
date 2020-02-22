@@ -44,3 +44,42 @@ ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity en
 
     return std::ref(position);
 }
+
+ComponentVariant Parser::parseBody(entt::registry& registry, entt::entity entity, const pugi::xml_node& bodyNode)
+{
+    auto& body = registry.get_or_assign<BodyComponent>(entity);
+
+    return std::ref(body);
+}
+
+ComponentVariant Parser::parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode)
+{
+    auto& speed = registry.get_or_assign<SpeedComponent>(entity);
+
+    if (auto linearSpeedAttribute = speedNode.attribute("linearSpeed"))
+    {
+        speed.setLinearSpeed(linearSpeedAttribute.as_float());
+    }
+    if (auto angularSpeedAttribute = speedNode.attribute("angularSpeed"))
+    {
+        speed.setAngularSpeed(angularSpeedAttribute.as_float());
+    }
+
+    return std::ref(speed);
+}
+
+ComponentVariant Parser::parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode)
+{
+    auto& acceleration = registry.get_or_assign<AccelerationComponent>(entity);
+
+    if (auto linearAccelerationAttribute = accelerationNode.attribute("linearAcceleration"))
+    {
+        acceleration.setLinearAcceleration(linearAccelerationAttribute.as_float());
+    }
+    if (auto angularAccelerationAttribute = accelerationNode.attribute("angularAcceleration"))
+    {
+        acceleration.setAngularAcceleration(angularAccelerationAttribute.as_float());
+    }
+
+    return std::ref(acceleration);
+}
