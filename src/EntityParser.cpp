@@ -18,15 +18,16 @@ https://inversepalindrome.com/
 
 namespace
 {
-    std::unordered_map<std::string, std::function<ComponentVariant(entt::registry&, entt::entity, const pugi::xml_node&)>>
+    std::unordered_map<std::string, std::function<ComponentVariant(entt::registry&, entt::dispatcher&, entt::entity, const pugi::xml_node&)>>
         componentParser =
     {
-            {"Sprite", [](auto& registry, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
-            {"Position", [](auto& registry, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
-            {"Body", [](auto& registry, auto entity, const auto& node) { return Parser::parseBody(registry, entity, node); }},
-            {"Speed", [](auto& registry, auto entity, const auto& node) { return Parser::parseSpeed(registry, entity, node); }},
-            {"Acceleration", [](auto& registry, auto entity, const auto& node) { return Parser::parseAcceleration(registry, entity, node); }},
-            {"Player", [](auto& registry, auto entity, const auto& node) 
+            {"Sprite", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
+            {"Position", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
+            {"Rotation", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseRotation(registry, entity, node); }},
+            {"Body", [](auto& registry, auto& dispatcher, auto entity, const auto& node) { return Parser::parseBody(registry, dispatcher, entity, node); }},
+            {"Speed", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseSpeed(registry, entity, node); }},
+            {"Acceleration", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseAcceleration(registry, entity, node); }},
+            {"Player", [](auto& registry, auto&, auto entity, const auto& node) 
             {
                 auto player = registry.assign<Player>(entity);
                 return std::ref(player); 
@@ -40,7 +41,7 @@ namespace
             std::visit([&dispatcher, entity](auto component) 
                 {
                    dispatcher.trigger(ComponentParsed<std::decay_t<decltype(component.get())>>{component, entity});
-                }, componentParser.at(componentNode.name())(registry, entity, componentNode));
+                }, componentParser.at(componentNode.name())(registry, dispatcher, entity, componentNode));
         }
     }
 }

@@ -20,4 +20,5 @@ namespace AppConstants
     const unsigned int WINDOW_WIDTH = 2048U;
     const unsigned int WINDOW_HEIGHT = 1536U;
     const Seconds TIME_PER_FRAME = 16ms;
+    const float PIXELS_PER_METER = 32.f;
 }

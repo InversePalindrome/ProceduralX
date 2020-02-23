@@ -24,4 +24,5 @@ private:
     b2World world;
 
     void onMoveEntity(const MoveEntity& event);
+    void onCreateBody(const CreateBody& event);
 };

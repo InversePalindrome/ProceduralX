@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 #include "PhysicsSystem.hpp"
 #include "BodyComponent.hpp"
 #include "SpeedComponent.hpp"
+#include "AngleConversions.hpp"
 #include "PositionComponent.hpp"
 #include "RotationComponent.hpp"
 #include "AccelerationComponent.hpp"
@@ -19,6 +20,7 @@ PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatc
     world({0.0f, 0.0f})
 {
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
+    dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
 }
 
 void PhysicsSystem::update(const Seconds& deltaTime)
@@ -26,7 +28,7 @@ void PhysicsSystem::update(const Seconds& deltaTime)
     registry.view<PositionComponent, RotationComponent, BodyComponent>().each([](auto& position, auto& rotation, const auto& body)
         {
             position.setPosition({ body.getPosition().x, body.getPosition().y });
-            rotation.setAngle(body.getAngle());
+            rotation.setAngle(Conversions::radiansToDegrees(body.getAngle()));
         });
 
     const int VELOCITY_ITERATIONS = 6;
@@ -60,4 +62,26 @@ void PhysicsSystem::onMoveEntity(const MoveEntity& event)
             -speed.getLinearSpeed()) - body.getLinearVelocity().x), 0.f });
         break;
     }
+}
+
+void PhysicsSystem::onCreateBody(const CreateBody& event)
+{
+    auto& bodyComponent = event.body.get();
+
+    auto fixtureDefs = event.fixtureDefs;
+    auto shapes = event.shapes;
+
+    auto* body = world.CreateBody(&event.bodyDef);
+
+    for (std::size_t i = 0u; i < fixtureDefs.size(); ++i)
+    {
+        std::visit([&fixtureDefs, i](auto& shape) 
+            {
+                fixtureDefs[i].shape = &shape;
+            }, shapes[i]);
+
+        body->CreateFixture(&fixtureDefs[i]);
+    }
+
+    bodyComponent.setBody(body);
 }

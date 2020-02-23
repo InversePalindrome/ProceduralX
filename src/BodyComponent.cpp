@@ -82,3 +82,13 @@ void BodyComponent::applyAngularImpulse(float impulse)
 {
     body->ApplyAngularImpulse(impulse, true);
 }
+
+void* BodyComponent::getUserData() const
+{
+    return body->GetUserData();
+}
+
+void BodyComponent::setUserData(void* userData)
+{
+    body->SetUserData(userData);
+}

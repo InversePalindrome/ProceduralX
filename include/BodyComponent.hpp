@@ -36,6 +36,9 @@ public:
     void applyLinearImpulse(const b2Vec2& impulse);
     void applyAngularImpulse(float impulse);
 
+    void* getUserData() const; 
+    void setUserData(void* userData);
+
 private:
     b2Body* body;
 };

@@ -6,7 +6,9 @@ https://inversepalindrome.com/
 
 
 #include "RenderSystem.hpp"
+#include "AppConstants.hpp"
 #include "SpriteComponent.hpp"
+#include "RotationComponent.hpp"
 #include "PositionComponent.hpp"
 
 
@@ -18,9 +20,13 @@ RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatche
 
 void RenderSystem::update(const Seconds& deltaTime)
 {
-    registry.view<SpriteComponent, PositionComponent>().each([this](auto& sprite, const auto& position)
+    registry.view<SpriteComponent, PositionComponent, RotationComponent>().each(
+        [this](auto& sprite, const auto& position, const auto& rotation)
         {
-            sprite.setPosition(position.getPosition());
+            sprite.setPosition({ position.getPosition().x * AppConstants::PIXELS_PER_METER, 
+                -position.getPosition().y * AppConstants::PIXELS_PER_METER });
+
+            sprite.setRotation(rotation.getAngle());
         });
 }
 
