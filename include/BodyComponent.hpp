@@ -32,6 +32,7 @@ public:
     void setAngularVelocity(float angularVelocity);
 
     float getMass() const;
+    float getInertia() const;
 
     void applyLinearImpulse(const b2Vec2& impulse);
     void applyAngularImpulse(float impulse);

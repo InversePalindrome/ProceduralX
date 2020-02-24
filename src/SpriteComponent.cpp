@@ -18,6 +18,11 @@ void SpriteComponent::setTexture(const sf::Texture& texture)
     sprite.setTexture(texture, true);
 }
 
+void SpriteComponent::setTextureRect(const sf::IntRect& textureRect)
+{
+    sprite.setTextureRect(textureRect);
+}
+
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();

@@ -2,5 +2,7 @@
 <Resources>
     <Textures>
         <SplashLogo>InversePalindromeLogo.png</SplashLogo>
+        <Spaceship>Spaceship.png</Spaceship>
+        <SpaceBackground>SpaceBackground.png</SpaceBackground>
     </Textures>
 </Resources>

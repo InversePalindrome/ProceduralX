@@ -11,7 +11,7 @@ https://inversepalindrome.com/
 b2BodyDef Parser::parseBodyDef(const pugi::xml_node& bodyNode)
 {
     b2BodyDef bodyDef;
-
+    
     if (auto bodyTypeAttribute = bodyNode.attribute("type"))
     {
         bodyDef.type = static_cast<b2BodyType>(bodyTypeAttribute.as_int());

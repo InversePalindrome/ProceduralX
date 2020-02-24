@@ -22,6 +22,7 @@ public:
     explicit SpriteComponent(const sf::Texture& texture);
 
     void setTexture(const sf::Texture& texture);
+    void setTextureRect(const sf::IntRect& textureRect);
 
 private:
     sf::Sprite sprite;

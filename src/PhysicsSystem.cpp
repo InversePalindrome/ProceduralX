@@ -20,6 +20,7 @@ PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatc
     world({0.0f, 0.0f})
 {
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
+    dispatcher.sink<RotateEntity>().connect<&PhysicsSystem::onRotateEntity>(this);
     dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
 }
 
@@ -62,6 +63,19 @@ void PhysicsSystem::onMoveEntity(const MoveEntity& event)
             -speed.getLinearSpeed()) - body.getLinearVelocity().x), 0.f });
         break;
     }
+}
+
+void PhysicsSystem::onRotateEntity(const RotateEntity& event)
+{
+    auto& body = registry.get<BodyComponent>(event.entity);
+    const auto& speed = registry.get<SpeedComponent>(event.entity);
+
+    const auto desiredAngle = std::atan2f(event.targetPosition.y - body.getPosition().y, event.targetPosition.x - body.getPosition().x);
+    const auto nextAngle = body.getAngle() + body.getAngularVelocity() / AppConstants::TIME_PER_FRAME.count();
+
+    const auto totalRotation = std::remainderf(desiredAngle - nextAngle, 2 * boost::math::constants::pi<float>());
+
+    body.applyAngularImpulse(body.getInertia() * totalRotation * AppConstants::TIME_PER_FRAME.count());
 }
 
 void PhysicsSystem::onCreateBody(const CreateBody& event)

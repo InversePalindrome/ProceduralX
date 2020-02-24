@@ -29,6 +29,14 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
             sprite.setTexture(ResourceManager::getInstance().getTexture(textureID.value()));
         }
     }
+    if (auto textureXAttribute = spriteNode.attribute("textureX"),
+        textureYAttribute = spriteNode.attribute("textureY"),
+        textureWidthAttribute = spriteNode.attribute("textureWidth"),
+        textureHeightAttribute = spriteNode.attribute("textureHeight");
+        textureXAttribute && textureYAttribute && textureWidthAttribute && textureHeightAttribute)
+    {
+        sprite.setTextureRect({ textureXAttribute.as_int(), textureYAttribute.as_int(), textureWidthAttribute.as_int(), textureHeightAttribute.as_int() });
+    }
 
     return std::ref(sprite);
 }

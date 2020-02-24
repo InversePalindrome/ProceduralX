@@ -7,9 +7,13 @@ https://inversepalindrome.com/
 
 #include "InputSystem.hpp"
 
+#include "PositionConversions.hpp"
+
 
 InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher)
+    System(registry, dispatcher),
+    window(nullptr)
+
 {
     dispatcher.sink<ComponentParsed<Player>>().connect<&InputSystem::onPlayerTagAdded>(this);
 }
@@ -19,6 +23,7 @@ void InputSystem::update(const Seconds& deltaTime)
     inputManager.update(*window);
 
     sendKeyPressedEvents();
+    sendMouseEvents();
 }
 
 void InputSystem::setWindow(sf::Window* window)
@@ -49,4 +54,10 @@ void InputSystem::sendKeyPressedEvents()
     {
         dispatcher.trigger(MoveEntity{ playerEntity, Direction::Left });
     }
+}
+
+void InputSystem::sendMouseEvents()
+{
+    dispatcher.trigger(RotateEntity{ playerEntity, Conversions::graphicsToPhysicsPosition
+    ({static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) }) });
 }

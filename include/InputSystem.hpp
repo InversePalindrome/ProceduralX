@@ -32,4 +32,5 @@ private:
 
     void onPlayerTagAdded(const ComponentParsed<Player>& event);
     void sendKeyPressedEvents();
+    void sendMouseEvents();
 };

@@ -17,6 +17,8 @@ https://inversepalindrome.com/
 #include <box2d/b2_circle_shape.h>
 #include <box2d/b2_polygon_shape.h>
 
+#include <SFML/System/Vector2.hpp>
+
 #include <entt/entt.hpp>
 
 #include <vector>
@@ -40,6 +42,12 @@ struct MoveEntity
 {
     entt::entity entity;
     Direction direction;
+};
+
+struct RotateEntity
+{
+    entt::entity entity;
+    sf::Vector2f targetPosition;
 };
 
 struct CreateBody

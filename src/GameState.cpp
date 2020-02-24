@@ -26,6 +26,7 @@ GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher)
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
     
     Parser::parseEntity(registry, dispatcher, "Resources/XML/Spaceship.xml");
+    Parser::parseEntity(registry, dispatcher, "Resources/XML/SpaceBackground.xml");
 }
 
 void GameState::handleEvent(const sf::Event& event)

@@ -73,6 +73,11 @@ float BodyComponent::getMass() const
     return body->GetMass();
 }
 
+float BodyComponent::getInertia() const
+{
+    return body->GetInertia();
+}
+
 void BodyComponent::applyLinearImpulse(const b2Vec2& impulse)
 {
     body->ApplyLinearImpulse(impulse, body->GetWorldCenter(), true);
