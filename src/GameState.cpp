@@ -7,7 +7,7 @@ https://inversepalindrome.com/
 
 #include "GameState.hpp"
 #include "InputSystem.hpp"
-#include "EntityParser.hpp"
+#include "LevelParser.hpp"
 #include "PhysicsSystem.hpp"
 
 
@@ -25,8 +25,7 @@ GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher)
     systems.push_back(std::move(renderSystemPtr));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
     
-    Parser::parseEntity(registry, dispatcher, "Resources/XML/Spaceship.xml");
-    Parser::parseEntity(registry, dispatcher, "Resources/XML/SpaceBackground.xml");
+    Parser::parseLevel(registry, dispatcher, "Resources/XML/SpaceLevel.xml");
 }
 
 void GameState::handleEvent(const sf::Event& event)

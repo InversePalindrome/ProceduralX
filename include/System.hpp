@@ -18,8 +18,8 @@ public:
     System(entt::registry& registry, entt::dispatcher& dispatcher);
     System(const System&) = delete;
     System& operator=(const System&) = delete;
-    System(System&&) = default;
-    System& operator=(System&&) = default;
+    System(System&&) = delete;
+    System& operator=(System&&) = delete;
 
     virtual ~System() = default;
 

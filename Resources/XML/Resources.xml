@@ -4,5 +4,6 @@
         <SplashLogo>InversePalindromeLogo.png</SplashLogo>
         <Spaceship>Spaceship.png</Spaceship>
         <SpaceBackground>SpaceBackground.png</SpaceBackground>
+        <Asteroid>Planet_D.png</Asteroid>
     </Textures>
 </Resources>

@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 
 #include "System.hpp"
 #include "Events.hpp"
+#include "CollisionManager.hpp"
 
 #include <box2d/b2_world.h>
 
@@ -22,6 +23,7 @@ public:
 
 private:
     b2World world;
+    CollisionManager collisionManager;
 
     void onMoveEntity(const MoveEntity& event);
     void onRotateEntity(const RotateEntity& event);

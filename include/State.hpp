@@ -20,8 +20,8 @@ public:
     State(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
     State(const State&) = delete;
     State& operator=(const State&) = delete;
-    State(State&&) = default;
-    State& operator=(State&&) = default;
+    State(State&&) = delete;
+    State& operator=(State&&) = delete;
 
     virtual ~State() = default;
 

@@ -10,8 +10,6 @@ https://inversepalindrome.com/
 #include "EntityParser.hpp"
 #include "ComponentParsers.hpp"
 
-#include <pugixml.hpp>
-
 #include <functional>
 #include <unordered_map>
 
@@ -55,11 +53,17 @@ entt::entity Parser::parseEntity(entt::registry& registry, entt::dispatcher& dis
     {
         if (auto entityNode = doc.child("Entity"))
         {
-            ::parseComponents(registry, dispatcher, entity, entityNode);
+            parseEntity(entity, registry, dispatcher, entityNode);
         }
     }
-    
-    dispatcher.trigger(EntityParsed{ entity });
 
     return entity;
+}
+
+void Parser::parseEntity(entt::entity entity, entt::registry& registry, entt::dispatcher& dispatcher,
+    const pugi::xml_node& entityNode)
+{
+    ::parseComponents(registry, dispatcher, entity, entityNode);
+
+    dispatcher.trigger(EntityParsed{ entity });
 }

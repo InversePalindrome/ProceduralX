@@ -37,6 +37,12 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
     {
         sprite.setTextureRect({ textureXAttribute.as_int(), textureYAttribute.as_int(), textureWidthAttribute.as_int(), textureHeightAttribute.as_int() });
     }
+    if (auto scaleXAttribute = spriteNode.attribute("scaleX"),
+        scaleYAttribute = spriteNode.attribute("scaleY");
+        scaleXAttribute && scaleYAttribute)
+    {
+        sprite.setScale(scaleXAttribute.as_float(), scaleYAttribute.as_float());
+    }
 
     return std::ref(sprite);
 }
@@ -80,7 +86,7 @@ ComponentVariant Parser::parseBody(entt::registry& registry, entt::dispatcher& d
 
     for (auto fixtureNode : bodyNode.children())
     {
-        auto fixtureDef = Parser::parseFixtureDef(fixtureNode);
+        fixtureDefs.push_back(Parser::parseFixtureDef(fixtureNode));
 
         if (std::strcmp(fixtureNode.name(), "Circle") == 0)
         {

@@ -22,8 +22,11 @@ void InputSystem::update(const Seconds& deltaTime)
 {
     inputManager.update(*window);
 
-    sendKeyPressedEvents();
-    sendMouseEvents();
+    if (registry.valid(playerEntity))
+    {
+        sendKeyPressedEvents();
+        sendMouseEvents();
+    }
 }
 
 void InputSystem::setWindow(sf::Window* window)

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Level>
+    <Entity>
+        <Sprite texture="Spaceship"></Sprite>
+        <Position x="100" y="100"></Position>
+        <Body type="2" linearDamping="0.400000006" angularDamping="0" fixedRotation="false" bullet="false">
+            <Circle density="0.100000001" friction="0.200000003" restitution="0" sensor="false" x="0" y="0" radius="0.4" />
+        </Body>
+        <Rotation></Rotation>
+        <Speed linearSpeed="10" angularSpeed="10"></Speed>
+        <Acceleration linearAcceleration="1"></Acceleration>
+        <Player></Player>
+    </Entity>
+    <Entity>
+        <Position x="200" y ="300"></Position>
+        <Rotation></Rotation>
+        <Body type="0" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false">
+            <Circle density="0" friction="0.200000003" restitution="0" sensor="false" x="200" y="300" radius="4.5" />
+        </Body>
+        <Sprite scaleX="0.2" scaleY="0.2" texture="Asteroid" />
+    </Entity>
+    <Entity>
+        <Sprite texture="SpaceBackground" textureX="0" textureY="0" textureWidth="2048" textureHeight ="2048"></Sprite>
+    </Entity>
+</Level>

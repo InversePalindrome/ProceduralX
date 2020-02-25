@@ -17,8 +17,11 @@ https://inversepalindrome.com/
 
 PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
     System(registry, dispatcher),
-    world({0.0f, 0.0f})
+    world({0.0f, 0.0f}),
+    collisionManager(dispatcher)
 {
+    world.SetContactListener(&collisionManager);
+
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
     dispatcher.sink<RotateEntity>().connect<&PhysicsSystem::onRotateEntity>(this);
     dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
@@ -94,7 +97,7 @@ void PhysicsSystem::onCreateBody(const CreateBody& event)
                 fixtureDefs[i].shape = &shape;
             }, shapes[i]);
 
-        body->CreateFixture(&fixtureDefs[i]);
+       body->CreateFixture(&fixtureDefs[i]);
     }
 
     bodyComponent.setBody(body);

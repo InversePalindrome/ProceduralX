@@ -30,8 +30,8 @@ public:
     static ResourceManager& getInstance();
 
     ResourceManager(const ResourceManager&) = delete;
-    ResourceManager(ResourceManager&&) = delete;
     ResourceManager& operator=(const ResourceManager&) = delete;
+    ResourceManager(ResourceManager&&) = delete;
     ResourceManager& operator=(ResourceManager&&) = delete;
 
     void loadResources(const std::string& filename);

@@ -18,7 +18,8 @@ https://inversepalindrome.com/
 using namespace std::chrono_literals;
 
 Application::Application() :
-    window(sf::VideoMode(AppConstants::WINDOW_WIDTH, AppConstants::WINDOW_HEIGHT), AppConstants::APP_NAME),
+    window(sf::VideoMode(AppConstants::WINDOW_WIDTH, AppConstants::WINDOW_HEIGHT),
+        AppConstants::APP_NAME, sf::Style::Titlebar | sf::Style::Close),
     stateFactory(window, eventDispatcher)
 {
     ResourceManager::getInstance().loadResources("Resources/XML/Resources.xml");
