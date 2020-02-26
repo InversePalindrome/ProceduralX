@@ -23,6 +23,7 @@ public:
 
     void setTexture(const sf::Texture& texture);
     void setTextureRect(const sf::IntRect& textureRect);
+    void setOriginFromScale(const sf::Vector2f& originScale);
 
 private:
     sf::Sprite sprite;

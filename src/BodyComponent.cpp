@@ -7,15 +7,19 @@ https://inversepalindrome.com/
 
 #include "BodyComponent.hpp"
 
+#include <box2d/b2_fixture.h>
+
 
 BodyComponent::BodyComponent() :
-    body(nullptr)
+    body(nullptr),
+    AABB({ {FLT_MAX, FLT_MAX}, {-FLT_MAX, -FLT_MAX} })
 {
 }
 
 BodyComponent::BodyComponent(b2Body* body) :
     body(body)
 {
+    computeAABB();
 }
 
 b2Body* BodyComponent::getBody()
@@ -26,6 +30,8 @@ b2Body* BodyComponent::getBody()
 void BodyComponent::setBody(b2Body* body)
 {
     this->body = body;
+
+    computeAABB();
 }
 
 b2Vec2 BodyComponent::getPosition() const
@@ -78,6 +84,11 @@ float BodyComponent::getInertia() const
     return body->GetInertia();
 }
 
+b2AABB BodyComponent::getAABB() const
+{
+    return AABB;
+}
+
 void BodyComponent::applyLinearImpulse(const b2Vec2& impulse)
 {
     body->ApplyLinearImpulse(impulse, body->GetWorldCenter(), true);
@@ -96,4 +107,21 @@ void* BodyComponent::getUserData() const
 void BodyComponent::setUserData(void* userData)
 {
     body->SetUserData(userData);
+}
+
+void BodyComponent::computeAABB()
+{
+    for (auto* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext())
+    {
+        for (int child = 0; child < fixture->GetShape()->GetChildCount(); ++child)
+        {
+            b2Transform transform;
+            transform.SetIdentity();
+
+            b2AABB shapeAABB{ { FLT_MAX, FLT_MAX },{ -FLT_MAX, -FLT_MAX } };
+            fixture->GetShape()->ComputeAABB(&shapeAABB, transform, child);
+
+            AABB.Combine(shapeAABB);
+        }
+    }
 }

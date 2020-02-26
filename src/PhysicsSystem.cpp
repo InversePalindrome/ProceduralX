@@ -71,7 +71,6 @@ void PhysicsSystem::onMoveEntity(const MoveEntity& event)
 void PhysicsSystem::onRotateEntity(const RotateEntity& event)
 {
     auto& body = registry.get<BodyComponent>(event.entity);
-    const auto& speed = registry.get<SpeedComponent>(event.entity);
 
     const auto desiredAngle = std::atan2f(event.targetPosition.y - body.getPosition().y, event.targetPosition.x - body.getPosition().x);
     const auto nextAngle = body.getAngle() + body.getAngularVelocity() / AppConstants::TIME_PER_FRAME.count();

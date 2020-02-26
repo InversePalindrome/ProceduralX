@@ -34,6 +34,8 @@ public:
     float getMass() const;
     float getInertia() const;
 
+    b2AABB getAABB() const;
+
     void applyLinearImpulse(const b2Vec2& impulse);
     void applyAngularImpulse(float impulse);
 
@@ -42,4 +44,7 @@ public:
 
 private:
     b2Body* body;
+    b2AABB AABB;
+
+    void computeAABB();
 };

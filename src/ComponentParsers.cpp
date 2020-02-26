@@ -43,6 +43,12 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
     {
         sprite.setScale(scaleXAttribute.as_float(), scaleYAttribute.as_float());
     }
+    if (auto originScaleXAttribute = spriteNode.attribute("originScaleY"),
+        originScaleYAttribute = spriteNode.attribute("originScaleX");
+        originScaleXAttribute && originScaleYAttribute)
+    {
+        sprite.setOriginFromScale({ originScaleXAttribute.as_float(), originScaleYAttribute.as_float() });
+    }
 
     return std::ref(sprite);
 }

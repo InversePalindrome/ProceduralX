@@ -23,6 +23,11 @@ void SpriteComponent::setTextureRect(const sf::IntRect& textureRect)
     sprite.setTextureRect(textureRect);
 }
 
+void SpriteComponent::setOriginFromScale(const sf::Vector2f& originScale)
+{
+    sprite.setOrigin(sprite.getLocalBounds().width * originScale.x, sprite.getLocalBounds().height * originScale.y);
+}
+
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
