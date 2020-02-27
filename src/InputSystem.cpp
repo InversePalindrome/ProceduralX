@@ -61,6 +61,8 @@ void InputSystem::sendKeyPressedEvents()
 
 void InputSystem::sendMouseEvents()
 {
+    const auto mousePosition = sf::Mouse::getPosition(*window);
+
     dispatcher.trigger(RotateEntity{ playerEntity, Conversions::graphicsToPhysicsPosition
-    ({static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y) }) });
+    ({static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) }) });
 }

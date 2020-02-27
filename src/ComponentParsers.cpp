@@ -49,6 +49,10 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
     {
         sprite.setOriginFromScale({ originScaleXAttribute.as_float(), originScaleYAttribute.as_float() });
     }
+    if (auto zOrderAttribute = spriteNode.attribute("zOrder"))
+    {
+        sprite.setZOrder(zOrderAttribute.as_int());
+    }
 
     return std::ref(sprite);
 }
@@ -112,7 +116,7 @@ ComponentVariant Parser::parseBody(entt::registry& registry, entt::dispatcher& d
         }
     }
 
-    dispatcher.trigger(CreateBody{ body, bodyDef, fixtureDefs, shapes });
+    dispatcher.trigger(CreateBody{ entity, body, bodyDef, fixtureDefs, shapes });
 
     return std::ref(body);
 }

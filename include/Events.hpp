@@ -52,8 +52,15 @@ struct RotateEntity
 
 struct CreateBody
 {
+    entt::entity entity;
     std::reference_wrapper<BodyComponent> body;
     b2BodyDef bodyDef;
     std::vector<b2FixtureDef> fixtureDefs;
     std::vector<std::variant<b2CircleShape, b2EdgeShape, b2PolygonShape, b2ChainShape>> shapes;
+};
+
+struct DestroyBody
+{
+    entt::entity entity;
+    std::reference_wrapper<BodyComponent> body;
 };

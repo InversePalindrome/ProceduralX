@@ -13,6 +13,8 @@ https://inversepalindrome.com/
 
 #include <box2d/b2_world.h>
 
+#include <unordered_set>
+
 
 class PhysicsSystem : public System
 {
@@ -24,8 +26,10 @@ public:
 private:
     b2World world;
     CollisionManager collisionManager;
+    std::unordered_set<entt::entity> userBodyData;
 
     void onMoveEntity(const MoveEntity& event);
     void onRotateEntity(const RotateEntity& event);
     void onCreateBody(const CreateBody& event);
+    void onDestroyBody(const DestroyBody& event);
 };

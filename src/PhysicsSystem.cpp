@@ -25,6 +25,7 @@ PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatc
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
     dispatcher.sink<RotateEntity>().connect<&PhysicsSystem::onRotateEntity>(this);
     dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
+    dispatcher.sink<DestroyBody>().connect<&PhysicsSystem::onDestroyBody>(this);
 }
 
 void PhysicsSystem::update(const Seconds& deltaTime)
@@ -32,7 +33,7 @@ void PhysicsSystem::update(const Seconds& deltaTime)
     registry.view<PositionComponent, RotationComponent, BodyComponent>().each([](auto& position, auto& rotation, const auto& body)
         {
             position.setPosition({ body.getPosition().x, body.getPosition().y });
-            rotation.setAngle(Conversions::radiansToDegrees(body.getAngle()));
+            rotation.setAngle(-Conversions::radiansToDegrees(body.getAngle()));
         });
 
     const int VELOCITY_ITERATIONS = 6;
@@ -73,11 +74,11 @@ void PhysicsSystem::onRotateEntity(const RotateEntity& event)
     auto& body = registry.get<BodyComponent>(event.entity);
 
     const auto desiredAngle = std::atan2f(event.targetPosition.y - body.getPosition().y, event.targetPosition.x - body.getPosition().x);
-    const auto nextAngle = body.getAngle() + body.getAngularVelocity() / AppConstants::TIME_PER_FRAME.count();
+    const auto nextAngle = body.getAngle() + body.getAngularVelocity() / AppConstants::FRAMES_PER_SECOND;
 
     const auto totalRotation = std::remainderf(desiredAngle - nextAngle, 2 * boost::math::constants::pi<float>());
-
-    body.applyAngularImpulse(body.getInertia() * totalRotation * AppConstants::TIME_PER_FRAME.count());
+  
+    body.applyAngularImpulse(body.getInertia() * totalRotation * AppConstants::FRAMES_PER_SECOND);
 }
 
 void PhysicsSystem::onCreateBody(const CreateBody& event)
@@ -99,5 +100,16 @@ void PhysicsSystem::onCreateBody(const CreateBody& event)
        body->CreateFixture(&fixtureDefs[i]);
     }
 
+    userBodyData.insert(event.entity);
+    
     bodyComponent.setBody(body);
+    bodyComponent.setUserData(&userBodyData.find(event.entity));
+}
+
+void PhysicsSystem::onDestroyBody(const DestroyBody& event)
+{
+    auto& body = event.body.get();
+
+    userBodyData.erase(event.entity);
+    world.DestroyBody(body.getBody());
 }

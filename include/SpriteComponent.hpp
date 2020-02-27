@@ -25,8 +25,12 @@ public:
     void setTextureRect(const sf::IntRect& textureRect);
     void setOriginFromScale(const sf::Vector2f& originScale);
 
+    int getZOrder() const;
+    void setZOrder(int zOrder);
+
 private:
     sf::Sprite sprite;
+    int zOrder;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

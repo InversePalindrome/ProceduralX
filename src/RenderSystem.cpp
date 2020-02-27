@@ -24,7 +24,6 @@ void RenderSystem::update(const Seconds& deltaTime)
         [this](auto& sprite, const auto& position, const auto& rotation)
         {
             sprite.setPosition(Conversions::physicsToGraphicsPosition(position.getPosition()));
- 
             sprite.setRotation(rotation.getAngle());
         });
 }

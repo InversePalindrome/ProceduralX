@@ -5,6 +5,7 @@ https://inversepalindrome.com/
 */
 
 
+#include "MenuState.hpp"
 #include "GameState.hpp"
 #include "SplashState.hpp"
 #include "StateFactory.hpp"
@@ -15,6 +16,7 @@ StateFactory::StateFactory(sf::RenderWindow& window, EventDispatcher& eventDispa
     eventDispatcher(eventDispatcher)
 {
     registerState<SplashState>(StateID::Splash);
+    registerState<MenuState>(StateID::Menu);
     registerState<GameState>(StateID::Game);
 }
 
