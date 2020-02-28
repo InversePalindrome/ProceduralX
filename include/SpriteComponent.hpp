@@ -18,7 +18,7 @@ https://inversepalindrome.com/
 class SpriteComponent : public sf::Transformable, public sf::Drawable
 {
 public:
-    SpriteComponent() = default;
+    SpriteComponent();
     explicit SpriteComponent(const sf::Texture& texture);
 
     void setTexture(const sf::Texture& texture);

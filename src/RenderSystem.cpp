@@ -16,6 +16,7 @@ RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatche
     System(registry, dispatcher),
     window(nullptr)
 {
+    dispatcher.sink<ComponentParsed<SpriteComponent>>().connect<&RenderSystem::onSpriteAdded>(this);
 }
 
 void RenderSystem::update(const Seconds& deltaTime)
@@ -30,13 +31,15 @@ void RenderSystem::update(const Seconds& deltaTime)
 
 void RenderSystem::render()
 {
-    registry.view<SpriteComponent>().each([this](const auto& sprite)
-        {
-            window->draw(sprite);
-        });
+    window->draw(sprites);
 }
 
 void RenderSystem::setWindow(sf::RenderWindow* window)
 {
     this->window = window;
+}
+
+void RenderSystem::onSpriteAdded(const ComponentParsed<SpriteComponent>& event)
+{
+    sprites.addSprite(event.component);
 }

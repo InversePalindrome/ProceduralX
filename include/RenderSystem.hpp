@@ -8,6 +8,8 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "System.hpp"
+#include "Events.hpp"
+#include "SpriteComponent.hpp"
 #include "SpriteContainer.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -27,4 +29,6 @@ public:
 private:
     sf::RenderWindow* window;
     SpriteContainer sprites;
+
+    void onSpriteAdded(const ComponentParsed<SpriteComponent>& event);
 };

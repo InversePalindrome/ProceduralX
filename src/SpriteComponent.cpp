@@ -8,6 +8,11 @@ https://inversepalindrome.com/
 #include "SpriteComponent.hpp"
 
 
+SpriteComponent::SpriteComponent() :
+    zOrder(0)
+{
+}
+
 SpriteComponent::SpriteComponent(const sf::Texture& texture) :
     sprite(texture),
     zOrder(0)

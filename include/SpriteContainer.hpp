@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "SpriteComponent.hpp"
+#include "ZOrderComparator.hpp"
 
 #include <SFML/Graphics/Drawable.hpp>
 
@@ -28,7 +29,7 @@ public:
     void removeSprite(const std::reference_wrapper<SpriteComponent>& sprite);
 
 private:
-    //std::set<std::reference_wrapper<SpriteComponent>> sprites;
+    std::set<std::reference_wrapper<SpriteComponent>, ZOrderComparator> sprites;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
