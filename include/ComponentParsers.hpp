@@ -17,9 +17,11 @@ https://inversepalindrome.com/
 namespace Parser
 {
     ComponentVariant parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
+    ComponentVariant parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode);
     ComponentVariant parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
     ComponentVariant parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
     ComponentVariant parseBody(entt::registry& registry, entt::dispatcher& dispatcher, entt::entity entity, const pugi::xml_node& bodyNode);
     ComponentVariant parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode);
     ComponentVariant parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode);
+    ComponentVariant parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode);
 }

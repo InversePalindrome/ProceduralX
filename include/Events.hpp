@@ -58,9 +58,3 @@ struct CreateBody
     std::vector<b2FixtureDef> fixtureDefs;
     std::vector<std::variant<b2CircleShape, b2EdgeShape, b2PolygonShape, b2ChainShape>> shapes;
 };
-
-struct DestroyBody
-{
-    entt::entity entity;
-    std::reference_wrapper<BodyComponent> body;
-};

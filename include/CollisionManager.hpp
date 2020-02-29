@@ -7,23 +7,28 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "ObjectType.hpp"
 
+#include <box2d/b2_contact.h>
 #include <box2d/b2_world_callbacks.h>
 #include <box2d/b2_contact_manager.h>
 
 #include <entt/entt.hpp>
 
+#include <optional>
+
 
 class CollisionManager : public b2ContactListener
 {
 public:
-    explicit CollisionManager(entt::dispatcher& dispatcher);
+    CollisionManager(entt::registry& registry, entt::dispatcher& dispatcher);
     CollisionManager(const CollisionManager&) = delete;
     CollisionManager& operator= (const CollisionManager&) = delete;
     CollisionManager(CollisionManager&&) = delete;
     CollisionManager& operator=(CollisionManager&&) = delete;
 
 private:
+    entt::registry& registry;
     entt::dispatcher& dispatcher;
 
     virtual void BeginContact(b2Contact* contact) override;
@@ -31,4 +36,7 @@ private:
 
     virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override;
     virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override;
+
+    std::optional<std::pair<entt::entity, entt::entity>> getCollisionPair
+    (entt::entity entityA, entt::entity entityB, ObjectType objectTypeA, ObjectType objectTypeB);
 };

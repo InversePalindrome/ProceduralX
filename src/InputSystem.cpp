@@ -6,16 +6,17 @@ https://inversepalindrome.com/
 
 
 #include "InputSystem.hpp"
-
+#include "ComponentTags.hpp"
 #include "PositionConversions.hpp"
 
 
 InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
     System(registry, dispatcher),
+    playerEntity(entt::null),
     window(nullptr)
 
 {
-    dispatcher.sink<ComponentParsed<Player>>().connect<&InputSystem::onPlayerTagAdded>(this);
+    registry.on_construct<Player>().connect<&InputSystem::onPlayerTagAdded>(this);
 }
 
 void InputSystem::update(const Seconds& deltaTime)
@@ -34,9 +35,9 @@ void InputSystem::setWindow(sf::Window* window)
     this->window = window;
 }
 
-void InputSystem::onPlayerTagAdded(const ComponentParsed<Player>& event)
+void InputSystem::onPlayerTagAdded(entt::entity entity)
 {
-    playerEntity = event.entity;
+    playerEntity = entity;
 }
 
 void InputSystem::sendKeyPressedEvents()

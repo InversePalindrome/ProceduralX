@@ -20,11 +20,13 @@ namespace
         componentParser =
     {
             {"Sprite", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseSprite(registry, entity, node); } },
+             {"Animation", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseAnimation(registry, entity, node); } },
             {"Position", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parsePosition(registry, entity, node); }},
             {"Rotation", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseRotation(registry, entity, node); }},
             {"Body", [](auto& registry, auto& dispatcher, auto entity, const auto& node) { return Parser::parseBody(registry, dispatcher, entity, node); }},
             {"Speed", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseSpeed(registry, entity, node); }},
             {"Acceleration", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseAcceleration(registry, entity, node); }},
+            {"Object", [](auto& registry, auto&, auto entity, const auto& node) { return Parser::parseObject(registry, entity, node); }},
             {"Player", [](auto& registry, auto&, auto entity, const auto& node) 
             {
                 auto player = registry.assign<Player>(entity);

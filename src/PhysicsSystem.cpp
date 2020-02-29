@@ -18,14 +18,14 @@ https://inversepalindrome.com/
 PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
     System(registry, dispatcher),
     world({0.0f, 0.0f}),
-    collisionManager(dispatcher)
+    collisionManager(registry, dispatcher)
 {
     world.SetContactListener(&collisionManager);
 
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
     dispatcher.sink<RotateEntity>().connect<&PhysicsSystem::onRotateEntity>(this);
     dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
-    dispatcher.sink<DestroyBody>().connect<&PhysicsSystem::onDestroyBody>(this);
+    registry.on_destroy<BodyComponent>().connect<&PhysicsSystem::onDestroyBody>(this);
 }
 
 void PhysicsSystem::update(const Seconds& deltaTime)
@@ -100,16 +100,13 @@ void PhysicsSystem::onCreateBody(const CreateBody& event)
        body->CreateFixture(&fixtureDefs[i]);
     }
 
-    userBodyData.insert(event.entity);
-    
-    bodyComponent.setBody(body);
-    bodyComponent.setUserData(&userBodyData.find(event.entity));
+    bodyComponent.setBody(body);  
+    bodyComponent.setUserData(reinterpret_cast<void*>(event.entity));
 }
 
-void PhysicsSystem::onDestroyBody(const DestroyBody& event)
+void PhysicsSystem::onDestroyBody(entt::entity entity)
 {
-    auto& body = event.body.get();
+    auto& body = registry.get<BodyComponent>(entity);
 
-    userBodyData.erase(event.entity);
     world.DestroyBody(body.getBody());
 }

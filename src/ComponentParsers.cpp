@@ -57,6 +57,13 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
     return std::ref(sprite);
 }
 
+ComponentVariant Parser::parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode)
+{
+    auto& animation = registry.get_or_assign<AnimationComponent>(entity);
+
+    return std::ref(animation);
+}
+
 ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
 {
     auto& position = registry.get_or_assign<PositionComponent>(entity);
@@ -151,4 +158,18 @@ ComponentVariant Parser::parseAcceleration(entt::registry& registry, entt::entit
     }
 
     return std::ref(acceleration);
+}
+
+ComponentVariant Parser::parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode)
+{
+    auto& object = registry.get_or_assign<ObjectComponent>(entity);
+
+    auto objectType = magic_enum::enum_cast<ObjectType>(objectNode.text().as_string());
+
+    if (objectType.has_value())
+    {
+        object.setObjectType(objectType.value());
+    }
+    
+    return std::ref(object);
 }

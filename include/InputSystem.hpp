@@ -10,7 +10,6 @@ https://inversepalindrome.com/
 #include "System.hpp"
 #include "Events.hpp"
 #include "InputManager.hpp"
-#include "ComponentTags.hpp"
 
 #include <entt/entt.hpp>
 
@@ -30,7 +29,7 @@ private:
     
     sf::Window* window;
 
-    void onPlayerTagAdded(const ComponentParsed<Player>& event);
+    void onPlayerTagAdded(entt::entity entity);
     void sendKeyPressedEvents();
     void sendMouseEvents();
 };

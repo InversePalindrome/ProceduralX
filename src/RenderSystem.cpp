@@ -6,7 +6,6 @@ https://inversepalindrome.com/
 
 
 #include "RenderSystem.hpp"
-#include "SpriteComponent.hpp"
 #include "RotationComponent.hpp"
 #include "PositionComponent.hpp"
 #include "PositionConversions.hpp"
@@ -31,7 +30,10 @@ void RenderSystem::update(const Seconds& deltaTime)
 
 void RenderSystem::render()
 {
-    window->draw(sprites);
+    registry.view<SpriteComponent>().each([this](const auto& sprite)
+        {
+            window->draw(sprite);
+        });
 }
 
 void RenderSystem::setWindow(sf::RenderWindow* window)
@@ -39,7 +41,7 @@ void RenderSystem::setWindow(sf::RenderWindow* window)
     this->window = window;
 }
 
-void RenderSystem::onSpriteAdded(const ComponentParsed<SpriteComponent>& event)
+void RenderSystem::onSpriteAdded(const ComponentParsed<SpriteComponent>& sprite)
 {
-    sprites.addSprite(event.component);
+    registry.sort<SpriteComponent>([](const auto& lhs, const auto& rhs) { return lhs.getZOrder() < rhs.getZOrder(); });
 }

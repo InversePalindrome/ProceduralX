@@ -11,8 +11,10 @@ https://inversepalindrome.com/
 #include "BodyComponent.hpp"
 #include "SpeedComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "ObjectComponent.hpp"
 #include "PositionComponent.hpp"
 #include "RotationComponent.hpp"
+#include "AnimationComponent.hpp"
 #include "AddReferenceWrapper.hpp"
 #include "AccelerationComponent.hpp"
 
@@ -23,7 +25,9 @@ https://inversepalindrome.com/
 
 using brigand::_1;
 
-using ComponentList = brigand::list<Player, BodyComponent, SpriteComponent, PositionComponent, RotationComponent, SpeedComponent, AccelerationComponent>;
+using ComponentList = brigand::list<Player, BodyComponent, SpriteComponent, AnimationComponent,
+    PositionComponent, ObjectComponent, RotationComponent, SpeedComponent, AccelerationComponent>;
+
 using ComponentReferenceList = brigand::transform<ComponentList, AddReferenceWrapper<_1>>;
 
 using ComponentVariant = brigand::as_variant<ComponentReferenceList>;
