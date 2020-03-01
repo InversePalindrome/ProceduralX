@@ -28,5 +28,5 @@ public:
 private:
     sf::RenderWindow* window;
 
-    void onSpriteAdded(const ComponentParsed<SpriteComponent>& event);
+    void onSpriteAdded(entt::entity);
 };

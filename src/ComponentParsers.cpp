@@ -7,18 +7,26 @@ https://inversepalindrome.com/
 
 #include "Events.hpp"
 #include "BodyParser.hpp"
-#include "ResourceManager.hpp"
+#include "ComponentTags.hpp"
+#include "BodyComponent.hpp"
+#include "SpeedComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "ObjectComponent.hpp"
+#include "ResourceManager.hpp"
+#include "PositionComponent.hpp"
+#include "RotationComponent.hpp"
 #include "ComponentParsers.hpp"
+#include "AnimationComponent.hpp"
+#include "AccelerationComponent.hpp"
 
 #include <magic_enum.hpp>
 
 #include <variant>
 
 
-ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
+void Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
 {
-    auto& sprite = registry.get_or_assign<SpriteComponent>(entity);
+    SpriteComponent sprite;
 
     if (auto textureAttribute = spriteNode.attribute("texture"))
     {
@@ -54,19 +62,19 @@ ComponentVariant Parser::parseSprite(entt::registry& registry, entt::entity enti
         sprite.setZOrder(zOrderAttribute.as_int());
     }
 
-    return std::ref(sprite);
+    registry.assign<SpriteComponent>(entity, sprite);
 }
 
-ComponentVariant Parser::parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode)
+void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode)
 {
-    auto& animation = registry.get_or_assign<AnimationComponent>(entity);
+    AnimationComponent animation;
 
-    return std::ref(animation);
+    registry.assign<AnimationComponent>(entity, animation);
 }
 
-ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
+void Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
 {
-    auto& position = registry.get_or_assign<PositionComponent>(entity);
+    PositionComponent position;
 
     if (auto xAttribute = positionNode.attribute("x"))
     {
@@ -77,24 +85,24 @@ ComponentVariant Parser::parsePosition(entt::registry& registry, entt::entity en
         position.setPosition({ position.getPosition().x, yAttribute.as_float() });
     }
 
-    return std::ref(position);
+    registry.assign<PositionComponent>(entity, position);
 }
 
-ComponentVariant Parser::parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
+void Parser::parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
 {
-    auto& rotation = registry.get_or_assign<RotationComponent>(entity);
+    RotationComponent rotation;
 
     if (auto angleAttribute = positionNode.attribute("angle"))
     {
         rotation.setAngle(angleAttribute.as_float());
     }
 
-    return std::ref(rotation);
+    registry.assign<RotationComponent>(entity, rotation);
 }
 
-ComponentVariant Parser::parseBody(entt::registry& registry, entt::dispatcher& dispatcher, entt::entity entity, const pugi::xml_node& bodyNode)
+void Parser::parseBody(entt::registry& registry, entt::dispatcher& dispatcher, entt::entity entity, const pugi::xml_node& bodyNode)
 {
-    auto& body = registry.get_or_assign<BodyComponent>(entity);
+    BodyComponent body;
 
     auto bodyDef = Parser::parseBodyDef(bodyNode);
 
@@ -123,14 +131,14 @@ ComponentVariant Parser::parseBody(entt::registry& registry, entt::dispatcher& d
         }
     }
 
-    dispatcher.trigger(CreateBody{ entity, body, bodyDef, fixtureDefs, shapes });
+    registry.assign<BodyComponent>(entity, body);
 
-    return std::ref(body);
+    dispatcher.trigger(CreateBody{ entity, bodyDef, fixtureDefs, shapes });
 }
 
-ComponentVariant Parser::parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode)
+void Parser::parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode)
 {
-    auto& speed = registry.get_or_assign<SpeedComponent>(entity);
+    SpeedComponent speed;
 
     if (auto linearSpeedAttribute = speedNode.attribute("linearSpeed"))
     {
@@ -141,12 +149,12 @@ ComponentVariant Parser::parseSpeed(entt::registry& registry, entt::entity entit
         speed.setAngularSpeed(angularSpeedAttribute.as_float());
     }
 
-    return std::ref(speed);
+    registry.assign<SpeedComponent>(entity, speed);
 }
 
-ComponentVariant Parser::parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode)
+void Parser::parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode)
 {
-    auto& acceleration = registry.get_or_assign<AccelerationComponent>(entity);
+    AccelerationComponent acceleration;
 
     if (auto linearAccelerationAttribute = accelerationNode.attribute("linearAcceleration"))
     {
@@ -157,12 +165,12 @@ ComponentVariant Parser::parseAcceleration(entt::registry& registry, entt::entit
         acceleration.setAngularAcceleration(angularAccelerationAttribute.as_float());
     }
 
-    return std::ref(acceleration);
+    registry.assign<AccelerationComponent>(entity, acceleration);
 }
 
-ComponentVariant Parser::parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode)
+void Parser::parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode)
 {
-    auto& object = registry.get_or_assign<ObjectComponent>(entity);
+    ObjectComponent object;
 
     auto objectType = magic_enum::enum_cast<ObjectType>(objectNode.text().as_string());
 
@@ -170,6 +178,6 @@ ComponentVariant Parser::parseObject(entt::registry& registry, entt::entity enti
     {
         object.setObjectType(objectType.value());
     }
-    
-    return std::ref(object);
+
+    registry.assign<ObjectComponent>(entity, object);
 }

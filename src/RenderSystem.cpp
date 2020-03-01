@@ -15,7 +15,7 @@ RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatche
     System(registry, dispatcher),
     window(nullptr)
 {
-    dispatcher.sink<ComponentParsed<SpriteComponent>>().connect<&RenderSystem::onSpriteAdded>(this);
+    registry.on_construct<SpriteComponent>().connect<&RenderSystem::onSpriteAdded>(this);
 }
 
 void RenderSystem::update(const Seconds& deltaTime)
@@ -41,7 +41,7 @@ void RenderSystem::setWindow(sf::RenderWindow* window)
     this->window = window;
 }
 
-void RenderSystem::onSpriteAdded(const ComponentParsed<SpriteComponent>& sprite)
+void RenderSystem::onSpriteAdded(entt::entity)
 {
     registry.sort<SpriteComponent>([](const auto& lhs, const auto& rhs) { return lhs.getZOrder() < rhs.getZOrder(); });
 }

@@ -83,7 +83,7 @@ void PhysicsSystem::onRotateEntity(const RotateEntity& event)
 
 void PhysicsSystem::onCreateBody(const CreateBody& event)
 {
-    auto& bodyComponent = event.body.get();
+    auto& bodyComponent = registry.get_or_assign<BodyComponent>(event.entity);
 
     auto fixtureDefs = event.fixtureDefs;
     auto shapes = event.shapes;
