@@ -7,8 +7,6 @@ https://inversepalindrome.com/
 
 #include "BodyComponent.hpp"
 
-#include <box2d/b2_fixture.h>
-
 
 BodyComponent::BodyComponent() :
     body(nullptr),
@@ -22,16 +20,36 @@ BodyComponent::BodyComponent(b2Body* body) :
     computeAABB();
 }
 
+void BodyComponent::initialize(b2World& world)
+{
+    body = world.CreateBody(&bodyDef);
+
+    for (std::size_t i = 0u; i < fixtureDefs.size(); ++i)
+    {
+        std::visit([this, i](auto& shape)
+            {
+                fixtureDefs[i].shape = &shape;
+            }, shapes[i]);
+
+        body->CreateFixture(&fixtureDefs[i]);
+    }
+}
+
+void BodyComponent::setInitializationParameters(const b2BodyDef& bodyDef, const Fixtures& fixtureDefs, const Shapes& shapes)
+{
+    this->bodyDef = bodyDef;
+    this->fixtureDefs = fixtureDefs;
+    this->shapes = shapes;
+}
+
 b2Body* BodyComponent::getBody()
 {
     return body;
 }
 
-void BodyComponent::setBody(b2Body* body)
+const b2Body* BodyComponent::getBody() const
 {
-    this->body = body;
-
-    computeAABB();
+    return body;
 }
 
 b2Vec2 BodyComponent::getPosition() const

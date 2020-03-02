@@ -16,9 +16,7 @@ https://inversepalindrome.com/
 
 namespace Parser
 {
-     entt::entity parseEntity(entt::registry& registry, entt::dispatcher& dispatcher,
-         const std::string& filename);
+     entt::entity parseEntity(entt::registry& registry, const std::string& filename);
 
-     void parseEntity(entt::entity entity, entt::registry& registry, entt::dispatcher& dispatcher,
-         const pugi::xml_node& entityNode);
+     void parseEntity(entt::entity entity, entt::registry& registry, const pugi::xml_node& entityNode);
 }

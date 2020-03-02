@@ -9,7 +9,7 @@ https://inversepalindrome.com/
 #include "EntityParser.hpp"
 
 
-void Parser::parseLevel(entt::registry& registry, entt::dispatcher& dispatcher, const std::string& filename)
+void Parser::parseLevel(entt::registry& registry, const std::string& filename)
 {
     if (pugi::xml_document doc; doc.load_file(filename.c_str()))
     {
@@ -19,11 +19,11 @@ void Parser::parseLevel(entt::registry& registry, entt::dispatcher& dispatcher, 
             {
                 if (auto filenameAttribute = entityNode.attribute("filename"))
                 {
-                    Parser::parseEntity(registry, dispatcher, filenameAttribute.as_string());
+                    Parser::parseEntity(registry, filenameAttribute.as_string());
                 }
                 else
                 {
-                    Parser::parseEntity(registry.create(), registry, dispatcher, entityNode);
+                    Parser::parseEntity(registry.create(), registry, entityNode);
                 }
             }
         }

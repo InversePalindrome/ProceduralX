@@ -100,14 +100,14 @@ void Parser::parseRotation(entt::registry& registry, entt::entity entity, const 
     registry.assign<RotationComponent>(entity, rotation);
 }
 
-void Parser::parseBody(entt::registry& registry, entt::dispatcher& dispatcher, entt::entity entity, const pugi::xml_node& bodyNode)
+void Parser::parseBody(entt::registry& registry, entt::entity entity, const pugi::xml_node& bodyNode)
 {
     BodyComponent body;
 
     auto bodyDef = Parser::parseBodyDef(bodyNode);
 
-    std::vector<b2FixtureDef> fixtureDefs;
-    std::vector<std::variant<b2CircleShape, b2EdgeShape, b2PolygonShape, b2ChainShape>> shapes;
+    BodyComponent::Fixtures fixtureDefs;
+    BodyComponent::Shapes shapes;
 
     for (auto fixtureNode : bodyNode.children())
     {
@@ -131,9 +131,8 @@ void Parser::parseBody(entt::registry& registry, entt::dispatcher& dispatcher, e
         }
     }
 
+    body.setInitializationParameters(bodyDef, fixtureDefs, shapes);
     registry.assign<BodyComponent>(entity, body);
-
-    dispatcher.trigger(CreateBody{ entity, bodyDef, fixtureDefs, shapes });
 }
 
 void Parser::parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode)

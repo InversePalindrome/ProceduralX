@@ -25,7 +25,7 @@ GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher)
     systems.push_back(std::move(renderSystemPtr));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
     
-    Parser::parseLevel(registry, dispatcher, "Resources/XML/SpaceLevel.xml");
+    Parser::parseLevel(registry, "Resources/XML/SpaceLevel.xml");
 }
 
 void GameState::handleEvent(const sf::Event& event)

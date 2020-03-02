@@ -16,5 +16,5 @@ https://inversepalindrome.com/
 
 namespace Parser
 {
-    void parseLevel(entt::registry& registry, entt::dispatcher& dispatcher, const std::string& filename);
+    void parseLevel(entt::registry& registry, const std::string& filename);
 }

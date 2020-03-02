@@ -7,8 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "System.hpp"
 #include "Events.hpp"
+#include "System.hpp"
 #include "CollisionManager.hpp"
 
 #include <box2d/b2_world.h>
@@ -27,6 +27,6 @@ private:
 
     void onMoveEntity(const MoveEntity& event);
     void onRotateEntity(const RotateEntity& event);
-    void onCreateBody(const CreateBody& event);
-    void onDestroyBody(entt::entity entity);
+    void onBodyAdded(entt::entity entity);
+    void onBodyRemoved(entt::entity entity);
 };

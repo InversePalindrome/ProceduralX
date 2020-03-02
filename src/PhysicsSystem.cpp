@@ -24,8 +24,8 @@ PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatc
 
     dispatcher.sink<MoveEntity>().connect<&PhysicsSystem::onMoveEntity>(this);
     dispatcher.sink<RotateEntity>().connect<&PhysicsSystem::onRotateEntity>(this);
-    dispatcher.sink<CreateBody>().connect<&PhysicsSystem::onCreateBody>(this);
-    registry.on_destroy<BodyComponent>().connect<&PhysicsSystem::onDestroyBody>(this);
+    registry.on_construct<BodyComponent>().connect<&PhysicsSystem::onBodyAdded>(this);
+    registry.on_destroy<BodyComponent>().connect<&PhysicsSystem::onBodyRemoved>(this);
 }
 
 void PhysicsSystem::update(const Seconds& deltaTime)
@@ -33,7 +33,7 @@ void PhysicsSystem::update(const Seconds& deltaTime)
     registry.view<PositionComponent, RotationComponent, BodyComponent>().each([](auto& position, auto& rotation, const auto& body)
         {
             position.setPosition({ body.getPosition().x, body.getPosition().y });
-            rotation.setAngle(-Conversions::radiansToDegrees(body.getAngle()));
+            rotation.setAngle(Conversions::radiansToDegrees(body.getAngle()));
         });
 
     const int VELOCITY_ITERATIONS = 6;
@@ -81,30 +81,15 @@ void PhysicsSystem::onRotateEntity(const RotateEntity& event)
     body.applyAngularImpulse(body.getInertia() * totalRotation * AppConstants::FRAMES_PER_SECOND);
 }
 
-void PhysicsSystem::onCreateBody(const CreateBody& event)
+void PhysicsSystem::onBodyAdded(entt::entity entity)
 {
-    auto& bodyComponent = registry.get_or_assign<BodyComponent>(event.entity);
+    auto& body = registry.get<BodyComponent>(entity);
 
-    auto fixtureDefs = event.fixtureDefs;
-    auto shapes = event.shapes;
-
-    auto* body = world.CreateBody(&event.bodyDef);
-
-    for (std::size_t i = 0u; i < fixtureDefs.size(); ++i)
-    {
-        std::visit([&fixtureDefs, i](auto& shape) 
-            {
-                fixtureDefs[i].shape = &shape;
-            }, shapes[i]);
-
-       body->CreateFixture(&fixtureDefs[i]);
-    }
-
-    bodyComponent.setBody(body);  
-    bodyComponent.setUserData(reinterpret_cast<void*>(event.entity));
+    body.initialize(world);
+    body.setUserData(reinterpret_cast<void*>(entity));
 }
 
-void PhysicsSystem::onDestroyBody(entt::entity entity)
+void PhysicsSystem::onBodyRemoved(entt::entity entity)
 {
     auto& body = registry.get<BodyComponent>(entity);
 
