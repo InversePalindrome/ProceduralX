@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "Map.hpp"
 #include "State.hpp"
 #include "System.hpp"
 #include "RenderSystem.hpp"
@@ -33,4 +34,6 @@ private:
     std::vector<std::unique_ptr<System>> systems;
 
     RenderSystem* renderSystem;
+
+    Map map;
 };

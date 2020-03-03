@@ -7,10 +7,12 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "Map.hpp"
 #include "System.hpp"
 #include "Events.hpp"
 #include "SpriteComponent.hpp"
 
+#include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
@@ -24,9 +26,17 @@ public:
     void render();
 
     void setWindow(sf::RenderWindow* window);
+    void setMap(const Map* map);
 
 private:
+    entt::entity playerEntity;
+    sf::View cameraView;
+
     sf::RenderWindow* window;
+    const Map* map;
+
+    void updateViewPosition();
 
     void onSpriteAdded(entt::entity);
+    void onPlayerAdded(entt::entity entity);
 };

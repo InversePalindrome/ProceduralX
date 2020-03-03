@@ -10,7 +10,6 @@ https://inversepalindrome.com/
 #include "AnimationID.hpp"
 
 #include <Thor/Animations/Animator.hpp>
-#include <Thor/Animations/FrameAnimation.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -18,7 +17,16 @@ https://inversepalindrome.com/
 class AnimationComponent
 {
 public:
+    void update(const sf::Time& deltaTime);
+    void animate(sf::Sprite& sprite);
 
+    void playAnimation(AnimationID animationID, bool loop = true);
+    void stopAnimation();
+
+    void addAnimation(AnimationID animationID, const std::function<void(sf::Sprite&, float)>& animation,
+        const sf::Time& duration);
+
+    bool isPlayingAnimation() const;
 
 private:
     thor::Animator<sf::Sprite, AnimationID> animator;

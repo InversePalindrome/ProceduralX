@@ -19,6 +19,16 @@ SpriteComponent::SpriteComponent(const sf::Texture& texture) :
 {
 }
 
+sf::Sprite& SpriteComponent::getSprite()
+{
+    return sprite;
+}
+
+const sf::Sprite& SpriteComponent::getSprite() const
+{
+    return sprite;
+}
+
 void SpriteComponent::setTexture(const sf::Texture& texture) 
 {
     sprite.setTexture(texture, true);

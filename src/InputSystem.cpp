@@ -30,7 +30,7 @@ void InputSystem::update(const Seconds& deltaTime)
     }
 }
 
-void InputSystem::setWindow(sf::Window* window)
+void InputSystem::setWindow(sf::RenderWindow* window)
 {
     this->window = window;
 }
@@ -62,8 +62,8 @@ void InputSystem::sendKeyPressedEvents()
 
 void InputSystem::sendMouseEvents()
 {
-    const auto mousePosition = sf::Mouse::getPosition(*window);
-
+    const auto mousePosition = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+    
     dispatcher.trigger(RotateEntity{ playerEntity, Conversions::graphicsToPhysicsPosition
     ({static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) }) });
 }

@@ -18,7 +18,8 @@ namespace
 {
     std::unordered_map<std::string, std::function<void(entt::registry&, entt::entity, const pugi::xml_node&)>>
         componentParser =
-            { {"Sprite", [](auto& registry, auto entity, const auto& node) { Parser::parseSprite(registry, entity, node); } },
+    { 
+            {"Sprite", [](auto& registry, auto entity, const auto& node) { Parser::parseSprite(registry, entity, node); } },
             {"Animation", [](auto& registry, auto entity, const auto& node) { Parser::parseAnimation(registry, entity, node); } },
             {"Position", [](auto& registry, auto entity, const auto& node) { Parser::parsePosition(registry, entity, node); }},
             {"Rotation", [](auto& registry, auto entity, const auto& node) { Parser::parseRotation(registry, entity, node); }},
@@ -26,7 +27,8 @@ namespace
             {"Speed", [](auto& registry, auto entity, const auto& node) { Parser::parseSpeed(registry, entity, node); }},
             {"Acceleration", [](auto& registry, auto entity, const auto& node) { Parser::parseAcceleration(registry, entity, node); }},
             {"Object", [](auto& registry, auto entity, const auto& node) { Parser::parseObject(registry, entity, node); }},
-            {"Player", [](auto& registry, auto entity, const auto&) { registry.assign<Player>(entity); }}
+            {"Player", [](auto& registry, auto entity, const auto&) { registry.assign<Player>(entity); }
+    }
     };
 }
 

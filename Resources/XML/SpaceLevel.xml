@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Level>
     <Entity>
-        <Sprite texture="SpaceBackground" textureX="0" textureY="0" textureWidth="2048" textureHeight ="2048"></Sprite>
+        <Sprite texture="SpaceBackground" textureX="0" textureY="0" textureWidth="8192" textureHeight ="8192"></Sprite>
     </Entity>
     <Entity>
         <Sprite texture="Spaceship" originScaleX="0.5" originScaleY="0.5" zOrder="1"></Sprite>

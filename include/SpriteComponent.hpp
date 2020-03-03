@@ -21,6 +21,9 @@ public:
     SpriteComponent();
     explicit SpriteComponent(const sf::Texture& texture);
 
+    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
+
     void setTexture(const sf::Texture& texture);
     void setTextureRect(const sf::IntRect& textureRect);
     void setOriginFromScale(const sf::Vector2f& originScale);

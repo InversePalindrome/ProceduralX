@@ -12,10 +12,12 @@ https://inversepalindrome.com/
 
 
 GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
-    State(window, eventDispatcher)
+    State(window, eventDispatcher),
+    map(200.f, 200.f)
 {
     auto renderSystemPtr = std::make_unique<RenderSystem>(registry, dispatcher);
     renderSystemPtr->setWindow(&window);
+    renderSystemPtr->setMap(&map);
     renderSystem = renderSystemPtr.get();
 
     auto inputSystemPtr = std::make_unique<InputSystem>(registry, dispatcher);

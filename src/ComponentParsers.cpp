@@ -19,6 +19,10 @@ https://inversepalindrome.com/
 #include "AnimationComponent.hpp"
 #include "AccelerationComponent.hpp"
 
+#include <thor/Animations/FrameAnimation.hpp>
+
+#include <SFML/System/Time.hpp>
+
 #include <magic_enum.hpp>
 
 #include <variant>
@@ -68,6 +72,56 @@ void Parser::parseSprite(entt::registry& registry, entt::entity entity, const pu
 void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode)
 {
     AnimationComponent animation;
+
+    for (auto frameAnimationNode : animationNode.children("FrameAnimation"))
+    {
+        AnimationID animationID;
+
+        if (auto idAttribute = frameAnimationNode.attribute("id"))
+        {
+            auto animationIDOptional = magic_enum::enum_cast<AnimationID>(idAttribute.as_string());
+
+            if (animationIDOptional.has_value())
+            {
+                animationID = animationIDOptional.value();
+            }
+        }
+
+        thor::FrameAnimation frameAnimation;
+  
+        for (auto frameNode : frameAnimationNode.children("Frame"))
+        {
+            float relativeDuration = 1.f;
+
+            if (auto durationAttribute = frameNode.attribute("duration"))
+            {
+                relativeDuration = durationAttribute.as_float();
+            }
+
+            sf::IntRect frameRect;
+
+            if (auto leftAttribute = frameNode.attribute("left"),
+                topAttribute = frameNode.attribute("top"),
+                widthAttribute = frameNode.attribute("width"),
+                heightAttribute = frameNode.attribute("height");
+                leftAttribute && topAttribute && widthAttribute && heightAttribute)
+            {
+                frameRect = { leftAttribute.as_int(), topAttribute.as_int(),
+                    widthAttribute.as_int(), heightAttribute.as_int() };
+            }
+
+            frameAnimation.addFrame(relativeDuration, frameRect);
+        }
+
+        sf::Time duration;
+
+        if (auto durationAttribute = frameAnimationNode.attribute("duration"))
+        {
+            duration = sf::seconds(durationAttribute.as_float());
+        }
+
+        animation.addAnimation(animationID, frameAnimation, duration);
+    }
 
     registry.assign<AnimationComponent>(entity, animation);
 }
@@ -171,11 +225,11 @@ void Parser::parseObject(entt::registry& registry, entt::entity entity, const pu
 {
     ObjectComponent object;
 
-    auto objectType = magic_enum::enum_cast<ObjectType>(objectNode.text().as_string());
+    auto objectTypeOptional = magic_enum::enum_cast<ObjectType>(objectNode.text().as_string());
 
-    if (objectType.has_value())
+    if (objectTypeOptional.has_value())
     {
-        object.setObjectType(objectType.value());
+        object.setObjectType(objectTypeOptional.value());
     }
 
     registry.assign<ObjectComponent>(entity, object);

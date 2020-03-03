@@ -11,6 +11,8 @@ https://inversepalindrome.com/
 #include "Events.hpp"
 #include "InputManager.hpp"
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
 #include <entt/entt.hpp>
 
 
@@ -21,13 +23,13 @@ public:
 
     virtual void update(const Seconds& deltaTime) override;
 
-    void setWindow(sf::Window* window);
+    void setWindow(sf::RenderWindow* window);
 
 private:
     InputManager inputManager;
     entt::entity playerEntity;
     
-    sf::Window* window;
+    sf::RenderWindow* window;
 
     void onPlayerTagAdded(entt::entity entity);
     void sendKeyPressedEvents();

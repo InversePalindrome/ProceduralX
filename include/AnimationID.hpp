@@ -8,4 +8,4 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class AnimationID {};
+enum class AnimationID { Explosion };
