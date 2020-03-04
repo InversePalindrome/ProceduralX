@@ -10,7 +10,6 @@ https://inversepalindrome.com/
 #include "SizeConversions.hpp"
 #include "RotationComponent.hpp"
 #include "PositionComponent.hpp"
-#include "AnimationComponent.hpp"
 #include "PositionConversions.hpp"
 
 
@@ -33,13 +32,6 @@ void RenderSystem::update(const Seconds& deltaTime)
         {
             sprite.setPosition(Conversions::physicsToGraphicsPosition(position.getPosition()));
             sprite.setRotation(-rotation.getAngle());
-        });
-
-    registry.view<AnimationComponent, SpriteComponent>().each(
-        [deltaTime](auto& animation, auto& sprite)
-        {
-            animation.update(sf::seconds(deltaTime.count()));
-            animation.animate(sprite.getSprite());
         });
 }
 

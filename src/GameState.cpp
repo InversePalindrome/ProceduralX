@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 #include "InputSystem.hpp"
 #include "LevelParser.hpp"
 #include "PhysicsSystem.hpp"
+#include "AnimationSystem.hpp"
 
 
 GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
@@ -25,6 +26,7 @@ GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher)
 
     systems.push_back(std::move(inputSystemPtr));
     systems.push_back(std::move(renderSystemPtr));
+    systems.push_back(std::make_unique<AnimationSystem>(registry, dispatcher));
     systems.push_back(std::make_unique<PhysicsSystem>(registry, dispatcher));
     
     Parser::parseLevel(registry, "Resources/XML/SpaceLevel.xml");

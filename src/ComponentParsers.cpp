@@ -10,6 +10,7 @@ https://inversepalindrome.com/
 #include "ComponentTags.hpp"
 #include "BodyComponent.hpp"
 #include "SpeedComponent.hpp"
+#include "StateComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "ObjectComponent.hpp"
 #include "ResourceManager.hpp"
@@ -75,7 +76,7 @@ void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const
 
     for (auto frameAnimationNode : animationNode.children("FrameAnimation"))
     {
-        AnimationID animationID;
+        AnimationID animationID = AnimationID::Idle;
 
         if (auto idAttribute = frameAnimationNode.attribute("id"))
         {
@@ -113,7 +114,7 @@ void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const
             frameAnimation.addFrame(relativeDuration, frameRect);
         }
 
-        sf::Time duration;
+        sf::Time duration = sf::seconds(1.f);
 
         if (auto durationAttribute = frameAnimationNode.attribute("duration"))
         {
@@ -121,6 +122,23 @@ void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const
         }
 
         animation.addAnimation(animationID, frameAnimation, duration);
+    }
+
+    if (auto playAttribute = animationNode.attribute("play"))
+    {
+        bool loop = true;
+
+        if (auto loopAttribute = animationNode.attribute("loop"))
+        {
+            loop = loopAttribute.as_bool();
+        }
+
+        auto playOptional = magic_enum::enum_cast<AnimationID>(playAttribute.as_string());
+
+        if (playOptional.has_value())
+        {
+            animation.playAnimation(playOptional.value(), loop);
+        }
     }
 
     registry.assign<AnimationComponent>(entity, animation);
@@ -233,4 +251,18 @@ void Parser::parseObject(entt::registry& registry, entt::entity entity, const pu
     }
 
     registry.assign<ObjectComponent>(entity, object);
+}
+
+void Parser::parseState(entt::registry& registry, entt::entity entity, const pugi::xml_node& stateNode)
+{
+    StateComponent state;
+
+    auto entityStateOptional = magic_enum::enum_cast<EntityState>(stateNode.text().as_string());
+
+    if (entityStateOptional.has_value())
+    {
+        state.setState(entityStateOptional.value());
+    }
+
+    registry.assign<StateComponent>(entity, state);
 }

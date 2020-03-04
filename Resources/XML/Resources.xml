@@ -3,7 +3,12 @@
     <Textures>
         <SplashLogo>InversePalindromeLogo.png</SplashLogo>
         <Spaceship>Spaceship.png</Spaceship>
-        <SpaceBackground>SpaceBackground.png</SpaceBackground>
-        <Asteroid>Planet_D.png</Asteroid>
+        <UFO>AnimatedUFO.png</UFO>
+        <SpaceBackground repeat="true">SpaceBackground.png</SpaceBackground>
+        <Planet1>Planet1.png</Planet1>
+        <Planet2>Planet2.png</Planet2>
+        <Planet3>Planet3.png</Planet3>
+        <Planet4>Planet4.png</Planet4>
+        <Meteor>Meteor.png</Meteor>
     </Textures>
 </Resources>

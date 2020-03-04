@@ -22,4 +22,5 @@ namespace Parser
     void parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode);
     void parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode);
     void parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode);
+    void parseState(entt::registry& registry, entt::entity entity, const pugi::xml_node& stateNode);
 }

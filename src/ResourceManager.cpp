@@ -66,19 +66,36 @@ sf::SoundBuffer& ResourceManager::getSound(SoundID soundID)
 ResourceManager::ResourceManager() :
     resourceLoaders
     ({ 
-        {"Textures", [this](auto integerID, const auto& filename) 
+        {"Textures", [this](auto integerID, const auto& filename, const auto& textureNode) 
         {
-            textures.acquire(TextureID{ integerID }, thor::Resources::fromFile<sf::Texture>(filename));
+            sf::IntRect frameRect;
+            
+            if (auto leftAttribute = textureNode.attribute("left"),
+                topAttribute = textureNode.attribute("top"),
+                widthAttribute = textureNode.attribute("width"),
+                heightAttribute = textureNode.attribute("height");
+                leftAttribute && topAttribute && widthAttribute && heightAttribute)
+            {
+                frameRect = { leftAttribute.as_int(), topAttribute.as_int(),
+                    widthAttribute.as_int(), heightAttribute.as_int() };
+            }
+
+            auto& texture = textures.acquire(TextureID{ integerID }, thor::Resources::fromFile<sf::Texture>(filename, frameRect));
+            
+            if (auto repeatAttribute = textureNode.attribute("repeat"))
+            {
+                texture.setRepeated(repeatAttribute.as_bool());
+            }
         } },
-        {"Images", [this](auto integerID, const auto& filename)
+        {"Images", [this](auto integerID, const auto& filename, const auto&)
         {
             images.acquire(ImageID{ integerID }, thor::Resources::fromFile<sf::Image>(filename));
         } } ,
-        {"Fonts", [this](auto integerID, const auto& filename)
+        {"Fonts", [this](auto integerID, const auto& filename, const auto&)
         {
             fonts.acquire(FontID{ integerID }, thor::Resources::fromFile<sf::Font>(filename));
         } } ,
-        {"Sounds", [this](auto integerID, const auto& filename)
+        {"Sounds", [this](auto integerID, const auto& filename, const auto&)
         {
             sounds.acquire(SoundID{ integerID }, thor::Resources::fromFile<sf::SoundBuffer>(filename));
         } } 

@@ -49,7 +49,8 @@ private:
     thor::ResourceHolder<sf::Font, FontID> fonts;
     thor::ResourceHolder<sf::SoundBuffer, SoundID> sounds;
 
-    std::unordered_map<std::string, std::function<void(std::size_t, const std::string&)>> resourceLoaders;
+    std::unordered_map<std::string, std::function<void(std::size_t, const std::string&,
+        const pugi::xml_node&)>> resourceLoaders;
 
     template<typename ResourceType>
     void loadResources(const pugi::xml_node& resourcesNode, const std::string& resourceType);
@@ -67,7 +68,7 @@ void ResourceManager::loadResources(const pugi::xml_node& resourcesNode, const s
             auto resourceIntegerID = magic_enum::enum_integer(resourceIDOptional.value());
 
             resourceLoaders[resourceType](resourceIntegerID, "Resources/" + resourceType  + '/'
-                + std::string(resourceNode.text().as_string()));
+                + std::string(resourceNode.text().as_string()), resourceNode);
         }
     }
 }

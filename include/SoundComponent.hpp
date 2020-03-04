@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - AnimationID.hpp
+ProceduralX - SoundComponent.hpp
 https://inversepalindrome.com/
 */
 
@@ -8,4 +8,8 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class AnimationID { Idle };
+class SoundComponent
+{
+public:
+private:
+};

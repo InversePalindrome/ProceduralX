@@ -27,6 +27,7 @@ namespace
             {"Speed", [](auto& registry, auto entity, const auto& node) { Parser::parseSpeed(registry, entity, node); }},
             {"Acceleration", [](auto& registry, auto entity, const auto& node) { Parser::parseAcceleration(registry, entity, node); }},
             {"Object", [](auto& registry, auto entity, const auto& node) { Parser::parseObject(registry, entity, node); }},
+            {"State", [](auto& registry, auto entity, const auto& node) { Parser::parseState(registry, entity, node); }},
             {"Player", [](auto& registry, auto entity, const auto&) { registry.assign<Player>(entity); }
     }
     };
