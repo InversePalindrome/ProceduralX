@@ -16,6 +16,7 @@ namespace Parser
 {
     void parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
     void parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode);
+    void parseSound(entt::registry& registry, entt::entity entity, const pugi::xml_node& soundNode);
     void parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
     void parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
     void parseBody(entt::registry& registry, entt::entity entity, const pugi::xml_node& bodyNode);

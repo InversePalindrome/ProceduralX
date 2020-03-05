@@ -13,6 +13,7 @@ https://inversepalindrome.com/
 AnimationSystem::AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
     System(registry, dispatcher)
 {
+    dispatcher.sink<StateChanged>().connect<&AnimationSystem::onStateChanged>(this);
 }
 
 void AnimationSystem::update(const Seconds& deltaTime)
@@ -23,4 +24,9 @@ void AnimationSystem::update(const Seconds& deltaTime)
             animation.update(sf::seconds(deltaTime.count()));
             animation.animate(sprite.getSprite());
         });
+}
+
+void AnimationSystem::onStateChanged(const StateChanged& event)
+{
+
 }

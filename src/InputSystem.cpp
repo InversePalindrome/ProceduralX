@@ -6,27 +6,33 @@ https://inversepalindrome.com/
 
 
 #include "InputSystem.hpp"
-#include "ComponentTags.hpp"
-#include "PositionConversions.hpp"
 
 
 InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
     System(registry, dispatcher),
-    playerEntity(entt::null),
     window(nullptr)
 
 {
-    registry.on_construct<Player>().connect<&InputSystem::onPlayerTagAdded>(this);
 }
 
 void InputSystem::update(const Seconds& deltaTime)
 {
     inputManager.update(*window);
+}
 
-    if (registry.valid(playerEntity))
+void InputSystem::handleEvent(const sf::Event& event)
+{
+    switch (event.type)
     {
-        sendKeyPressedEvents();
-        sendMouseEvents();
+    case sf::Event::KeyPressed:
+        sendKeyActionEvent();
+        break;
+    case sf::Event::MouseMoved:
+        sendMouseMovedEvent();
+        break;
+    case sf::Event::MouseButtonPressed:
+        sendMousePressedEvent();
+        break;
     }
 }
 
@@ -35,35 +41,37 @@ void InputSystem::setWindow(sf::RenderWindow* window)
     this->window = window;
 }
 
-void InputSystem::onPlayerTagAdded(entt::entity entity)
-{
-    playerEntity = entity;
-}
-
-void InputSystem::sendKeyPressedEvents()
+void InputSystem::sendKeyActionEvent()
 {
     if (inputManager.isPressed(InputManager::Action::Up))
     {
-        dispatcher.trigger(MoveEntity{ playerEntity, Direction::Up });
+        dispatcher.trigger(ActionTriggered{ InputManager::Action::Up });
     }
     if (inputManager.isPressed(InputManager::Action::Down))
     {
-        dispatcher.trigger(MoveEntity{ playerEntity, Direction::Down });
+        dispatcher.trigger(ActionTriggered{ InputManager::Action::Down });
     }
     if (inputManager.isPressed(InputManager::Action::Right))
     {
-        dispatcher.trigger(MoveEntity{ playerEntity, Direction::Right });
+        dispatcher.trigger(ActionTriggered{ InputManager::Action::Right });
     }
     if (inputManager.isPressed(InputManager::Action::Left))
     {
-        dispatcher.trigger(MoveEntity{ playerEntity, Direction::Left });
+        dispatcher.trigger(ActionTriggered{ InputManager::Action::Left });
     }
 }
 
-void InputSystem::sendMouseEvents()
+void InputSystem::sendMouseMovedEvent()
 {
-    const auto mousePosition = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-    
-    dispatcher.trigger(RotateEntity{ playerEntity, Conversions::graphicsToPhysicsPosition
-    ({static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) }) });
+    dispatcher.trigger(MouseMoved{ getMousePosition() });
+}
+
+void InputSystem::sendMousePressedEvent()
+{
+    dispatcher.trigger(MousePressed{ getMousePosition() });
+}
+
+sf::Vector2f InputSystem::getMousePosition() const
+{
+    return window->mapPixelToCoords(sf::Mouse::getPosition(*window));
 }

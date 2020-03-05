@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - AnimationSystem.hpp
+ProceduralX - AudioSystem.hpp
 https://inversepalindrome.com/
 */
 
@@ -11,10 +11,10 @@ https://inversepalindrome.com/
 #include "Events.hpp"
 
 
-class AnimationSystem : public System
+class AudioSystem : public System
 {
 public:
-    AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+    AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher);
 
     virtual void update(const Seconds& deltaTime) override;
 

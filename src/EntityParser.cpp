@@ -21,6 +21,7 @@ namespace
     { 
             {"Sprite", [](auto& registry, auto entity, const auto& node) { Parser::parseSprite(registry, entity, node); } },
             {"Animation", [](auto& registry, auto entity, const auto& node) { Parser::parseAnimation(registry, entity, node); } },
+            {"Sound", [](auto& registry, auto entity, const auto& node) { Parser::parseSound(registry, entity, node); } },
             {"Position", [](auto& registry, auto entity, const auto& node) { Parser::parsePosition(registry, entity, node); }},
             {"Rotation", [](auto& registry, auto entity, const auto& node) { Parser::parseRotation(registry, entity, node); }},
             {"Body", [](auto& registry, auto entity, const auto& node) { Parser::parseBody(registry, entity, node); }},

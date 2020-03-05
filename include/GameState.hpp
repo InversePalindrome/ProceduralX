@@ -10,6 +10,7 @@ https://inversepalindrome.com/
 #include "Map.hpp"
 #include "State.hpp"
 #include "System.hpp"
+#include "InputSystem.hpp"
 #include "RenderSystem.hpp"
 
 #include <entt/entt.hpp>
@@ -34,6 +35,7 @@ private:
     std::vector<std::unique_ptr<System>> systems;
 
     RenderSystem* renderSystem;
+    InputSystem* inputSystem;
 
     Map map;
 };

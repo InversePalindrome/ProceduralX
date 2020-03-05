@@ -58,7 +58,7 @@ sf::Font& ResourceManager::getFont(FontID fontID)
     return fonts[fontID];
 }
 
-sf::SoundBuffer& ResourceManager::getSound(SoundID soundID)
+sf::SoundBuffer& ResourceManager::getSoundBuffer(SoundID soundID)
 {
     return sounds[soundID];
 }

@@ -5,12 +5,11 @@ https://inversepalindrome.com/
 */
 
 
-#include "Events.hpp"
 #include "BodyParser.hpp"
-#include "ComponentTags.hpp"
 #include "BodyComponent.hpp"
 #include "SpeedComponent.hpp"
 #include "StateComponent.hpp"
+#include "SoundComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "ObjectComponent.hpp"
 #include "ResourceManager.hpp"
@@ -25,8 +24,6 @@ https://inversepalindrome.com/
 #include <SFML/System/Time.hpp>
 
 #include <magic_enum.hpp>
-
-#include <variant>
 
 
 void Parser::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
@@ -142,6 +139,57 @@ void Parser::parseAnimation(entt::registry& registry, entt::entity entity, const
     }
 
     registry.assign<AnimationComponent>(entity, animation);
+}
+
+void Parser::parseSound(entt::registry& registry, entt::entity entity, const pugi::xml_node& soundNode)
+{
+    SoundComponent soundComponent;
+
+    for (auto stateNode : soundNode.children())
+    {
+        auto stateOptional = magic_enum::enum_cast<EntityState>(stateNode.name());
+        auto soundOptional = magic_enum::enum_cast<SoundID>(stateNode.text().as_string());
+
+        if (stateOptional.has_value() && soundOptional.has_value())
+        {
+            sf::Sound sound(ResourceManager::getInstance().getSoundBuffer(soundOptional.value()));
+
+            if (auto loopAttribute = stateNode.attribute("loop"))
+            {
+                sound.setLoop(loopAttribute.as_bool());
+            }
+            if (auto pitchAttribute = stateNode.attribute("pitch"))
+            {
+                sound.setPitch(pitchAttribute.as_float());
+            }
+            if (auto volumeAttribute = stateNode.attribute("volume"))
+            {
+                sound.setVolume(volumeAttribute.as_float());
+            }
+            if (auto attenuationAttribute = stateNode.attribute("attenuation"))
+            {
+                sound.setAttenuation(attenuationAttribute.as_float());
+            }
+            if (auto minDistanceAttribute = stateNode.attribute("minDistance"))
+            {
+                sound.setMinDistance(minDistanceAttribute.as_float());
+            }
+            if (auto timeOffsetAttribute = stateNode.attribute("timeOffset"))
+            {
+                sound.setPlayingOffset(sf::seconds(timeOffsetAttribute.as_float()));
+            }
+            if (auto xPositionAttribute = stateNode.attribute("xPosition"),
+                zPositionAttribute = stateNode.attribute("zPosition");
+                xPositionAttribute && zPositionAttribute)
+            {
+                sound.setPosition(xPositionAttribute.as_float(), 0.f, zPositionAttribute.as_float());
+            }
+
+            soundComponent.addSound(stateOptional.value(), sound);
+        }
+    }
+
+    registry.assign<SoundComponent>(entity, soundComponent);
 }
 
 void Parser::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)

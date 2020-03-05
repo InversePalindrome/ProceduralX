@@ -39,7 +39,7 @@ public:
     sf::Texture& getTexture(TextureID textureID);
     sf::Image& getImage(ImageID imageID);
     sf::Font& getFont(FontID fontID);
-    sf::SoundBuffer& getSound(SoundID soundID);
+    sf::SoundBuffer& getSoundBuffer(SoundID soundID);
 
 private:
     ResourceManager();

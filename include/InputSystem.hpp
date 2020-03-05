@@ -13,8 +13,6 @@ https://inversepalindrome.com/
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <entt/entt.hpp>
-
 
 class InputSystem : public System
 {
@@ -23,15 +21,18 @@ public:
 
     virtual void update(const Seconds& deltaTime) override;
 
+    void handleEvent(const sf::Event& event);
+
     void setWindow(sf::RenderWindow* window);
 
 private:
     InputManager inputManager;
-    entt::entity playerEntity;
     
     sf::RenderWindow* window;
 
-    void onPlayerTagAdded(entt::entity entity);
-    void sendKeyPressedEvents();
-    void sendMouseEvents();
+    void sendKeyActionEvent();
+    void sendMouseMovedEvent();
+    void sendMousePressedEvent();
+
+    sf::Vector2f getMousePosition() const;
 };
