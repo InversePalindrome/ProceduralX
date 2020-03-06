@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #include "AudioSystem.hpp"
 #include "SoundComponent.hpp"
+#include "StateComponent.hpp"
 
 
 AudioSystem::AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
@@ -22,5 +23,18 @@ void AudioSystem::update(const Seconds& deltaTime)
 
 void AudioSystem::onStateChanged(const StateChanged& event)
 {
+    auto entity = event.entity;
 
+    const auto& stateComponent = registry.get<StateComponent>(entity);
+    auto state = stateComponent.getState();
+    
+    if (registry.has<SoundComponent>(entity))
+    {
+        auto& sound = registry.get<SoundComponent>(entity);
+    
+        if (sound.hasSound(state))
+        {
+            sound.playSound(state);
+        }
+    }
 }

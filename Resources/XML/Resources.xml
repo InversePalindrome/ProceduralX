@@ -11,4 +11,7 @@
         <Planet4>Planet4.png</Planet4>
         <Meteor>Meteor.png</Meteor>
     </Textures>
+    <Sounds>
+        <Laser>Laser.wav</Laser>
+    </Sounds>
 </Resources>

@@ -8,4 +8,4 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class EntityState { Idle, Attacking };
+enum class EntityState { Idle, Shooting };

@@ -17,4 +17,4 @@ enum class ImageID : std::size_t { One };
 
 enum class FontID : std::size_t { One };
 
-enum class SoundID : std::size_t { One};
+enum class SoundID : std::size_t { Laser };

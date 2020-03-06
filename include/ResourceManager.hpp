@@ -62,11 +62,11 @@ void ResourceManager::loadResources(const pugi::xml_node& resourcesNode, const s
     for (auto resourceNode : resourcesNode.children())
     {
         auto resourceIDOptional = magic_enum::enum_cast<ResourceType>(resourceNode.name());
-
+     
         if (resourceIDOptional.has_value())
         {
             auto resourceIntegerID = magic_enum::enum_integer(resourceIDOptional.value());
-
+            
             resourceLoaders[resourceType](resourceIntegerID, "Resources/" + resourceType  + '/'
                 + std::string(resourceNode.text().as_string()), resourceNode);
         }

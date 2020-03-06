@@ -27,6 +27,8 @@ public:
     sf::Sound& operator[](EntityState state);
     const sf::Sound& operator[](EntityState state) const;
 
+    bool hasSound(EntityState state) const;
+
 private:
     std::unordered_map<EntityState, sf::Sound> sounds;
 };

@@ -25,13 +25,17 @@
                 <Frame left="0" top="132" width="64" height="64"></Frame>
             </FrameAnimation>
         </Animation>
+        <Sound>
+            <Shooting>Laser</Shooting>
+        </Sound>
+        <State></State>
         <Position x="0" y="0"></Position>
         <Body type="2" linearDamping="0.400000006" angularDamping="0" fixedRotation="false" bullet="false" x="10" y ="-10">
             <Circle density="0.100000001" friction="0.200000003" restitution="0" sensor="false" radius="2" />
         </Body>
         <Rotation></Rotation>
-        <Speed linearSpeed="15" angularSpeed="10"></Speed>
-        <Acceleration linearAcceleration="2"></Acceleration>
+        <Speed linearSpeed="22" angularSpeed="10"></Speed>
+        <Acceleration linearAcceleration="4"></Acceleration>
         <Player></Player>
         <Object>Player</Object>
     </Entity>

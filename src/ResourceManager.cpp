@@ -23,19 +23,19 @@ void ResourceManager::loadResources(const std::string& filename)
     {
         if (auto resourcesNode = doc.child("Resources"))
         {
-            if (auto texturesNode = resourcesNode.child("Textures"))
+            for (auto texturesNode : resourcesNode.children("Textures"))
             {
                 loadResources<TextureID>(texturesNode, "Textures");
             }
-            else if (auto imagesNode = resourcesNode.child("Images"))
+            for(auto imagesNode : resourcesNode.children("Images"))
             {
                 loadResources<ImageID>(imagesNode, "Images");
             }
-            else if(auto fontsNode = resourcesNode.child("Fonts"))
+            for(auto fontsNode : resourcesNode.children("Fonts"))
             {
                 loadResources<FontID>(fontsNode, "Fonts");
             }
-            else if (auto soundsNode = resourcesNode.child("Sounds"))
+            for(auto soundsNode : resourcesNode.children("Sounds"))
             {
                 loadResources<SoundID>(soundsNode, "Sounds");
             }

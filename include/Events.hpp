@@ -46,5 +46,9 @@ struct MousePressed
 struct StateChanged
 {
     entt::entity entity;
-    EntityState state;
+};
+
+struct ShootProjectile
+{
+
 };

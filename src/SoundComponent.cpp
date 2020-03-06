@@ -37,3 +37,8 @@ const sf::Sound& SoundComponent::operator[](EntityState state) const
 {
     return sounds.at(state);
 }
+
+bool SoundComponent::hasSound(EntityState state) const
+{
+    return sounds.count(state);
+}

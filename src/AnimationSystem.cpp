@@ -6,6 +6,7 @@ https://inversepalindrome.com/
 
 
 #include "AnimationSystem.hpp"
+#include "StateComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "AnimationComponent.hpp"
 
@@ -28,5 +29,13 @@ void AnimationSystem::update(const Seconds& deltaTime)
 
 void AnimationSystem::onStateChanged(const StateChanged& event)
 {
+    auto entity = event.entity;
+    const auto& state = registry.get<StateComponent>(entity);
 
+    if (registry.has<AnimationComponent>(entity))
+    {
+        auto& animation = registry.get<AnimationComponent>(entity);
+
+        
+    }
 }

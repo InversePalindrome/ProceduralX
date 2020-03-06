@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #include "PlayerSystem.hpp"
 #include "ComponentTags.hpp"
+#include "StateComponent.hpp"
 #include "PositionConversions.hpp"
 
 
@@ -58,5 +59,8 @@ void PlayerSystem::rotatePlayer(const MouseMoved& event)
 
 void PlayerSystem::shootProjectile(const MousePressed& event)
 {
-    
+    auto& state = registry.get<StateComponent>(playerEntity);
+    state.setState(EntityState::Shooting);
+
+    dispatcher.trigger(StateChanged{ playerEntity });
 }

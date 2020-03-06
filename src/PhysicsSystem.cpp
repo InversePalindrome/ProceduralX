@@ -72,8 +72,9 @@ void PhysicsSystem::onMoveEntity(const MoveEntity& event)
 void PhysicsSystem::onRotateEntity(const RotateEntity& event)
 {
     auto& body = registry.get<BodyComponent>(event.entity);
+    const auto& targetPosition = event.targetPosition;
 
-    const auto desiredAngle = std::atan2f(event.targetPosition.y - body.getPosition().y, event.targetPosition.x - body.getPosition().x);
+    const auto desiredAngle = std::atan2f(targetPosition.y - body.getPosition().y, targetPosition.x - body.getPosition().x);
     const auto nextAngle = body.getAngle() + body.getAngularVelocity() / AppConstants::FRAMES_PER_SECOND;
 
     const auto totalRotation = std::remainderf(desiredAngle - nextAngle, 2 * boost::math::constants::pi<float>());

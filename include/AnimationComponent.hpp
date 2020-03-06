@@ -8,10 +8,13 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "AnimationID.hpp"
+#include "EntityState.hpp"
 
 #include <Thor/Animations/Animator.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
+
+#include <unordered_map>
 
 
 class AnimationComponent
@@ -30,4 +33,5 @@ public:
 
 private:
     thor::Animator<sf::Sprite, AnimationID> animator;
+    std::unordered_map<EntityState, AnimationID> stateMap;
 };
