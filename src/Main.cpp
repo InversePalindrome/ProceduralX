@@ -5,12 +5,12 @@ https://inversepalindrome.com/
 */
 
 
-#include "Application.hpp"
+#include "App/Application.hpp"
 
 
 int main()
 {
-    Application app;
+    App::Application app;
 
     app.run();
 }

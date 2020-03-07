@@ -6,8 +6,8 @@
     <Entity>
         <Sprite texture="UFO" textureX="0" textureY="0" textureWidth="64" textureHeight="64"
                 originScaleX="0.5" originScaleY="0.5" scaleX="2" scaleY="2" zOrder="1"></Sprite>
-        <Animation play="Idle">
-            <FrameAnimation id="Idle" duration="0.5">
+        <Animation>
+            <FrameAnimation id="Idle" duration="0.5" loop="true">
                 <Frame left="0" top="0" width="64" height="64"></Frame>
                 <Frame left="66" top="0" width="64" height="64"></Frame>
                 <Frame left="66" top="132" width="64" height="63"></Frame>
