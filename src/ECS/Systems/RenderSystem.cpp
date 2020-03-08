@@ -13,11 +13,12 @@ https://inversepalindrome.com/
 #include "ECS/Utility/SizeConversions.hpp"
 
 
-ECS::Systems::RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher),
+ECS::Systems::RenderSystem::RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher,
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory),
     playerEntity(entt::null),
     window(nullptr),
-    map(nullptr)
+    map(200.f, 200.f)
 {
     registry.on_construct<Components::SpriteComponent>().connect<&RenderSystem::onSpriteAdded>(this);
     registry.on_construct<Components::Player>().connect<&RenderSystem::onPlayerAdded>(this);
@@ -50,16 +51,11 @@ void ECS::Systems::RenderSystem::setWindow(sf::RenderWindow* window)
     cameraView = window->getDefaultView();
 }
 
-void ECS::Systems::RenderSystem::setMap(const Map* map)
-{
-    this->map = map;
-}
-
 void ECS::Systems::RenderSystem::updateViewPosition()
 {
     auto cameraPosition = Utility::physicsToGraphicsPosition(registry.get<Components::
         PositionComponent>(playerEntity).getPosition());
-    auto mapSize = Utility::metersToPixelsSize({ map->getWidth(), map->getHeight() });
+    auto mapSize = Utility::metersToPixelsSize({ map.getWidth(), map.getHeight() });
     auto cameraSize = cameraView.getSize();
 
     if (cameraPosition.x > mapSize.x - cameraSize.x / 2.f)
@@ -86,7 +82,8 @@ void ECS::Systems::RenderSystem::updateViewPosition()
 
 void ECS::Systems::RenderSystem::onSpriteAdded(entt::entity)
 {
-    registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs) { return lhs.getZOrder() < rhs.getZOrder(); });
+    registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs) 
+        { return lhs.getZOrder() < rhs.getZOrder(); });
 }
 
 void ECS::Systems::RenderSystem::onPlayerAdded(entt::entity entity)

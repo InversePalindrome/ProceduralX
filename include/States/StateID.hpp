@@ -10,5 +10,5 @@ https://inversepalindrome.com/
 
 namespace States
 {
-    enum class StateID { Splash, Menu, Game };
+    enum class StateID { Splash, Menu, Settings, Game };
 }

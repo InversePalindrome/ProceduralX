@@ -16,7 +16,7 @@ namespace ECS::Systems
     class CombatSystem : public System
     {
     public:
-        CombatSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        CombatSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

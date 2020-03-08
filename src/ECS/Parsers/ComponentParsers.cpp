@@ -13,6 +13,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/SoundComponent.hpp"
 #include "ECS/Components/SpriteComponent.hpp"
 #include "ECS/Components/ObjectComponent.hpp"
+#include "ECS/Components/WeaponComponent.hpp"
 #include "ECS/Components/AnimationComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Components/PositionComponent.hpp"
@@ -303,4 +304,23 @@ void ECS::Parsers::parseState(entt::registry& registry, entt::entity entity, con
     }
 
     registry.assign<Components::StateComponent>(entity, state);
+}
+
+void ECS::Parsers::parseWeapon(entt::registry& registry, entt::entity entity, const pugi::xml_node& weaponNode)
+{
+    Components::WeaponComponent weapon;
+
+    auto entityOptional = magic_enum::enum_cast<EntityID>(weaponNode.text().as_string());
+
+    if (entityOptional.has_value())
+    {
+        weapon.setProjectile(entityOptional.value());
+    }
+
+    if (auto reloadTimeAttribute = weaponNode.attribute("reloadTime"))
+    {
+        weapon.setReloadTime(App::Seconds(reloadTimeAttribute.as_float()));
+    }
+
+    registry.assign<Components::WeaponComponent>(entity, weapon);
 }

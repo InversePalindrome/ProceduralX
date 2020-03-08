@@ -15,8 +15,9 @@ https://inversepalindrome.com/
 #include "ECS/Utility/AngleConversions.hpp"
 
 
-ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher),
+ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher,
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory),
     world({0.0f, 0.0f}),
     collisionManager(registry, dispatcher)
 {

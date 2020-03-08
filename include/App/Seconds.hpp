@@ -10,6 +10,8 @@ https://inversepalindrome.com/
 #include <chrono>
 
 
+using namespace std::chrono_literals;
+
 namespace App
 {
     using Seconds = std::chrono::duration<float>;

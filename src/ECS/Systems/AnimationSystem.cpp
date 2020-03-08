@@ -10,8 +10,9 @@ https://inversepalindrome.com/
 #include "ECS/Components/AnimationComponent.hpp"
 
 
-ECS::Systems::AnimationSystem::AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher)
+ECS::Systems::AnimationSystem::AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher, 
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory)
 {
     dispatcher.sink<StateChanged>().connect<&AnimationSystem::onStateChanged>(this);
 }

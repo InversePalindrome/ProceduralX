@@ -8,7 +8,9 @@ https://inversepalindrome.com/
 #include "States/GameState.hpp"
 #include "ECS/Parsers/LevelParser.hpp"
 #include "ECS/Systems/AudioSystem.hpp"
+#include "ECS/Systems/InputSystem.hpp"
 #include "ECS/Systems/StateSystem.hpp"
+#include "ECS/Systems/RenderSystem.hpp"
 #include "ECS/Systems/CombatSystem.hpp"
 #include "ECS/Systems/PlayerSystem.hpp"
 #include "ECS/Systems/PhysicsSystem.hpp"
@@ -17,43 +19,36 @@ https://inversepalindrome.com/
 
 States::GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
     State(window, eventDispatcher),
-    map(200.f, 200.f)
+    entityFactory(registry),
+    systems(registry, dispatcher, entityFactory)
 {
-    auto renderSystemPtr = std::make_unique<ECS::Systems::RenderSystem>(registry, dispatcher);
-    renderSystemPtr->setWindow(&window);
-    renderSystemPtr->setMap(&map);
-    renderSystem = renderSystemPtr.get();
-
-    auto inputSystemPtr = std::make_unique<ECS::Systems::InputSystem>(registry, dispatcher);
-    inputSystemPtr->setWindow(&window);
-    inputSystem = inputSystemPtr.get();
-
-    systems.push_back(std::move(inputSystemPtr));
-    systems.push_back(std::move(renderSystemPtr));
-    systems.push_back(std::make_unique<ECS::Systems::AnimationSystem>(registry, dispatcher));
-    systems.push_back(std::make_unique<ECS::Systems::AudioSystem>(registry, dispatcher));
-    systems.push_back(std::make_unique<ECS::Systems::PhysicsSystem>(registry, dispatcher));
-    systems.push_back(std::make_unique<ECS::Systems::PlayerSystem>(registry, dispatcher));
-    systems.push_back(std::make_unique<ECS::Systems::CombatSystem>(registry, dispatcher));
-    systems.push_back(std::make_unique<ECS::Systems::StateSystem>(registry, dispatcher));
+    systems.addSystem<ECS::Systems::InputSystem>();
+    systems.addSystem<ECS::Systems::RenderSystem>();
+    systems.addSystem<ECS::Systems::AnimationSystem>();
+    systems.addSystem<ECS::Systems::AudioSystem>();
+    systems.addSystem<ECS::Systems::PhysicsSystem>();
+    systems.addSystem<ECS::Systems::PlayerSystem>();
+    systems.addSystem<ECS::Systems::CombatSystem>();
+    systems.addSystem<ECS::Systems::StateSystem>();
     
+    systems.getSystem<ECS::Systems::InputSystem>()->setWindow(&window);
+    systems.getSystem<ECS::Systems::RenderSystem>()->setWindow(&window);
+
+    entityFactory.loadEntities("Resources/XML/Entities.xml");
     ECS::Parsers::parseLevel(registry, "Resources/XML/SpaceLevel.xml");
 }
 
 void States::GameState::handleEvent(const sf::Event& event)
 {
-    inputSystem->handleEvent(event);
+    systems.getSystem<ECS::Systems::InputSystem>()->handleEvent(event);
 }
 
 void States::GameState::update(const App::Seconds& deltaTime)
 {
-    for (auto&& system : systems)
-    {
-        system->update(deltaTime);
-    }
+    systems.update(deltaTime);
 }
 
 void States::GameState::render()
 {
-    renderSystem->render();
+    systems.getSystem<ECS::Systems::RenderSystem>()->render();
 }

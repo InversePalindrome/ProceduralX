@@ -21,21 +21,20 @@ namespace ECS::Systems
     class RenderSystem : public System
     {
     public:
-        RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        RenderSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 
         void render();
 
         void setWindow(sf::RenderWindow* window);
-        void setMap(const Map* map);
 
     private:
         entt::entity playerEntity;
         sf::View cameraView;
 
         sf::RenderWindow* window;
-        const Map* map;
+        Map map;
 
         void updateViewPosition();
 

@@ -8,8 +8,9 @@ https://inversepalindrome.com/
 #include "ECS/Systems/System.hpp"
 
 
-ECS::Systems::System::System(entt::registry& registry, entt::dispatcher& dispatcher) :
+ECS::Systems::System::System(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory) :
     registry(registry),
-    dispatcher(dispatcher)
+    dispatcher(dispatcher),
+    entityFactory(entityFactory)
 {
 }

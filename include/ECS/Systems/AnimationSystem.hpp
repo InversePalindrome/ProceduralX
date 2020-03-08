@@ -16,7 +16,7 @@ namespace ECS::Systems
     class AnimationSystem : public System
     {
     public:
-        AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

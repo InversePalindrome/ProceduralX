@@ -10,8 +10,9 @@ https://inversepalindrome.com/
 #include "ECS/Utility/PositionConversions.hpp"
 
 
-ECS::Systems::PlayerSystem::PlayerSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher),
+ECS::Systems::PlayerSystem::PlayerSystem(entt::registry& registry, entt::dispatcher& dispatcher,
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory),
     playerEntity(entt::null)
 {
     registry.on_construct<Components::Player>().connect<&PlayerSystem::onPlayerAdded>(this);

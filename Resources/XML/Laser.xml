@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity>
+    <Sprite texture="RedProjectiles" textureX="158" textureY="224" textureWidth="70" textureHeight="42"
+                originScaleX="0.5" originScaleY="0.5"></Sprite>
+    <Position></Position>
+    <Speed linear="40"></Speed>
+    <Body type="2" bullet="true">
+        <Polygon width="0.75" height="0.5"></Polygon>
+    </Body>
+</Entity>

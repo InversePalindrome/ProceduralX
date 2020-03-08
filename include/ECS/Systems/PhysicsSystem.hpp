@@ -19,7 +19,7 @@ namespace ECS::Systems
     class PhysicsSystem : public System
     {
     public:
-        PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

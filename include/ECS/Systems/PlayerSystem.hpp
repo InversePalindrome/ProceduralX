@@ -16,7 +16,7 @@ namespace ECS::Systems
     class PlayerSystem : public System
     {
     public:
-        PlayerSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        PlayerSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

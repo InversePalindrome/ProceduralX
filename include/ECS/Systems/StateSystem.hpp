@@ -16,7 +16,7 @@ namespace ECS::Systems
     class StateSystem : public System
     {
     public:
-        StateSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        StateSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

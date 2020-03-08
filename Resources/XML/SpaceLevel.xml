@@ -38,6 +38,7 @@
         <Acceleration linearAcceleration="4"></Acceleration>
         <Player></Player>
         <Object>Player</Object>
+        <Weapon>Laser</Weapon>
     </Entity>
     <Entity>
         <Position x="15" y ="15"></Position>

@@ -8,15 +8,9 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "States/State.hpp"
-#include "ECS/Map.hpp"
-#include "ECS/Systems/System.hpp"
-#include "ECS/Systems/InputSystem.hpp"
-#include "ECS/Systems/RenderSystem.hpp"
+#include "ECS/Systems/SystemManager.hpp"
 
 #include <entt/entt.hpp>
-
-#include <vector>
-#include <memory>
 
 
 namespace States
@@ -33,12 +27,7 @@ namespace States
     private:
         entt::registry registry;
         entt::dispatcher dispatcher;
-
-        std::vector<std::unique_ptr<ECS::Systems::System>> systems;
-
-        ECS::Systems::RenderSystem* renderSystem;
-        ECS::Systems::InputSystem* inputSystem;
-
-        ECS::Map map;
+        ECS::EntityFactory entityFactory;
+        ECS::Systems::SystemManager systems;
     };
 }

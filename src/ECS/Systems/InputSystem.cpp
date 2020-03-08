@@ -8,8 +8,9 @@ https://inversepalindrome.com/
 #include "ECS/Systems/InputSystem.hpp"
 
 
-ECS::Systems::InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher),
+ECS::Systems::InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher,
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory),
     window(nullptr)
 
 {

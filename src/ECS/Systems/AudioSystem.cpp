@@ -9,8 +9,9 @@ https://inversepalindrome.com/
 #include "ECS/Components/SoundComponent.hpp"
 
 
-ECS::Systems::AudioSystem::AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher)
+ECS::Systems::AudioSystem::AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher, 
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory)
 {
     dispatcher.sink<StateChanged>().connect<&AudioSystem::onStateChanged>(this);
 }

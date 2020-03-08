@@ -19,7 +19,7 @@ namespace ECS::Systems
     class InputSystem : public System
     {
     public:
-        InputSystem(entt::registry& registry, entt::dispatcher& dispatcher);
+        InputSystem(entt::registry& registry, entt::dispatcher& dispatcher, EntityFactory& entityFactory);
 
         virtual void update(const App::Seconds& deltaTime) override;
 

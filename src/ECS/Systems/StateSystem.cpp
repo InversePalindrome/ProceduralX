@@ -9,8 +9,9 @@ https://inversepalindrome.com/
 #include "ECS/Components/StateComponent.hpp"
 
 
-ECS::Systems::StateSystem::StateSystem(entt::registry& registry, entt::dispatcher& dispatcher) :
-    System(registry, dispatcher)
+ECS::Systems::StateSystem::StateSystem(entt::registry& registry, entt::dispatcher& dispatcher,
+    EntityFactory& entityFactory) :
+    System(registry, dispatcher, entityFactory)
 {
     registry.on_construct<Components::StateComponent>().connect<&StateSystem::onStateAdded>(this);
     dispatcher.sink<ChangeState>().connect<&StateSystem::onChangeState>(this);
