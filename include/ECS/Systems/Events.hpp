@@ -60,6 +60,5 @@ namespace ECS::Systems
     struct ShootProjectile
     {
         entt::entity shooter;
-        sf::Vector2f position;
     };
 }

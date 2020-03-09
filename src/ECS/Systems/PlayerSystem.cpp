@@ -59,5 +59,5 @@ void ECS::Systems::PlayerSystem::rotatePlayer(const MouseMoved& event)
 
 void ECS::Systems::PlayerSystem::shootProjectile(const MousePressed& event)
 {
-    dispatcher.trigger(ChangeState{ playerEntity, State::Shooting });
+    dispatcher.trigger(ShootProjectile{ playerEntity });
 }

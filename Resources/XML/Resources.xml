@@ -10,6 +10,7 @@
         <Planet3>Planet3.png</Planet3>
         <Planet4>Planet4.png</Planet4>
         <Meteor>Meteor.png</Meteor>
+        <RedProjectiles>RedProjectiles.png</RedProjectiles>
     </Textures>
     <Sounds>
         <Laser>Laser.wav</Laser>

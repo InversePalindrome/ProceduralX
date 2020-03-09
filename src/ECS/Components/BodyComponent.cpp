@@ -33,6 +33,8 @@ void ECS::Components::BodyComponent::initialize(b2World& world)
 
         body->CreateFixture(&fixtureDefs[i]);
     }
+
+    computeAABB();
 }
 
 void ECS::Components::BodyComponent::setInitializationParameters(const b2BodyDef& bodyDef, const Fixtures& fixtureDefs, const Shapes& shapes)

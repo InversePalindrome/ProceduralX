@@ -25,4 +25,5 @@ namespace ECS::Parsers
     void parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode);
     void parseState(entt::registry& registry, entt::entity entity, const pugi::xml_node& stateNode);
     void parseWeapon(entt::registry& registry, entt::entity entity, const pugi::xml_node& weaponNode);
+    void parseDamage(entt::registry& registry, entt::entity entity, const pugi::xml_node& damageNode);
 }
