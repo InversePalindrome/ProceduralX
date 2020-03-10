@@ -15,6 +15,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/ObjectComponent.hpp"
 #include "ECS/Components/WeaponComponent.hpp"
 #include "ECS/Components/DamageComponent.hpp"
+#include "ECS/Components/HealthComponent.hpp"
 #include "ECS/Components/AnimationComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Components/PositionComponent.hpp"
@@ -333,4 +334,13 @@ void ECS::Parsers::parseDamage(entt::registry& registry, entt::entity entity, co
     damage.setDamage(damageNode.text().as_float());
 
     registry.assign<Components::DamageComponent>(entity, damage);
+}
+
+void ECS::Parsers::parseHealth(entt::registry& registry, entt::entity entity, const pugi::xml_node& healthNode)
+{
+    Components::HealthComponent health;
+
+    health.setHealth(healthNode.text().as_float());
+
+    registry.assign<Components::HealthComponent>(entity, health);
 }

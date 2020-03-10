@@ -31,6 +31,7 @@ namespace
             {"State", [](auto& registry, auto entity, const auto& node) { ECS::Parsers::parseState(registry, entity, node); }},
             {"Weapon", [](auto& registry, auto entity, const auto& node) { ECS::Parsers::parseWeapon(registry, entity, node); }},
             {"Damage", [](auto& registry, auto entity, const auto& node) { ECS::Parsers::parseDamage(registry, entity, node); }},
+            {"Health", [](auto& registry, auto entity, const auto& node) { ECS::Parsers::parseHealth(registry, entity, node); }},
             {"Player", [](auto& registry, auto entity, const auto&) { registry.assign<ECS::Components::Player>(entity); }
     }
     };
