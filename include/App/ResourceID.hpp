@@ -14,13 +14,13 @@ namespace App
 {
     enum class TextureID : std::size_t 
     {
-        SplashLogo, Spaceship, UFO, SpaceBackground, Planet1,
+        Null, SplashLogo, Spaceship, UFO, SpaceBackground, Planet1,
         Planet2, Planet3, Planet4, Meteor, RedProjectiles
     };
 
-    enum class ImageID : std::size_t { One };
+    enum class ImageID : std::size_t { Null };
 
-    enum class FontID : std::size_t { One };
+    enum class FontID : std::size_t { Null };
 
-    enum class SoundID : std::size_t { Laser };
+    enum class SoundID : std::size_t { Null, Laser };
 }

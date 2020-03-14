@@ -20,7 +20,7 @@ void ECS::Components::AnimationComponent::animate(sf::Sprite& sprite)
 
 void ECS::Components::AnimationComponent::playAnimation(State state)
 {
-    animator.playAnimation(state, states[state]);
+    animator.playAnimation(state, animationMap[state].loop);
 }
 
 void ECS::Components::AnimationComponent::stopAnimation()
@@ -29,10 +29,10 @@ void ECS::Components::AnimationComponent::stopAnimation()
 }
 
 void ECS::Components::AnimationComponent::addAnimation(State state, const std::function<void(sf::Sprite&, float)>& animation, 
-    const sf::Time& duration, bool loop)
+    const AnimationData& animationData)
 {
-    states[state] = loop;
-    animator.addAnimation(state, animation, duration);
+    animationMap[state] = animationData;
+    animator.addAnimation(state, animation, sf::seconds(animationData.duration.count()));
 }
 
 bool ECS::Components::AnimationComponent::isPlayingAnimation() const
@@ -42,5 +42,25 @@ bool ECS::Components::AnimationComponent::isPlayingAnimation() const
 
 bool ECS::Components::AnimationComponent::hasAnimation(State state) const
 {
-    return states.count(state);
+    return animationMap.count(state);
+}
+
+ECS::Components::AnimationComponent::Iterator ECS::Components::AnimationComponent::begin()
+{
+    return animationMap.begin();
+}
+
+ECS::Components::AnimationComponent::Iterator ECS::Components::AnimationComponent::end()
+{
+    return animationMap.end();
+}
+
+ECS::Components::AnimationComponent::ConstIterator ECS::Components::AnimationComponent::begin() const
+{
+    return animationMap.cbegin();
+}
+
+ECS::Components::AnimationComponent::ConstIterator ECS::Components::AnimationComponent::end() const
+{
+    return animationMap.cend();
 }

@@ -31,9 +31,9 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     const auto& shooterWeapon = registry.get<Components::WeaponComponent>(shooterEntity);
 
     b2Vec2 shooterSize(shooterBody.getAABB().upperBound - shooterBody.getAABB().lowerBound);
-    
+
     auto projectileEntity = entityFactory.createEntity(shooterWeapon.getProjectile());
-    
+
     /*
     auto& projectileBody = registry.get<Components::BodyComponent>(projectileEntity);
     const auto& projectileSpeed = registry.get<Components::SpeedComponent>(projectileEntity);

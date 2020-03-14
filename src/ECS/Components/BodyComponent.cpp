@@ -54,6 +54,16 @@ const b2Body* ECS::Components::BodyComponent::getBody() const
     return body;
 }
 
+b2Fixture* ECS::Components::BodyComponent::getFixtureList()
+{
+    return body->GetFixtureList();
+}
+
+const b2Fixture* ECS::Components::BodyComponent::getFixtureList() const
+{
+    return body->GetFixtureList();
+}
+
 b2Vec2 ECS::Components::BodyComponent::getPosition() const
 {
     return body->GetPosition();

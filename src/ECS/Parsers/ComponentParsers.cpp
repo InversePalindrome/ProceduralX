@@ -15,6 +15,8 @@ https://inversepalindrome.com/
 
 #include <magic_enum.hpp>
 
+#include <vector>
+
 
 ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node& spriteNode)
 {
@@ -26,16 +28,17 @@ ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node&
  
         if (textureID.has_value())
         {
-            sprite.setTexture(App::ResourceManager::getInstance().getTexture(textureID.value()));
+            sprite.setTexture(textureID.value(), App::ResourceManager::getInstance().getTexture(textureID.value()));
         }
     }
-    if (auto textureXAttribute = spriteNode.attribute("textureX"),
-        textureYAttribute = spriteNode.attribute("textureY"),
+    if (auto textureLeftAttribute = spriteNode.attribute("textureLeft"),
+        textureTopAttribute = spriteNode.attribute("textureTop"),
         textureWidthAttribute = spriteNode.attribute("textureWidth"),
         textureHeightAttribute = spriteNode.attribute("textureHeight");
-        textureXAttribute && textureYAttribute && textureWidthAttribute && textureHeightAttribute)
+        textureLeftAttribute && textureTopAttribute && textureWidthAttribute && textureHeightAttribute)
     {
-        sprite.setTextureRect({ textureXAttribute.as_int(), textureYAttribute.as_int(), textureWidthAttribute.as_int(), textureHeightAttribute.as_int() });
+        sprite.setTextureRect({ textureLeftAttribute.as_int(), textureTopAttribute.as_int(),
+            textureWidthAttribute.as_int(), textureHeightAttribute.as_int() });
     }
     if (auto scaleXAttribute = spriteNode.attribute("scaleX"),
         scaleYAttribute = spriteNode.attribute("scaleY");
@@ -47,7 +50,7 @@ ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node&
         originScaleYAttribute = spriteNode.attribute("originScaleX");
         originScaleXAttribute && originScaleYAttribute)
     {
-        sprite.setOriginFromScale({ originScaleXAttribute.as_float(), originScaleYAttribute.as_float() });
+        sprite.setOriginScale({ originScaleXAttribute.as_float(), originScaleYAttribute.as_float() });
     }
     if (auto zOrderAttribute = spriteNode.attribute("zOrder"))
     {
@@ -75,7 +78,22 @@ ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml
             }
         }
 
+        sf::Time duration = sf::seconds(1.f);
+
+        if (auto durationAttribute = frameAnimationNode.attribute("duration"))
+        {
+            duration = sf::seconds(durationAttribute.as_float());
+        }
+
+        bool loop = false;
+
+        if (auto loopAttribute = frameAnimationNode.attribute("loop"))
+        {
+            loop = loopAttribute.as_bool();
+        }
+
         thor::FrameAnimation frameAnimation;
+        std::vector<FrameData> frames;
   
         for (auto frameNode : frameAnimationNode.children("Frame"))
         {
@@ -99,23 +117,10 @@ ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml
             }
 
             frameAnimation.addFrame(relativeDuration, frameRect);
+            frames.push_back({ App::Seconds(relativeDuration), frameRect });
         }
 
-        sf::Time duration = sf::seconds(1.f);
-
-        if (auto durationAttribute = frameAnimationNode.attribute("duration"))
-        {
-            duration = sf::seconds(durationAttribute.as_float());
-        }
-
-        bool loop = false;
-
-        if (auto loopAttribute = frameAnimationNode.attribute("loop"))
-        {
-            loop = loopAttribute.as_bool();
-        }
-
-        animation.addAnimation(state, frameAnimation, duration, loop);
+        animation.addAnimation(state, frameAnimation, { frames, App::Seconds(duration.asSeconds()), loop});
     }
 
     return animation;
@@ -154,9 +159,9 @@ ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& s
             {
                 sound.setMinDistance(minDistanceAttribute.as_float());
             }
-            if (auto timeOffsetAttribute = stateNode.attribute("timeOffset"))
+            if (auto playingOffsetAttribute = stateNode.attribute("playingOffset"))
             {
-                sound.setPlayingOffset(sf::seconds(timeOffsetAttribute.as_float()));
+                sound.setPlayingOffset(sf::seconds(playingOffsetAttribute.as_float()));
             }
             if (auto xPositionAttribute = stateNode.attribute("xPosition"),
                 zPositionAttribute = stateNode.attribute("zPosition");
@@ -165,7 +170,7 @@ ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& s
                 sound.setPosition(xPositionAttribute.as_float(), 0.f, zPositionAttribute.as_float());
             }
 
-            soundComponent.addSound(stateOptional.value(), sound);
+            soundComponent.addSound(stateOptional.value(), soundOptional.value(), sound);
         }
     }
 

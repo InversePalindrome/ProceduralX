@@ -7,6 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "App/ResourceID.hpp"
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Drawable.hpp>
@@ -21,20 +23,29 @@ namespace ECS::Components
     {
     public:
         SpriteComponent();
-        explicit SpriteComponent(const sf::Texture& texture);
+        SpriteComponent(App::TextureID textureID, const sf::Texture& texture);
 
         sf::Sprite& getSprite();
         const sf::Sprite& getSprite() const;
 
-        void setTexture(const sf::Texture& texture);
+        App::TextureID getTextureID() const;
+
+        void setTexture(App::TextureID textureID, const sf::Texture& texture);
+
+        sf::IntRect getTextureRect() const;
         void setTextureRect(const sf::IntRect& textureRect);
-        void setOriginFromScale(const sf::Vector2f& originScale);
+
+        sf::Vector2f getOriginScale() const;
+        void setOriginScale(const sf::Vector2f& originScale);
 
         int getZOrder() const;
         void setZOrder(int zOrder);
 
     private:
         sf::Sprite sprite;
+        App::TextureID textureID;
+
+        sf::Vector2f originScale;
         int zOrder;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

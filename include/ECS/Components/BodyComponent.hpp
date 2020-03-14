@@ -36,6 +36,9 @@ namespace ECS::Components
         b2Body* getBody();
         const b2Body* getBody() const;
 
+        b2Fixture* getFixtureList();
+        const b2Fixture* getFixtureList() const;
+
         b2Vec2 getPosition() const;
         void setPosition(const b2Vec2& position);
 

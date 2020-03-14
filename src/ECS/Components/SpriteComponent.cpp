@@ -9,12 +9,16 @@ https://inversepalindrome.com/
 
 
 ECS::Components::SpriteComponent::SpriteComponent() :
+    originScale(0.f, 0.f),
+    textureID(App::TextureID::Null),
     zOrder(0)
 {
 }
 
-ECS::Components::SpriteComponent::SpriteComponent(const sf::Texture& texture) :
+ECS::Components::SpriteComponent::SpriteComponent(App::TextureID textureID, const sf::Texture& texture) :
     sprite(texture),
+    textureID(textureID),
+    originScale(0.f, 0.f),
     zOrder(0)
 {
 }
@@ -29,9 +33,21 @@ const sf::Sprite& ECS::Components::SpriteComponent::getSprite() const
     return sprite;
 }
 
-void ECS::Components::SpriteComponent::setTexture(const sf::Texture& texture) 
+App::TextureID ECS::Components::SpriteComponent::getTextureID() const
 {
+    return textureID;
+}
+
+void ECS::Components::SpriteComponent::setTexture(App::TextureID textureID, const sf::Texture& texture) 
+{
+    this->textureID = textureID;
+
     sprite.setTexture(texture, true);
+}
+
+sf::IntRect ECS::Components::SpriteComponent::getTextureRect() const
+{
+    return sprite.getTextureRect();
 }
 
 void ECS::Components::SpriteComponent::setTextureRect(const sf::IntRect& textureRect)
@@ -39,8 +55,15 @@ void ECS::Components::SpriteComponent::setTextureRect(const sf::IntRect& texture
     sprite.setTextureRect(textureRect);
 }
 
-void ECS::Components::SpriteComponent::setOriginFromScale(const sf::Vector2f& originScale)
+sf::Vector2f ECS::Components::SpriteComponent::getOriginScale() const
 {
+    return originScale;
+}
+
+void ECS::Components::SpriteComponent::setOriginScale(const sf::Vector2f& originScale)
+{
+    this->originScale = originScale;
+
     sprite.setOrigin(sprite.getLocalBounds().width * originScale.x, sprite.getLocalBounds().height * originScale.y);
 }
 
