@@ -14,6 +14,6 @@ https://inversepalindrome.com/
 
 namespace ECS::Serializers
 {
-    void serializeEntity(entt::entity entity, const std::string& filename);
-    void serializeEntity(entt::entity entity, pugi::xml_node& entityNode);
+    void serializeEntity(entt::entity entity, const entt::registry& registry, const std::string& filename);
+    void serializeEntity(entt::entity entity, const entt::registry& registry, pugi::xml_node& entityNode);
 }

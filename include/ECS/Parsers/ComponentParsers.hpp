@@ -7,24 +7,36 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include <entt/entt.hpp>
+#include "ECS/Components/BodyComponent.hpp"
+#include "ECS/Components/SpeedComponent.hpp"
+#include "ECS/Components/StateComponent.hpp"
+#include "ECS/Components/SoundComponent.hpp"
+#include "ECS/Components/SpriteComponent.hpp"
+#include "ECS/Components/ObjectComponent.hpp"
+#include "ECS/Components/WeaponComponent.hpp"
+#include "ECS/Components/DamageComponent.hpp"
+#include "ECS/Components/HealthComponent.hpp"
+#include "ECS/Components/AnimationComponent.hpp"
+#include "ECS/Components/AccelerationComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/RotationComponent.hpp"
 
 #include <pugixml.hpp>
 
 
 namespace ECS::Parsers
 {
-    void parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode);
-    void parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode);
-    void parseSound(entt::registry& registry, entt::entity entity, const pugi::xml_node& soundNode);
-    void parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
-    void parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode);
-    void parseBody(entt::registry& registry, entt::entity entity, const pugi::xml_node& bodyNode);
-    void parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode);
-    void parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode);
-    void parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode);
-    void parseState(entt::registry& registry, entt::entity entity, const pugi::xml_node& stateNode);
-    void parseWeapon(entt::registry& registry, entt::entity entity, const pugi::xml_node& weaponNode);
-    void parseDamage(entt::registry& registry, entt::entity entity, const pugi::xml_node& damageNode);
-    void parseHealth(entt::registry& registry, entt::entity entity, const pugi::xml_node& healthNode);
+    Components::SpriteComponent parseSprite(const pugi::xml_node& spriteNode);
+    Components::AnimationComponent parseAnimation(const pugi::xml_node& animationNode);
+    Components::SoundComponent parseSound(const pugi::xml_node& soundNode);
+    Components::PositionComponent parsePosition(const pugi::xml_node& positionNode);
+    Components::RotationComponent parseRotation(const pugi::xml_node& rottionNode);
+    Components::BodyComponent parseBody(const pugi::xml_node& bodyNode);
+    Components::SpeedComponent parseSpeed(const pugi::xml_node& speedNode);
+    Components::AccelerationComponent parseAcceleration(const pugi::xml_node& accelerationNode);
+    Components::ObjectComponent parseObject(const pugi::xml_node& objectNode);
+    Components::StateComponent parseState(const pugi::xml_node& stateNode);
+    Components::WeaponComponent parseWeapon(const pugi::xml_node& weaponNode);
+    Components::DamageComponent parseDamage(const pugi::xml_node& damageNode);
+    Components::HealthComponent parseHealth(const pugi::xml_node& healthNode);
 }

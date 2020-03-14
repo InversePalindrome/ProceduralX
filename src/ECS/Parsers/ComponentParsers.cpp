@@ -7,19 +7,6 @@ https://inversepalindrome.com/
 
 #include "ECS/Parsers/BodyParser.hpp"
 #include "ECS/Parsers/ComponentParsers.hpp"
-#include "ECS/Components/BodyComponent.hpp"
-#include "ECS/Components/SpeedComponent.hpp"
-#include "ECS/Components/StateComponent.hpp"
-#include "ECS/Components/SoundComponent.hpp"
-#include "ECS/Components/SpriteComponent.hpp"
-#include "ECS/Components/ObjectComponent.hpp"
-#include "ECS/Components/WeaponComponent.hpp"
-#include "ECS/Components/DamageComponent.hpp"
-#include "ECS/Components/HealthComponent.hpp"
-#include "ECS/Components/AnimationComponent.hpp"
-#include "ECS/Components/AccelerationComponent.hpp"
-#include "ECS/Components/PositionComponent.hpp"
-#include "ECS/Components/RotationComponent.hpp"
 #include "App/ResourceManager.hpp"
 
 #include <thor/Animations/FrameAnimation.hpp>
@@ -29,7 +16,7 @@ https://inversepalindrome.com/
 #include <magic_enum.hpp>
 
 
-void ECS::Parsers::parseSprite(entt::registry& registry, entt::entity entity, const pugi::xml_node& spriteNode)
+ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node& spriteNode)
 {
     Components::SpriteComponent sprite;
 
@@ -67,10 +54,10 @@ void ECS::Parsers::parseSprite(entt::registry& registry, entt::entity entity, co
         sprite.setZOrder(zOrderAttribute.as_int());
     }
 
-    registry.assign<Components::SpriteComponent>(entity, sprite);
+    return sprite;
 }
 
-void ECS::Parsers::parseAnimation(entt::registry& registry, entt::entity entity, const pugi::xml_node& animationNode)
+ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml_node& animationNode)
 {
     Components::AnimationComponent animation;
 
@@ -131,10 +118,10 @@ void ECS::Parsers::parseAnimation(entt::registry& registry, entt::entity entity,
         animation.addAnimation(state, frameAnimation, duration, loop);
     }
 
-    registry.assign<Components::AnimationComponent>(entity, animation);
+    return animation;
 }
 
-void ECS::Parsers::parseSound(entt::registry& registry, entt::entity entity, const pugi::xml_node& soundNode)
+ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& soundNode)
 {
     Components::SoundComponent soundComponent;
 
@@ -182,10 +169,10 @@ void ECS::Parsers::parseSound(entt::registry& registry, entt::entity entity, con
         }
     }
 
-    registry.assign<Components::SoundComponent>(entity, soundComponent);
+    return soundComponent;
 }
 
-void ECS::Parsers::parsePosition(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
+ECS::Components::PositionComponent ECS::Parsers::parsePosition(const pugi::xml_node& positionNode)
 {
     Components::PositionComponent position;
 
@@ -198,22 +185,22 @@ void ECS::Parsers::parsePosition(entt::registry& registry, entt::entity entity, 
         position.setPosition({ position.getPosition().x, yAttribute.as_float() });
     }
 
-    registry.assign<Components::PositionComponent>(entity, position);
+    return position;
 }
 
-void ECS::Parsers::parseRotation(entt::registry& registry, entt::entity entity, const pugi::xml_node& positionNode)
+ECS::Components::RotationComponent ECS::Parsers::parseRotation(const pugi::xml_node& rotationNode)
 {
     Components::RotationComponent rotation;
 
-    if (auto angleAttribute = positionNode.attribute("angle"))
+    if (auto angleAttribute = rotationNode.attribute("angle"))
     {
         rotation.setAngle(angleAttribute.as_float());
     }
 
-    registry.assign<Components::RotationComponent>(entity, rotation);
+    return rotation;
 }
 
-void ECS::Parsers::parseBody(entt::registry& registry, entt::entity entity, const pugi::xml_node& bodyNode)
+ECS::Components::BodyComponent ECS::Parsers::parseBody(const pugi::xml_node& bodyNode)
 {
     Components::BodyComponent body;
 
@@ -245,10 +232,11 @@ void ECS::Parsers::parseBody(entt::registry& registry, entt::entity entity, cons
     }
 
     body.setInitializationParameters(bodyDef, fixtureDefs, shapes);
-    registry.assign<Components::BodyComponent>(entity, body);
+
+    return body;
 }
 
-void ECS::Parsers::parseSpeed(entt::registry& registry, entt::entity entity, const pugi::xml_node& speedNode)
+ECS::Components::SpeedComponent ECS::Parsers::parseSpeed(const pugi::xml_node& speedNode)
 {
     Components::SpeedComponent speed;
 
@@ -261,10 +249,10 @@ void ECS::Parsers::parseSpeed(entt::registry& registry, entt::entity entity, con
         speed.setAngularSpeed(angularSpeedAttribute.as_float());
     }
 
-    registry.assign<Components::SpeedComponent>(entity, speed);
+    return speed;
 }
 
-void ECS::Parsers::parseAcceleration(entt::registry& registry, entt::entity entity, const pugi::xml_node& accelerationNode)
+ECS::Components::AccelerationComponent ECS::Parsers::parseAcceleration(const pugi::xml_node& accelerationNode)
 {
     Components::AccelerationComponent acceleration;
 
@@ -277,10 +265,10 @@ void ECS::Parsers::parseAcceleration(entt::registry& registry, entt::entity enti
         acceleration.setAngularAcceleration(angularAccelerationAttribute.as_float());
     }
 
-    registry.assign<Components::AccelerationComponent>(entity, acceleration);
+    return acceleration;
 }
 
-void ECS::Parsers::parseObject(entt::registry& registry, entt::entity entity, const pugi::xml_node& objectNode)
+ECS::Components::ObjectComponent ECS::Parsers::parseObject(const pugi::xml_node& objectNode)
 {
     Components::ObjectComponent object;
 
@@ -291,10 +279,10 @@ void ECS::Parsers::parseObject(entt::registry& registry, entt::entity entity, co
         object.setObjectType(objectTypeOptional.value());
     }
 
-    registry.assign<Components::ObjectComponent>(entity, object);
+    return object;
 }
 
-void ECS::Parsers::parseState(entt::registry& registry, entt::entity entity, const pugi::xml_node& stateNode)
+ECS::Components::StateComponent ECS::Parsers::parseState(const pugi::xml_node& stateNode)
 {
     Components::StateComponent state;
 
@@ -305,10 +293,10 @@ void ECS::Parsers::parseState(entt::registry& registry, entt::entity entity, con
         state.setState(entityStateOptional.value());
     }
 
-    registry.assign<Components::StateComponent>(entity, state);
+    return state;
 }
 
-void ECS::Parsers::parseWeapon(entt::registry& registry, entt::entity entity, const pugi::xml_node& weaponNode)
+ECS::Components::WeaponComponent ECS::Parsers::parseWeapon(const pugi::xml_node& weaponNode)
 {
     Components::WeaponComponent weapon;
 
@@ -324,23 +312,23 @@ void ECS::Parsers::parseWeapon(entt::registry& registry, entt::entity entity, co
         weapon.setReloadTime(App::Seconds(reloadTimeAttribute.as_float()));
     }
 
-    registry.assign<Components::WeaponComponent>(entity, weapon);
+    return weapon;
 }
 
-void ECS::Parsers::parseDamage(entt::registry& registry, entt::entity entity, const pugi::xml_node& damageNode)
+ECS::Components::DamageComponent ECS::Parsers::parseDamage(const pugi::xml_node& damageNode)
 {
     Components::DamageComponent damage;
 
     damage.setDamage(damageNode.text().as_float());
 
-    registry.assign<Components::DamageComponent>(entity, damage);
+    return damage;
 }
 
-void ECS::Parsers::parseHealth(entt::registry& registry, entt::entity entity, const pugi::xml_node& healthNode)
+ECS::Components::HealthComponent ECS::Parsers::parseHealth(const pugi::xml_node& healthNode)
 {
     Components::HealthComponent health;
 
     health.setHealth(healthNode.text().as_float());
 
-    registry.assign<Components::HealthComponent>(entity, health);
+    return health;
 }

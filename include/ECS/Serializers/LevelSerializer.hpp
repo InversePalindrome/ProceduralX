@@ -14,5 +14,5 @@ https://inversepalindrome.com/
 
 namespace ECS::Serializers
 {
-    void serializeLevel(entt::registry& registry, const std::string& filename);
+    void serializeLevel(const entt::registry& registry, const std::string& filename);
 }

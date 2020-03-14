@@ -15,6 +15,8 @@ namespace ECS::Components
     class ObjectComponent
     {
     public:
+        ObjectComponent();
+
         ObjectType getObjectType() const;
         void setObjectType(ObjectType objectType);
 

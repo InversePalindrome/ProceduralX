@@ -8,6 +8,11 @@ https://inversepalindrome.com/
 #include "ECS/Components/ObjectComponent.hpp"
 
 
+ECS::Components::ObjectComponent::ObjectComponent() :
+    objectType(ObjectType::Enemy)
+{
+}
+
 ECS::ObjectType ECS::Components::ObjectComponent::getObjectType() const
 {
     return objectType;
