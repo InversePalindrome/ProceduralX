@@ -10,5 +10,6 @@ https://inversepalindrome.com/
 
 namespace ECS
 {
-    enum class ObjectType { Player, Enemy };
+    enum class ObjectType { Player = (1 << 0), Enemy = (1 << 1), Projectile = (1 << 2),
+        Alive = Player | Enemy };
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Level>
     <Entity>
-        <Sprite texture="SpaceBackground" textureX="0" textureY="0" textureWidth="8192" textureHeight ="8192"></Sprite>
+        <Sprite texture="SpaceBackground" textureLeft="0" textureTop="0" textureWidth="8192" textureHeight ="8192"></Sprite>
     </Entity>
     <Entity>
-        <Sprite texture="UFO" textureX="0" textureY="0" textureWidth="64" textureHeight="64"
+        <Sprite texture="UFO" textureLeft="0" textureTop="0" textureWidth="64" textureHeight="64"
                 originScaleX="0.5" originScaleY="0.5" scaleX="2" scaleY="2" zOrder="1"></Sprite>
         <Animation>
             <FrameAnimation id="Idle" duration="0.5" loop="true">
@@ -39,6 +39,7 @@
         <Player></Player>
         <Object>Player</Object>
         <Weapon>Laser</Weapon>
+        <Health>5</Health>
     </Entity>
     <Entity>
         <Position x="15" y ="15"></Position>

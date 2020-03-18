@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 
 #include "ECS/Components/ObjectComponent.hpp"
+#include "ECS/Systems/Events.hpp"
 #include "ECS/CollisionManager.hpp"
 
 
@@ -26,6 +27,10 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
     if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Player, ObjectType::Enemy))
     {
 
+    }
+    if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Projectile, ObjectType::Alive))
+    {
+        dispatcher.trigger(ECS::Systems::CombatOccurred{ entityA, entityB });
     }
 }
 

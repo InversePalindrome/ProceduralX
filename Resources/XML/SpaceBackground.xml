@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Entity>
-    <Sprite texture="SpaceBackground" textureX="0" textureY="0" textureWidth="3200" textureHeight ="3200"></Sprite>
+    <Sprite texture="SpaceBackground" textureLeft="0" textureTop="0" textureWidth="3200" textureHeight ="3200"></Sprite>
 </Entity>

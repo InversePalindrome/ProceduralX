@@ -9,6 +9,8 @@ https://inversepalindrome.com/
 #include "ECS/Systems/CombatSystem.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
+#include "ECS/Components/DamageComponent.hpp"
+#include "ECS/Components/HealthComponent.hpp"
 #include "ECS/Components/WeaponComponent.hpp"
 
 
@@ -16,6 +18,7 @@ ECS::Systems::CombatSystem::CombatSystem(entt::registry& registry, entt::dispatc
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory)
 {
+    dispatcher.sink<CombatOccurred>().connect<&CombatSystem::onCombatOccurred>(this);
     dispatcher.sink<ShootProjectile>().connect<&CombatSystem::onShootProjectile>(this);
 }
 
@@ -24,16 +27,33 @@ void ECS::Systems::CombatSystem::update(const App::Seconds& deltaTime)
 
 }
 
+void ECS::Systems::CombatSystem::onCombatOccurred(const CombatOccurred& event)
+{
+    auto attackerEntity = event.attacker;
+    auto victimEntity = event.victim;
+
+    const auto& attackerDamage = registry.get<Components::DamageComponent>(attackerEntity);
+
+    auto& victimHealth = registry.get<Components::HealthComponent>(victimEntity);
+
+    victimHealth.setHealth(victimHealth.getHealth() - attackerDamage.getDamage());
+
+    if (victimHealth.getHealth() <= 0)
+    {
+        registry.destroy(victimEntity);
+
+    }
+}
+
 void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
 {
     auto shooterEntity = event.shooter;
     const auto& shooterBody = registry.get<Components::BodyComponent>(shooterEntity);
     const auto& shooterWeapon = registry.get<Components::WeaponComponent>(shooterEntity);
-
+    
     b2Vec2 shooterSize(shooterBody.getAABB().upperBound - shooterBody.getAABB().lowerBound);
-
+    
     auto projectileEntity = entityFactory.createEntity(shooterWeapon.getProjectile());
-
     /*
     auto& projectileBody = registry.get<Components::BodyComponent>(projectileEntity);
     const auto& projectileSpeed = registry.get<Components::SpeedComponent>(projectileEntity);
@@ -52,6 +72,6 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     projectileBody.setLinearVelocity(shooterBody.getLinearVelocity());
     projectileBody.applyLinearImpulse(projectileBody.getMass() * projectileSpeed.getLinearSpeed() 
         * projectileDirection);
-      */  
+      */
     dispatcher.trigger(ChangeState{ shooterEntity, State::Shooting });
 }

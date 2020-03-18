@@ -61,4 +61,10 @@ namespace ECS::Systems
     {
         entt::entity shooter;
     };
+
+    struct CombatOccurred
+    {
+        entt::entity attacker;
+        entt::entity victim;
+    };
 }

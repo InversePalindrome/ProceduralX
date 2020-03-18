@@ -21,6 +21,7 @@ namespace ECS::Systems
         virtual void update(const App::Seconds& deltaTime) override;
 
     private:
+        void onCombatOccurred(const CombatOccurred& event);
         void onShootProjectile(const ShootProjectile& event);
     };
 }
