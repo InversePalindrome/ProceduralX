@@ -52,9 +52,5 @@ void ECS::EntityFactory::clearEntities()
 
 entt::entity ECS::EntityFactory::createEntity(EntityID entityID)
 {
-    auto entity = registry.create();
-
-    Parsers::parseEntity(registry, entityFiles.at(entityID));
-
-    return entity;
+    return Parsers::parseEntity(registry, entityFiles.at(entityID));
 }
