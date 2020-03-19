@@ -41,7 +41,6 @@ void ECS::Systems::CombatSystem::onCombatOccurred(const CombatOccurred& event)
     if (victimHealth.getHealth() <= 0)
     {
         registry.destroy(victimEntity);
-
     }
 }
 
@@ -50,11 +49,11 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     auto shooterEntity = event.shooter;
     const auto& shooterBody = registry.get<Components::BodyComponent>(shooterEntity);
     const auto& shooterWeapon = registry.get<Components::WeaponComponent>(shooterEntity);
-    
+
     b2Vec2 shooterSize(shooterBody.getAABB().upperBound - shooterBody.getAABB().lowerBound);
     
     auto projectileEntity = entityFactory.createEntity(shooterWeapon.getProjectile());
-    /*
+    
     auto& projectileBody = registry.get<Components::BodyComponent>(projectileEntity);
     const auto& projectileSpeed = registry.get<Components::SpeedComponent>(projectileEntity);
 
@@ -70,8 +69,8 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     projectileBody.setPosition(shooterBody.getPosition() + projectilePositionOffset);
     projectileBody.setAngle(shooterBody.getAngle());
     projectileBody.setLinearVelocity(shooterBody.getLinearVelocity());
-    projectileBody.applyLinearImpulse(projectileBody.getMass() * projectileSpeed.getLinearSpeed() 
+    projectileBody.applyLinearImpulse(projectileBody.getMass() * projectileSpeed.getLinearSpeed()
         * projectileDirection);
-      */
+      
     dispatcher.trigger(ChangeState{ shooterEntity, State::Shooting });
 }
