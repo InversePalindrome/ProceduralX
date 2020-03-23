@@ -46,9 +46,11 @@ void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
 
 void ECS::Systems::PhysicsSystem::onMoveEntity(const MoveEntity& event)
 {
-    auto& body = registry.get<Components::BodyComponent>(event.entity);
-    const auto& speed = registry.get<Components::SpeedComponent>(event.entity);
-    const auto& acceleration = registry.get<Components::AccelerationComponent>(event.entity);
+    auto entity = event.entity;
+
+    auto& body = registry.get<Components::BodyComponent>(entity);
+    const auto& speed = registry.get<Components::SpeedComponent>(entity);
+    const auto& acceleration = registry.get<Components::AccelerationComponent>(entity);
 
     switch (event.direction)
     {

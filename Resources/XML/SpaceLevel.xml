@@ -38,7 +38,7 @@
         <Acceleration linearAcceleration="4"></Acceleration>
         <Player></Player>
         <Object>Player</Object>
-        <Weapon>Laser</Weapon>
+        <Weapon>>Laser</Weapon>
         <Health>5</Health>
     </Entity>
     <Entity>

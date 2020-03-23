@@ -15,7 +15,8 @@ ECS::Components::BodyComponent::BodyComponent() :
 }
 
 ECS::Components::BodyComponent::BodyComponent(b2Body* body) :
-    body(body)
+    body(body),
+    AABB({ {FLT_MAX, FLT_MAX}, {-FLT_MAX, -FLT_MAX} })
 {
     computeAABB();
 }
