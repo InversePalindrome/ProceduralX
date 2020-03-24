@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - PositionComponent.hpp
+ProceduralX - TransformComponent.hpp
 https://inversepalindrome.com/
 */
 
@@ -12,17 +12,20 @@ https://inversepalindrome.com/
 
 namespace ECS::Components
 {
-    class PositionComponent
+    class TransformComponent
     {
     public:
-        PositionComponent();
-        explicit PositionComponent(const sf::Vector2f& position);
-        PositionComponent(float xPosition, float yPosition);
+        TransformComponent();
+        TransformComponent(const sf::Vector2f& position, float angle);
 
         sf::Vector2f getPosition() const;
         void setPosition(const sf::Vector2f& position);
 
+        float getAngle() const;
+        void setAngle(float angle);
+
     private:
         sf::Vector2f position;
+        float angle;
     };
 }

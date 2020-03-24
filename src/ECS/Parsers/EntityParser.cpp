@@ -33,13 +33,9 @@ namespace
             { 
                 registry.assign<SoundComponent>(entity, parseSound(node)); 
             } },
-            {"Position", [](auto& registry, auto entity, const auto& node) 
+            {"Transform", [](auto& registry, auto entity, const auto& node) 
             { 
-                registry.assign<PositionComponent>(entity, parsePosition(node)); 
-            }},
-            {"Rotation", [](auto& registry, auto entity, const auto& node) 
-            {
-                registry.assign<RotationComponent>(entity, parseRotation(node)); 
+                registry.assign<TransformComponent>(entity, parseTransform(node)); 
             }},
             {"Body", [](auto& registry, auto entity, const auto& node) 
             { 

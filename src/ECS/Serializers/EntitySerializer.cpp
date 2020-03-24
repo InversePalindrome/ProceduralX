@@ -34,13 +34,9 @@ namespace
             {
                 serializeSound(registry.get<SoundComponent>(entity), node);
             }),
-        hana::make_pair(hana::type_c<PositionComponent>, [](const auto& registry, auto entity, auto& node)
+        hana::make_pair(hana::type_c<TransformComponent>, [](const auto& registry, auto entity, auto& node)
             {
-                serializePosition(registry.get<PositionComponent>(entity), node);
-            }),
-        hana::make_pair(hana::type_c<RotationComponent>, [](const auto& registry, auto entity, auto& node)
-            {
-                serializeRotation(registry.get<RotationComponent>(entity), node);
+                serializeTransform(registry.get<TransformComponent>(entity), node);
             }),
         hana::make_pair(hana::type_c<BodyComponent>, [](const auto& registry, auto entity, auto& node)
             {

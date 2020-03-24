@@ -78,19 +78,13 @@ void ECS::Serializers::serializeSound(const Components::SoundComponent& sound, p
     }
 }
 
-void ECS::Serializers::serializePosition(const Components::PositionComponent& position, pugi::xml_node& positionNode)
+void ECS::Serializers::serializeTransform(const Components::TransformComponent& transform, pugi::xml_node& transformNode)
 {
-    positionNode.set_name("Position");
+    transformNode.set_name("Transform");
 
-    positionNode.append_attribute("x") = position.getPosition().x;
-    positionNode.append_attribute("y") = position.getPosition().y;
-}
-
-void ECS::Serializers::serializeRotation(const Components::RotationComponent& rotation, pugi::xml_node& rotationNode)
-{
-    rotationNode.set_name("Rotation");
-    
-    rotationNode.append_attribute("angle") = rotation.getAngle();
+    transformNode.append_attribute("x") = transform.getPosition().x;
+    transformNode.append_attribute("y") = transform.getPosition().y;
+    transformNode.append_attribute("angle") = transform.getAngle();
 }
 
 void ECS::Serializers::serializeBody(const Components::BodyComponent& body, pugi::xml_node& bodyNode)

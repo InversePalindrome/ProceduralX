@@ -18,8 +18,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/HealthComponent.hpp"
 #include "ECS/Components/AnimationComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
-#include "ECS/Components/PositionComponent.hpp"
-#include "ECS/Components/RotationComponent.hpp"
+#include "ECS/Components/TransformComponent.hpp"
 
 #include <pugixml.hpp>
 
@@ -29,8 +28,7 @@ namespace ECS::Parsers
     Components::SpriteComponent parseSprite(const pugi::xml_node& spriteNode);
     Components::AnimationComponent parseAnimation(const pugi::xml_node& animationNode);
     Components::SoundComponent parseSound(const pugi::xml_node& soundNode);
-    Components::PositionComponent parsePosition(const pugi::xml_node& positionNode);
-    Components::RotationComponent parseRotation(const pugi::xml_node& rottionNode);
+    Components::TransformComponent parseTransform(const pugi::xml_node& transformNode);
     Components::BodyComponent parseBody(const pugi::xml_node& bodyNode);
     Components::SpeedComponent parseSpeed(const pugi::xml_node& speedNode);
     Components::AccelerationComponent parseAcceleration(const pugi::xml_node& accelerationNode);

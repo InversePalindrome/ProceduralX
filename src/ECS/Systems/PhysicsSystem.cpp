@@ -9,8 +9,7 @@ https://inversepalindrome.com/
 #include "ECS/Systems/PhysicsSystem.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
-#include "ECS/Components/PositionComponent.hpp"
-#include "ECS/Components/RotationComponent.hpp"
+#include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Utility/AngleConversions.hpp"
 
@@ -31,17 +30,8 @@ ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispa
 
 void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
 {
-    registry.view<Components::PositionComponent, Components::RotationComponent, Components::BodyComponent>()
-        .each([](auto& position, auto& rotation, const auto& body)
-        {
-            position.setPosition({ body.getPosition().x, body.getPosition().y });
-            rotation.setAngle(Utility::radiansToDegrees(body.getAngle()));
-        });
-
-    const int VELOCITY_ITERATIONS = 6;
-    const int POSITION_ITERATIONS = 2;
-
-    world.Step(deltaTime.count(), VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+    updateEntitiesTransforms();
+    updateWorld(deltaTime);
 }
 
 void ECS::Systems::PhysicsSystem::onMoveEntity(const MoveEntity& event)
@@ -99,4 +89,22 @@ void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::entity entity)
     auto& body = registry.get<Components::BodyComponent>(entity);
 
     world.DestroyBody(body.getBody());
+}
+
+void ECS::Systems::PhysicsSystem::updateEntitiesTransforms()
+{
+    registry.view<Components::BodyComponent, Components::TransformComponent>()
+        .each([](const auto& body, auto& transform)
+            {
+                transform.setPosition({ body.getPosition().x, body.getPosition().y });
+                transform.setAngle(Utility::radiansToDegrees(body.getAngle()));
+            });
+}
+
+void ECS::Systems::PhysicsSystem::updateWorld(const App::Seconds& deltaTime)
+{
+    const int VELOCITY_ITERATIONS = 6;
+    const int POSITION_ITERATIONS = 2;
+
+    world.Step(deltaTime.count(), VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }

@@ -2,10 +2,10 @@
 <Entity>
     <Sprite texture="RedProjectiles" textureLeft="158" textureTop="224" textureWidth="70" textureHeight="42"
                 originScaleX="0.5" originScaleY="0.5" zOrder="1"></Sprite>
-    <Position></Position>
+    <Transform></Transform>
     <Speed linear="40"></Speed>
     <Body type="2" bullet="true">
-        <Polygon width="0.75" height="0.5"></Polygon>
+        <Polygon width="4.375" height="2.5"></Polygon>
     </Body>
     <Damage></Damage>
     <Object>Projectile</Object>

@@ -18,8 +18,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/HealthComponent.hpp"
 #include "ECS/Components/AnimationComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
-#include "ECS/Components/PositionComponent.hpp"
-#include "ECS/Components/RotationComponent.hpp"
+#include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Components/ComponentTags.hpp"
 
 #include <brigand/sequences/list.hpp>
@@ -29,5 +28,5 @@ namespace ECS::Components
 {
     using ComponentList = brigand::list<BodyComponent, SpeedComponent, StateComponent, SoundComponent,
     SpriteComponent, ObjectComponent, WeaponComponent, DamageComponent, HealthComponent, AnimationComponent,
-    AccelerationComponent, PositionComponent, RotationComponent, Player>;
+    AccelerationComponent, TransformComponent, Player>;
 }

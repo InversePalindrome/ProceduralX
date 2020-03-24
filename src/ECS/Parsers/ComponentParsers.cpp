@@ -177,32 +177,24 @@ ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& s
     return soundComponent;
 }
 
-ECS::Components::PositionComponent ECS::Parsers::parsePosition(const pugi::xml_node& positionNode)
+ECS::Components::TransformComponent ECS::Parsers::parseTransform(const pugi::xml_node& transformNode)
 {
-    Components::PositionComponent position;
+    Components::TransformComponent transform;
 
-    if (auto xAttribute = positionNode.attribute("x"))
+    if (auto xAttribute = transformNode.attribute("x"))
     {
-        position.setPosition({ xAttribute.as_float(), position.getPosition().y });
+        transform.setPosition({ xAttribute.as_float(), transform.getPosition().y });
     }
-    if (auto yAttribute = positionNode.attribute("y"))
+    if (auto yAttribute = transformNode.attribute("y"))
     {
-        position.setPosition({ position.getPosition().x, yAttribute.as_float() });
+        transform.setPosition({ transform.getPosition().x, yAttribute.as_float() });
     }
-
-    return position;
-}
-
-ECS::Components::RotationComponent ECS::Parsers::parseRotation(const pugi::xml_node& rotationNode)
-{
-    Components::RotationComponent rotation;
-
-    if (auto angleAttribute = rotationNode.attribute("angle"))
+    if (auto angleAttribute = transformNode.attribute("angle"))
     {
-        rotation.setAngle(angleAttribute.as_float());
+        transform.setAngle(angleAttribute.as_float());
     }
 
-    return rotation;
+    return transform;
 }
 
 ECS::Components::BodyComponent ECS::Parsers::parseBody(const pugi::xml_node& bodyNode)

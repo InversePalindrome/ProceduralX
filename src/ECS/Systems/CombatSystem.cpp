@@ -6,12 +6,14 @@ https://inversepalindrome.com/
 
 
 #include "App/Constants.hpp"
+#include "ECS/Utility/AngleConversions.hpp"
 #include "ECS/Systems/CombatSystem.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
 #include "ECS/Components/DamageComponent.hpp"
 #include "ECS/Components/HealthComponent.hpp"
 #include "ECS/Components/WeaponComponent.hpp"
+#include "ECS/Components/TransformComponent.hpp"
 
 
 ECS::Systems::CombatSystem::CombatSystem(entt::registry& registry, entt::dispatcher& dispatcher,
@@ -72,11 +74,12 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     auto projectileEntity = entityFactory.createEntity(shooterWeapon.getProjectile());
     
     auto& projectileBody = registry.get<Components::BodyComponent>(projectileEntity);
+    auto& projectileTransform = registry.get<Components::TransformComponent>(projectileEntity);
     const auto& projectileSpeed = registry.get<Components::SpeedComponent>(projectileEntity);
 
     const auto& shooterBody = registry.get<Components::BodyComponent>(shooterEntity);
     b2Vec2 shooterSize(shooterBody.getAABB().upperBound - shooterBody.getAABB().lowerBound);
-
+    
     b2Vec2 projectileDirection(std::cos(shooterBody.getAngle()), std::sin(shooterBody.getAngle()));
     b2Vec2 projectileSize(projectileBody.getAABB().upperBound - projectileBody.getAABB().lowerBound);
 
@@ -91,6 +94,9 @@ void ECS::Systems::CombatSystem::onShootProjectile(const ShootProjectile& event)
     projectileBody.setLinearVelocity(shooterBody.getLinearVelocity());
     projectileBody.applyLinearImpulse(projectileBody.getMass() * projectileSpeed.getLinearSpeed()
         * projectileDirection);
+
+    projectileTransform.setPosition({ projectileBody.getPosition().x, projectileBody.getPosition().y });
+    projectileTransform.setAngle(Utility::radiansToDegrees(projectileBody.getAngle()));
 
     reloadTimer.add(shooterWeapon.getReloadTime(), [this, shooterEntity](auto) 
         {

@@ -31,5 +31,8 @@ namespace ECS::Systems
         void onRotateEntity(const RotateEntity& event);
         void onBodyAdded(entt::entity entity);
         void onBodyRemoved(entt::entity entity);
+
+        void updateEntitiesTransforms();
+        void updateWorld(const App::Seconds& deltaTime);
     };
 }

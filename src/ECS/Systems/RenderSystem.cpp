@@ -7,8 +7,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Systems/RenderSystem.hpp"
 #include "ECS/Components/ComponentTags.hpp"
-#include "ECS/Components/RotationComponent.hpp"
-#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Utility/PositionConversions.hpp"
 #include "ECS/Utility/SizeConversions.hpp"
 
@@ -28,11 +27,11 @@ void ECS::Systems::RenderSystem::update(const App::Seconds& deltaTime)
 {
     updateViewPosition();
 
-    registry.view<Components::SpriteComponent, Components::PositionComponent, Components::RotationComponent>().each(
-        [](auto& sprite, const auto& position, const auto& rotation)
+    registry.view<Components::SpriteComponent, Components::TransformComponent>().each(
+        [](auto& sprite, const auto& transform)
         {
-            sprite.setPosition(Utility::physicsToGraphicsPosition(position.getPosition()));
-            sprite.setRotation(-rotation.getAngle());
+            sprite.setPosition(Utility::physicsToGraphicsPosition(transform.getPosition()));
+            sprite.setRotation(-transform.getAngle());
         });
 }
 
@@ -54,7 +53,7 @@ void ECS::Systems::RenderSystem::setWindow(sf::RenderWindow* window)
 void ECS::Systems::RenderSystem::updateViewPosition()
 {
     auto cameraPosition = Utility::physicsToGraphicsPosition(registry.get<Components::
-        PositionComponent>(playerEntity).getPosition());
+        TransformComponent>(playerEntity).getPosition());
     auto mapSize = Utility::metersToPixelsSize({ map.getWidth(), map.getHeight() });
     auto cameraSize = cameraView.getSize();
 
