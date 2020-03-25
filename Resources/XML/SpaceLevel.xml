@@ -41,11 +41,21 @@
         <Health>5</Health>
     </Entity>
     <Entity>
-        <Transform x="15" y ="15"></Transform>
+        <Transform></Transform>
         <Body type="0" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false" x="50" y="-40">
             <Circle density="0" friction="0.200000003" restitution="0" sensor="false" radius="6.61" />
         </Body>
         <Sprite scaleX="0.25" scaleY="0.25" texture="Planet1" originScaleX="0.5" originScaleY="0.5" zOrder="1" />
+        <Object>Planet</Object>
+    </Entity>
+    <Entity>
+        <Transform></Transform>
+        <Sprite texture="Spaceships" originScaleX="0.5" originScaleY="0.5" textureLeft="0"
+                textureTop="181" textureWidth="82" textureHeight="82" zOrder="1"></Sprite>
+        <Body type="0" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false" x="20" y="-40">
+            <Circle density="0" friction="0.200000003" restitution="0" sensor="false" radius="2.56" />
+        </Body>
+        <Health>5</Health>
         <Object>Enemy</Object>
     </Entity>
 </Level>

@@ -5,7 +5,6 @@ https://inversepalindrome.com/
 */
 
 
-
 #include "ECS/Components/ObjectComponent.hpp"
 #include "ECS/Systems/Events.hpp"
 #include "ECS/CollisionManager.hpp"
@@ -24,11 +23,8 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
     auto entityB = static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>
         (contact->GetFixtureB()->GetBody()->GetUserData()));
 
-    if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Player, ObjectType::Enemy))
-    {
-
-    }
-    if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Projectile, ObjectType::Alive))
+    if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Projectile,
+        ObjectType::Player | ObjectType::Enemy))
     {
         dispatcher.trigger(ECS::Systems::CombatOccurred{ entityA, entityB });
     }
@@ -50,18 +46,18 @@ void ECS::CollisionManager::PostSolve(b2Contact* contact, const b2ContactImpulse
 }
 
 std::optional<std::pair<entt::entity, entt::entity>> ECS::CollisionManager::getCollisionPair
-(entt::entity entityA, entt::entity entityB, ObjectType objectTypeA, ObjectType objectTypeB)
+(entt::entity entityA, entt::entity entityB, flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB)
 {
     if (registry.has<Components::ObjectComponent>(entityA) && registry.has<Components::ObjectComponent>(entityB))
     {
         const auto& objectA = registry.get<Components::ObjectComponent>(entityA);
         const auto& objectB = registry.get<Components::ObjectComponent>(entityB);
 
-        if (objectA.getObjectType() == objectTypeA && objectB.getObjectType() == objectTypeB)
+        if (objectA.getObjectType() & objectTypeA && objectB.getObjectType() & objectTypeB)
         {
             return { { entityA, entityB } };
         }
-        else if (objectA.getObjectType() == objectTypeB && objectB.getObjectType() == objectTypeA)
+        else if (objectA.getObjectType() & objectTypeB && objectB.getObjectType() & objectTypeA)
         {
             return { {entityB, entityA} };
         }

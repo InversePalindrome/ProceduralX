@@ -2,7 +2,6 @@
 <Resources>
     <Textures>
         <SplashLogo>InversePalindromeLogo.png</SplashLogo>
-        <Spaceship>Spaceship.png</Spaceship>
         <UFO>AnimatedUFO.png</UFO>
         <SpaceBackground repeat="true">SpaceBackground.png</SpaceBackground>
         <Planet1>Planet1.png</Planet1>
@@ -11,6 +10,7 @@
         <Planet4>Planet4.png</Planet4>
         <Meteor>Meteor.png</Meteor>
         <RedProjectiles>RedProjectiles.png</RedProjectiles>
+        <Spaceships>Spaceships.png</Spaceships>
     </Textures>
     <Sounds>
         <Laser>Laser.wav</Laser>

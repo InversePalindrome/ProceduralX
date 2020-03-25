@@ -40,6 +40,7 @@ namespace ECS
         virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override;
 
         std::optional<std::pair<entt::entity, entt::entity>> getCollisionPair
-        (entt::entity entityA, entt::entity entityB, ObjectType objectTypeA, ObjectType objectTypeB);
+        (entt::entity entityA, entt::entity entityB, flags::flags<ObjectType> objectTypeA, 
+            flags::flags<ObjectType> objectTypeB);
     };
 }
