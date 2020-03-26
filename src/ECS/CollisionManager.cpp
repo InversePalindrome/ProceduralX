@@ -23,10 +23,28 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
     auto entityB = static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>
         (contact->GetFixtureB()->GetBody()->GetUserData()));
 
-    if (auto collisionPair = getCollisionPair(entityA, entityB, ObjectType::Projectile,
-        ObjectType::Player | ObjectType::Enemy))
+    if (!registry.has<Components::ObjectComponent>(entityA) || !registry.has<Components::ObjectComponent>(entityB))
     {
-        dispatcher.trigger(ECS::Systems::CombatOccurred{ entityA, entityB });
+        return;
+    }
+
+    auto objectA = registry.get<Components::ObjectComponent>(entityA).getObjectType();
+    auto objectB = registry.get<Components::ObjectComponent>(entityB).getObjectType();;
+
+    if (auto collisionPair = getCollisionPair(entityA, entityB, objectA, objectB,
+        ObjectType::Projectile, ObjectType::Player | ObjectType::Enemy))
+    {
+        auto [projectile, victim] = *collisionPair;
+
+        dispatcher.trigger(ECS::Systems::CombatOccurred{ projectile, victim });
+    }
+    if (objectA & ObjectType::Projectile)
+    {
+        //registry.destroy(entityA);
+    }
+    if (objectB & ObjectType::Projectile)
+    {
+        //registry.destroy(entityB);
     }
 }
 
@@ -45,22 +63,17 @@ void ECS::CollisionManager::PostSolve(b2Contact* contact, const b2ContactImpulse
 
 }
 
-std::optional<std::pair<entt::entity, entt::entity>> ECS::CollisionManager::getCollisionPair
-(entt::entity entityA, entt::entity entityB, flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB)
+std::optional<std::pair<entt::entity, entt::entity>> ECS::getCollisionPair(entt::entity entityA, entt::entity entityB,
+ flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB,
+ flags::flags<ObjectType> orderedObjectTypeA, flags::flags<ObjectType> orderedObjectTypeB)
 {
-    if (registry.has<Components::ObjectComponent>(entityA) && registry.has<Components::ObjectComponent>(entityB))
+    if (objectTypeA & orderedObjectTypeA && objectTypeB & orderedObjectTypeB)
     {
-        const auto& objectA = registry.get<Components::ObjectComponent>(entityA);
-        const auto& objectB = registry.get<Components::ObjectComponent>(entityB);
-
-        if (objectA.getObjectType() & objectTypeA && objectB.getObjectType() & objectTypeB)
-        {
-            return { { entityA, entityB } };
-        }
-        else if (objectA.getObjectType() & objectTypeB && objectB.getObjectType() & objectTypeA)
-        {
-            return { {entityB, entityA} };
-        }
+        return { { entityA, entityB } };
+    }
+    else if (objectTypeA & orderedObjectTypeB && objectTypeB & orderedObjectTypeA)
+    {
+        return { { entityB, entityA } };
     }
 
     return {};

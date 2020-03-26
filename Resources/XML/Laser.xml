@@ -7,6 +7,6 @@
     <Body type="2" bullet="true">
         <Polygon width="4.375" height="2.5"></Polygon>
     </Body>
-    <Damage></Damage>
+    <Damage>1</Damage>
     <Object>Projectile</Object>
 </Entity>

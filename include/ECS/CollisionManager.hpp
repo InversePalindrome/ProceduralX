@@ -38,9 +38,9 @@ namespace ECS
 
         virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override;
         virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override;
-
-        std::optional<std::pair<entt::entity, entt::entity>> getCollisionPair
-        (entt::entity entityA, entt::entity entityB, flags::flags<ObjectType> objectTypeA, 
-            flags::flags<ObjectType> objectTypeB);
     };
+
+    std::optional<std::pair<entt::entity, entt::entity>> getCollisionPair(entt::entity entityA, entt::entity entityB,
+        flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB,
+        flags::flags<ObjectType> orderedObjectTypeA, flags::flags<ObjectType> orderedObjectTypeB);
 }
