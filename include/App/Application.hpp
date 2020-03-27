@@ -12,6 +12,8 @@ https://inversepalindrome.com/
 #include "States/StateFactory.hpp"
 #include "States/EventDispatcher.hpp"
 
+#include <TGUI/Gui.hpp>
+
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <chrono>
@@ -28,6 +30,8 @@ namespace App
 
     private:
         sf::RenderWindow window;
+        tgui::Gui gui;
+
         States::StateFactory stateFactory;
         States::StateMachine stateMachine;
         States::EventDispatcher eventDispatcher;

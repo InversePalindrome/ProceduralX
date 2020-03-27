@@ -12,18 +12,16 @@ https://inversepalindrome.com/
 
 #include <SFML/Window/Event.hpp>
 
-#include <imgui-SFML.h>
-
 
 using namespace std::chrono_literals;
 
 App::Application::Application() :
     window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
         APP_NAME, sf::Style::Titlebar | sf::Style::Close),
-    stateFactory(window, eventDispatcher)
+    gui(window),
+    stateFactory(window, gui, eventDispatcher)
 {
     ResourceManager::getInstance().loadResources("Resources/XML/Resources.xml");
-    ImGui::SFML::Init(window);
 
     addEventListeners();
 
@@ -53,8 +51,6 @@ void App::Application::run()
             elapsedTime -= TIME_PER_FRAME;
         }
     }
-
-    ImGui::SFML::Shutdown();
 }
 
 void App::Application::handleEvents()
@@ -71,14 +67,13 @@ void App::Application::handleEvents()
         }
 
         stateMachine.handleEvent(event);
-        ImGui::SFML::ProcessEvent(event);
+        gui.handleEvent(event);
     }
 }
 
 void App::Application::update(const Seconds& deltaTime)
 {
     stateMachine.update(deltaTime);
-    ImGui::SFML::Update(window, sf::seconds(deltaTime.count()));
 }
 
 void App::Application::render()
@@ -86,7 +81,7 @@ void App::Application::render()
     window.clear(sf::Color::White);
 
     stateMachine.render();
-    ImGui::SFML::Render(window);
+    gui.draw();
 
     window.display();
 }

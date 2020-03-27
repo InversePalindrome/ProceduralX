@@ -30,7 +30,8 @@ ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispa
 
 void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
 {
-    updateEntitiesTransforms();
+    updateEntityRemoval();
+    updateEntityTransforms();
     updateWorld(deltaTime);
 }
 
@@ -87,11 +88,21 @@ void ECS::Systems::PhysicsSystem::onBodyAdded(entt::entity entity)
 void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::entity entity)
 {
     auto& body = registry.get<Components::BodyComponent>(entity);
-
-    world.DestroyBody(body.getBody());
+    
+    bodiesToRemove.push_back(body.getBody());
 }
 
-void ECS::Systems::PhysicsSystem::updateEntitiesTransforms()
+void ECS::Systems::PhysicsSystem::updateEntityRemoval()
+{
+    for (auto* body : bodiesToRemove)
+    {
+        world.DestroyBody(body);
+    }
+
+    bodiesToRemove.clear();
+}
+
+void ECS::Systems::PhysicsSystem::updateEntityTransforms()
 {
     registry.view<Components::BodyComponent, Components::TransformComponent>()
         .each([](const auto& body, auto& transform)

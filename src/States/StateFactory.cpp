@@ -9,13 +9,16 @@ https://inversepalindrome.com/
 #include "States/GameState.hpp"
 #include "States/SplashState.hpp"
 #include "States/StateFactory.hpp"
+#include "States/SettingsState.hpp"
 
 
-States::StateFactory::StateFactory(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
+States::StateFactory::StateFactory(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
     window(window),
+    gui(gui),
     eventDispatcher(eventDispatcher)
 {
     registerState<SplashState>(StateID::Splash);
+    registerState<SettingsState>(StateID::Settings);
     registerState<MenuState>(StateID::Menu);
     registerState<GameState>(StateID::Game);
 }

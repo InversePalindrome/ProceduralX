@@ -17,7 +17,7 @@ namespace States
     class SplashState : public State
     {
     public:
-        SplashState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
+        SplashState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
 
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;

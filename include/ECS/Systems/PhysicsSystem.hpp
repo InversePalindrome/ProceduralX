@@ -13,6 +13,8 @@ https://inversepalindrome.com/
 
 #include <box2d/b2_world.h>
 
+#include <vector>
+
 
 namespace ECS::Systems
 {
@@ -26,13 +28,15 @@ namespace ECS::Systems
     private:
         b2World world;
         CollisionManager collisionManager;
+        std::vector<b2Body*> bodiesToRemove;
 
         void onMoveEntity(const MoveEntity& event);
         void onRotateEntity(const RotateEntity& event);
         void onBodyAdded(entt::entity entity);
         void onBodyRemoved(entt::entity entity);
 
-        void updateEntitiesTransforms();
+        void updateEntityRemoval();
+        void updateEntityTransforms();
         void updateWorld(const App::Seconds& deltaTime);
     };
 }

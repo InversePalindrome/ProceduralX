@@ -12,8 +12,8 @@ https://inversepalindrome.com/
 
 using namespace std::chrono_literals;
 
-States::SplashState::SplashState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
-    State(window, eventDispatcher),
+States::SplashState::SplashState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+    State(window, gui, eventDispatcher),
     splashScreen(App::ResourceManager::getInstance().getTexture(App::TextureID::SplashLogo)),
     splashTime(3s)
 {
@@ -33,7 +33,7 @@ void States::SplashState::update(const App::Seconds& deltaTime)
 
     if (splashTime <= std::chrono::nanoseconds::zero())
     {
-        eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Game));
+        eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Menu));
     }
 }
 

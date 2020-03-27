@@ -23,7 +23,8 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
     auto entityB = static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>
         (contact->GetFixtureB()->GetBody()->GetUserData()));
 
-    if (!registry.has<Components::ObjectComponent>(entityA) || !registry.has<Components::ObjectComponent>(entityB))
+    if (!registry.valid(entityA) || !registry.valid(entityB) || !registry.has
+        <Components::ObjectComponent>(entityA) || !registry.has<Components::ObjectComponent>(entityB))
     {
         return;
     }
@@ -40,11 +41,11 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
     }
     if (objectA & ObjectType::Projectile)
     {
-        //registry.destroy(entityA);
+        registry.destroy(entityA);
     }
     if (objectB & ObjectType::Projectile)
     {
-        //registry.destroy(entityB);
+        registry.destroy(entityB);
     }
 }
 

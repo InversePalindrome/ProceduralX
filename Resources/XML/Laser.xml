@@ -5,7 +5,7 @@
     <Transform></Transform>
     <Speed linearSpeed="100"></Speed>
     <Body type="2" bullet="true">
-        <Polygon width="4.375" height="2.5"></Polygon>
+        <Polygon width="2" height="1.5"></Polygon>
     </Body>
     <Damage>1</Damage>
     <Object>Projectile</Object>

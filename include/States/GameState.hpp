@@ -18,7 +18,7 @@ namespace States
     class GameState : public State
     {
     public:
-        GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher);
+        GameState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
 
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;

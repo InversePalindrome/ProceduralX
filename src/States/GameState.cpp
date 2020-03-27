@@ -17,8 +17,8 @@ https://inversepalindrome.com/
 #include "ECS/Systems/AnimationSystem.hpp"
 
 
-States::GameState::GameState(sf::RenderWindow& window, EventDispatcher& eventDispatcher) :
-    State(window, eventDispatcher),
+States::GameState::GameState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+    State(window, gui, eventDispatcher),
     entityFactory(registry),
     systems(registry, dispatcher, entityFactory)
 {
