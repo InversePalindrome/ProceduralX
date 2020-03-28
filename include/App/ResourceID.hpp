@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - ResourceID.hpp
+ProceduralX - App/ResourceID.hpp
 https://inversepalindrome.com/
 */
 

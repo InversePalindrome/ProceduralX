@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - Application.cpp
+ProceduralX - App/Application.cpp
 https://inversepalindrome.com/
 */
 
@@ -8,7 +8,7 @@ https://inversepalindrome.com/
 #include "App/Application.hpp"
 #include "App/Constants.hpp"
 #include "App/ResourceManager.hpp"
-#include "States/ChangeStateEvent.hpp"
+#include "States/Events/ChangeStateEvent.hpp"
 
 #include <SFML/Window/Event.hpp>
 
@@ -88,9 +88,11 @@ void App::Application::render()
 
 void App::Application::addEventListeners()
 {
-    eventDispatcher.appendListener(States::EventID::ChangeState, [this](const auto& event)
+    eventDispatcher.appendListener(States::Events::EventID::ChangeState, [this](const auto& event)
     {
-        const auto& changeStateEvent = dynamic_cast<const States::ChangeStateEvent&>(event);
+        const auto& changeStateEvent = dynamic_cast<const States::Events::ChangeStateEvent&>(event);
+
+        gui.removeAllWidgets();
 
         stateMachine.popState();
         stateMachine.pushState(stateFactory.createState(changeStateEvent.transitionState));

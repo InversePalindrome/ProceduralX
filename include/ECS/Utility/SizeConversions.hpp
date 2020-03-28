@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SizeConversions.hpp
+ProceduralX - ECS/Utility/SizeConversions.hpp
 https://inversepalindrome.com/
 */
 

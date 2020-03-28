@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - Application.hpp
+ProceduralX - App/Application.hpp
 https://inversepalindrome.com/
 */
 
@@ -10,7 +10,7 @@ https://inversepalindrome.com/
 #include "App/Seconds.hpp"
 #include "States/StateMachine.hpp"
 #include "States/StateFactory.hpp"
-#include "States/EventDispatcher.hpp"
+#include "States/Events/EventDispatcher.hpp"
 
 #include <TGUI/Gui.hpp>
 
@@ -34,7 +34,7 @@ namespace App
 
         States::StateFactory stateFactory;
         States::StateMachine stateMachine;
-        States::EventDispatcher eventDispatcher;
+        States::Events::EventDispatcher eventDispatcher;
 
         void handleEvents();
         void update(const Seconds& deltaTime);

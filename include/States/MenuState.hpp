@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - MenuState.hpp
+ProceduralX - States/MenuState.hpp
 https://inversepalindrome.com/
 */
 
@@ -16,7 +16,7 @@ namespace States
     class MenuState : public State
     {
     public:
-        MenuState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
+        MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
 
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - EntityParser.cpp
+ProceduralX - ECS/Parsers/EntityParser.cpp
 https://inversepalindrome.com/
 */
 

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - StateMachine.cpp
+ProceduralX - States/StateMachine.cpp
 https://inversepalindrome.com/
 */
 

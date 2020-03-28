@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - GameState.cpp
+ProceduralX - States/GameState.cpp
 https://inversepalindrome.com/
 */
 
@@ -17,7 +17,7 @@ https://inversepalindrome.com/
 #include "ECS/Systems/AnimationSystem.hpp"
 
 
-States::GameState::GameState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+States::GameState::GameState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
     State(window, gui, eventDispatcher),
     entityFactory(registry),
     systems(registry, dispatcher, entityFactory)

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SystemManager.hpp
+ProceduralX - ECS/Systems/SystemManager.hpp
 https://inversepalindrome.com/
 */
 

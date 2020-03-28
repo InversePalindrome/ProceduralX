@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - WeaponComponent.cpp
+ProceduralX - ECS/Components/WeaponComponent.cpp
 https://inversepalindrome.com/
 */
 

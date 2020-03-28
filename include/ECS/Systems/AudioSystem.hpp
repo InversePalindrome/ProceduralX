@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - AudioSystem.hpp
+ProceduralX - ECS/Systems/AudioSystem.hpp
 https://inversepalindrome.com/
 */
 

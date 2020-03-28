@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SoundComponent.hpp
+ProceduralX - ECS/Components/SoundComponent.hpp
 https://inversepalindrome.com/
 */
 

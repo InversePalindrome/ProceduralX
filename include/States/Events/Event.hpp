@@ -1,16 +1,16 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - Event.hpp
+ProceduralX - States/Events/Event.hpp
 https://inversepalindrome.com/
 */
 
 
 #pragma once
 
-#include "States/EventID.hpp"
+#include "States/Events//EventID.hpp"
 
 
-namespace States
+namespace States::Events
 {
     struct Event
     {

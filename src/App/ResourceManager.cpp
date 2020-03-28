@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - ResourceManager.cpp
+ProceduralX - App/ResourceManager.cpp
 https://inversepalindrome.com/
 */
 

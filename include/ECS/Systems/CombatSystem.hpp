@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - CombatSystem.hpp
+ProceduralX - ECS/Systems/CombatSystem.hpp
 https://inversepalindrome.com/
 */
 

@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - CollisionManager.hpp
+ProceduralX - ECS/CollisionManager.hpp
 https://inversepalindrome.com/
 */
 

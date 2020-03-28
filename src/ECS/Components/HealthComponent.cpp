@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - HealthComponent.cpp
+ProceduralX - ECS/Components/HealthComponent.cpp
 https://inversepalindrome.com/
 */
 

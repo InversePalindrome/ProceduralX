@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - EntitySerializer.hpp
+ProceduralX - ECS/Serializers/EntitySerializer.hpp
 https://inversepalindrome.com/
 */
 

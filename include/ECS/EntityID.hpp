@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - EntityID.hpp
+ProceduralX - ECS/EntityID.hpp
 https://inversepalindrome.com/
 */
 

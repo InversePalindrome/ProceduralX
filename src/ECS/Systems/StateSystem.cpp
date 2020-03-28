@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - StateSystem.cpp
+ProceduralX - ECS/Systems/StateSystem.cpp
 https://inversepalindrome.com/
 */
 

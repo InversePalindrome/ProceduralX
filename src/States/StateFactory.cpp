@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - StateFactory.cpp
+ProceduralX - States/StateFactory.cpp
 https://inversepalindrome.com/
 */
 
@@ -12,7 +12,7 @@ https://inversepalindrome.com/
 #include "States/SettingsState.hpp"
 
 
-States::StateFactory::StateFactory(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+States::StateFactory::StateFactory(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
     window(window),
     gui(gui),
     eventDispatcher(eventDispatcher)

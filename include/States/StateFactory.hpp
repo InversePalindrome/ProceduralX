@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - StateFactory.hpp
+ProceduralX - States/StateFactory.hpp
 https://inversepalindrome.com/
 */
 
@@ -22,7 +22,7 @@ namespace States
     class StateFactory
     {
     public:
-        StateFactory(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
+        StateFactory(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
         StateFactory(const StateFactory&) = delete;
         StateFactory& operator=(const StateFactory&) = delete;
         StateFactory(StateFactory&&) = delete;
@@ -34,7 +34,7 @@ namespace States
         std::unordered_map<StateID, std::function<StatePtr()>> factory;
         sf::RenderWindow& window;
         tgui::Gui& gui;
-        EventDispatcher& eventDispatcher;
+        Events::EventDispatcher& eventDispatcher;
 
         template<typename T>
         void registerState(StateID stateID);

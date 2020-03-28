@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - DamageComponent.hpp
+ProceduralX - ECS/Components/DamageComponent.hpp
 https://inversepalindrome.com/
 */
 

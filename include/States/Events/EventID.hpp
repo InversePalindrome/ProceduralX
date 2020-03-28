@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - EventID.hpp
+ProceduralX - States/Events/EventID.hpp
 https://inversepalindrome.com/
 */
 
@@ -8,7 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 
-namespace States
+namespace States::Events
 {
     enum class EventID { ChangeState };
 }

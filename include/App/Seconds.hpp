@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - Seconds.hpp
+ProceduralX - App/Seconds.hpp
 https://inversepalindrome.com/
 */
 

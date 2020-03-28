@@ -1,34 +1,34 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - MenuState.cpp
+ProceduralX - States/MenuState.cpp
 https://inversepalindrome.com/
 */
 
 
 #include "States/MenuState.hpp"
-#include "States/ChangeStateEvent.hpp"
+#include "States/Events/ChangeStateEvent.hpp"
 
 #include <TGUI/SignalImpl.hpp>
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/Widgets/VerticalLayout.hpp>
 
 
-States::MenuState::MenuState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+States::MenuState::MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
     State(window, gui, eventDispatcher)
 {
     auto playButton = tgui::Button::create("Play");
     
     playButton->connect("pressed", [&gui, &eventDispatcher]()
         { 
-            gui.removeAllWidgets();
-            eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Game));
+            eventDispatcher.dispatch(Events::ChangeStateEvent
+            (Events::EventID::ChangeState, StateID::Game));
         });
 
     auto settingsButton = tgui::Button::create("Settings");
     settingsButton->connect("pressed", [&gui, &eventDispatcher]() 
         {
-            gui.removeAllWidgets();
-            eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Settings));
+            eventDispatcher.dispatch(Events::ChangeStateEvent
+            (Events::EventID::ChangeState, StateID::Settings));
         });
 
     auto quitButton = tgui::Button::create("Quit");

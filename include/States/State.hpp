@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - State.hpp
+ProceduralX - States/State.hpp
 https://inversepalindrome.com/
 */
 
@@ -8,7 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "App/Seconds.hpp"
-#include "States/EventDispatcher.hpp"
+#include "States/Events/EventDispatcher.hpp"
 
 #include <TGUI/Gui.hpp>
 
@@ -21,7 +21,7 @@ namespace States
     class State
     {
     public:
-        State(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
+        State(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
         State(const State&) = delete;
         State& operator=(const State&) = delete;
         State(State&&) = delete;
@@ -36,6 +36,6 @@ namespace States
     protected:
         sf::RenderWindow& window;
         tgui::Gui& gui;
-        EventDispatcher& eventDispatcher;
+        Events::EventDispatcher& eventDispatcher;
     };
 }

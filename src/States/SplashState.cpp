@@ -1,18 +1,18 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SplashShate.cpp
+ProceduralX - States/SplashShate.cpp
 https://inversepalindrome.com/
 */
 
 
 #include "States/SplashState.hpp"
-#include "States/ChangeStateEvent.hpp"
+#include "States/Events/ChangeStateEvent.hpp"
 #include "App/ResourceManager.hpp"
 
 
 using namespace std::chrono_literals;
 
-States::SplashState::SplashState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher) :
+States::SplashState::SplashState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
     State(window, gui, eventDispatcher),
     splashScreen(App::ResourceManager::getInstance().getTexture(App::TextureID::SplashLogo)),
     splashTime(3s)
@@ -33,7 +33,8 @@ void States::SplashState::update(const App::Seconds& deltaTime)
 
     if (splashTime <= std::chrono::nanoseconds::zero())
     {
-        eventDispatcher.dispatch(ChangeStateEvent(EventID::ChangeState, StateID::Menu));
+        eventDispatcher.dispatch(Events::ChangeStateEvent
+        (Events::EventID::ChangeState, StateID::Menu));
     }
 }
 

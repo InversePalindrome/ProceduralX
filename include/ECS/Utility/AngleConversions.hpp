@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - AngleConversions.hpp
+ProceduralX - ECS/Utility/AngleConversions.hpp
 https://inversepalindrome.com/
 */
 

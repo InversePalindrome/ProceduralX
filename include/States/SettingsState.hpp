@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - SettingsState.hpp
+ProceduralX - States/SettingsState.hpp
 https://inversepalindrome.com/
 */
 
@@ -16,7 +16,7 @@ namespace States
     class SettingsState : public State
     {
     public:
-        SettingsState(sf::RenderWindow& window, tgui::Gui& gui, EventDispatcher& eventDispatcher);
+        SettingsState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
 
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;

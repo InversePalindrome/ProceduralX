@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - AnimationComponent.cpp
+ProceduralX - ECS/Components/AnimationComponent.cpp
 https://inversepalindrome.com/
 */
 

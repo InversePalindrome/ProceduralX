@@ -1,17 +1,17 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - ChangeStateEvent.hpp
+ProceduralX - States/Events/ChangeStateEvent.hpp
 https://inversepalindrome.com/
 */
 
 
 #pragma once
 
-#include "States/Event.hpp"
+#include "States/Events/Event.hpp"
 #include "States/StateID.hpp"
 
 
-namespace States
+namespace States::Events
 {
     struct ChangeStateEvent : public Event
     {

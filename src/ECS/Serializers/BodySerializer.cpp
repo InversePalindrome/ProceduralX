@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - BodySerializer.cpp
+ProceduralX - ECS/Serializers/BodySerializer.cpp
 https://inversepalindrome.com/
 */
 

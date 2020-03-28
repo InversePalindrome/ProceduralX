@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - Constants.hpp
+ProceduralX - App/Constants.hpp
 https://inversepalindrome.com/
 */
 
