@@ -7,11 +7,12 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "ECS/Action.hpp"
 #include "ECS/Systems/System.hpp"
-#include "ECS/Systems/Events.hpp"
-#include "App/InputManager.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include <Thor/Input/ActionMap.hpp>
 
 
 namespace ECS::Systems
@@ -25,14 +26,14 @@ namespace ECS::Systems
 
         void handleEvent(const sf::Event& event);
 
+        void setActions(thor::ActionMap<Action>* actions);
         void setWindow(sf::RenderWindow* window);
 
     private:
-        App::InputManager inputManager;
-
+        thor::ActionMap<Action>* actions;
         sf::RenderWindow* window;
 
-        void sendKeyActionEvent();
+        void updateActions();
         void sendMouseMovedEvent();
         void sendMousePressedEvent();
 

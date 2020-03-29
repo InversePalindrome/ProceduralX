@@ -5,12 +5,14 @@ https://inversepalindrome.com/
 */
 
 
+#include "ECS/Systems/Events.hpp"
 #include "ECS/Systems/InputSystem.hpp"
 
 
 ECS::Systems::InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher,
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory),
+    actions(nullptr),
     window(nullptr)
 
 {
@@ -18,16 +20,13 @@ ECS::Systems::InputSystem::InputSystem(entt::registry& registry, entt::dispatche
 
 void ECS::Systems::InputSystem::update(const App::Seconds& deltaTime)
 {
-    inputManager.update(*window);
+    updateActions();
 }
 
 void ECS::Systems::InputSystem::handleEvent(const sf::Event& event)
 {
     switch (event.type)
     {
-    case sf::Event::KeyPressed:
-        sendKeyActionEvent();
-        break;
     case sf::Event::MouseMoved:
         sendMouseMovedEvent();
         break;
@@ -37,28 +36,33 @@ void ECS::Systems::InputSystem::handleEvent(const sf::Event& event)
     }
 }
 
+void ECS::Systems::InputSystem::setActions(thor::ActionMap<Action>* actions)
+{
+    this->actions = actions;
+}
+
 void ECS::Systems::InputSystem::setWindow(sf::RenderWindow* window)
 {
     this->window = window;
 }
 
-void ECS::Systems::InputSystem::sendKeyActionEvent()
+void ECS::Systems::InputSystem::updateActions()
 {
-    if (inputManager.isPressed(App::InputManager::Action::Up))
+    if (actions->isActive(Action::MoveUp))
     {
-        dispatcher.trigger(ActionTriggered{ App::InputManager::Action::Up });
+        dispatcher.trigger(ActionTriggered{ Action::MoveUp });
     }
-    if (inputManager.isPressed(App::InputManager::Action::Down))
+    if (actions->isActive(Action::MoveDown))
     {
-        dispatcher.trigger(ActionTriggered{ App::InputManager::Action::Down });
+        dispatcher.trigger(ActionTriggered{ Action::MoveDown });
     }
-    if (inputManager.isPressed( App::InputManager::Action::Right))
+    if (actions->isActive( Action::MoveRight))
     {
-        dispatcher.trigger(ActionTriggered{ App::InputManager::Action::Right });
+        dispatcher.trigger(ActionTriggered{ Action::MoveRight });
     }
-    if (inputManager.isPressed(App::InputManager::Action::Left))
+    if (actions->isActive(Action::MoveLeft))
     {
-        dispatcher.trigger(ActionTriggered{ App::InputManager::Action::Left });
+        dispatcher.trigger(ActionTriggered{ Action::MoveLeft });
     }
 }
 

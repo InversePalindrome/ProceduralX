@@ -33,6 +33,9 @@ namespace States
         virtual void update(const App::Seconds& deltaTime) = 0;
         virtual void render() = 0;
 
+        virtual void onEnter() {};
+        virtual void onExit() {};
+
     protected:
         sf::RenderWindow& window;
         tgui::Gui& gui;

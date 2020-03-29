@@ -10,12 +10,24 @@ https://inversepalindrome.com/
 
 void States::StateMachine::pushState(StatePtr state)
 {
+    if (!states.empty())
+    {
+        states.top()->onExit();
+    }
+
     states.push(std::move(state));
+    states.top()->onEnter();
 }
 
 void States::StateMachine::popState()
 {
+    states.top()->onExit();
     states.pop();
+
+    if (!states.empty())
+    {
+        states.top()->onEnter();
+    }
 }
 
 void States::StateMachine::handleEvent(const sf::Event& event)

@@ -5,6 +5,7 @@ https://inversepalindrome.com/
 */
 
 
+#include "ECS/Action.hpp"
 #include "ECS/Systems/PlayerSystem.hpp"
 #include "ECS/Components/ComponentTags.hpp"
 #include "ECS/Utility/PositionConversions.hpp"
@@ -35,16 +36,16 @@ void ECS::Systems::PlayerSystem::movePlayer(const ActionTriggered& event)
 {
     switch (event.actionType)
     {
-    case App::InputManager::Action::Up:
+    case Action::MoveUp:
         dispatcher.trigger(MoveEntity{ playerEntity, Direction::Up });
         break;
-    case App::InputManager::Action::Down:
+    case Action::MoveDown:
         dispatcher.trigger(MoveEntity{ playerEntity, Direction::Down });
         break;
-    case App::InputManager::Action::Right:
+    case Action::MoveRight:
         dispatcher.trigger(MoveEntity{ playerEntity, Direction::Right });
         break;
-    case App::InputManager::Action::Left:
+    case Action::MoveLeft:
         dispatcher.trigger(MoveEntity{ playerEntity, Direction::Left });
         break;
     }

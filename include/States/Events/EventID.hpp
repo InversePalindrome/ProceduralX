@@ -10,5 +10,5 @@ https://inversepalindrome.com/
 
 namespace States::Events
 {
-    enum class EventID { ChangeState };
+    enum class EventID { PushState, PopState, ChangeState };
 }

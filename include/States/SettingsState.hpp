@@ -10,6 +10,8 @@ https://inversepalindrome.com/
 
 #include "States/State.hpp"
 
+#include <TGUI/Widgets/Button.hpp>
+
 
 namespace States
 {
@@ -18,10 +20,15 @@ namespace States
     public:
         SettingsState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
 
+        virtual ~SettingsState() override;
+
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;
         virtual void render() override;
+        virtual void onEnter() override;
+        virtual void onExit() override;
 
     private:
+        tgui::Button::Ptr backButton;
     };
 }

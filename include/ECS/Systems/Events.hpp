@@ -8,8 +8,8 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "ECS/Direction.hpp"
+#include "ECS/Action.hpp"
 #include "ECS/State.hpp"
-#include "App/InputManager.hpp"
 
 #include <SFML/System/Vector2.hpp>
 
@@ -32,7 +32,7 @@ namespace ECS::Systems
 
     struct ActionTriggered
     {
-        App::InputManager::Action actionType;
+        Action actionType;
     };
 
     struct MouseMoved

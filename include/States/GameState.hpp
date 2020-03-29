@@ -8,8 +8,12 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "States/State.hpp"
-#include "States/GUI/PauseMenu.hpp"
+#include "ECS/Action.hpp"
 #include "ECS/Systems/SystemManager.hpp"
+
+#include <TGUI/Widgets/VerticalLayout.hpp>
+
+#include <Thor/Input/ActionMap.hpp>
 
 #include <entt/entt.hpp>
 
@@ -21,9 +25,13 @@ namespace States
     public:
         GameState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
 
+        virtual ~GameState() override;
+
         virtual void handleEvent(const sf::Event& event) override;
         virtual void update(const App::Seconds& deltaTime) override;
         virtual void render() override;
+        virtual void onEnter() override;
+        virtual void onExit() override;
 
     private:
         entt::registry registry;
@@ -31,6 +39,13 @@ namespace States
         ECS::EntityFactory entityFactory;
         ECS::Systems::SystemManager systems;
 
-        GUI::PauseMenu* pauseMenu;
+        thor::ActionMap<Action> actions;
+
+        tgui::VerticalLayout::Ptr pauseMenuLayout;
+        bool isPaused;
+
+        void initializeSystems();
+        void initializeActions();
+        void initializePauseMenu();
     };
 }

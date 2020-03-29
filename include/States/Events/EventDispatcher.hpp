@@ -7,13 +7,14 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "States/Events/Event.hpp"
-#include "States/Events/EventPolicies.hpp"
+#include "States/StateID.hpp"
+#include "States/Events/EventID.hpp"
 
-#include <eventpp/eventdispatcher.h>
+#include <eventpp/hetereventdispatcher.h>
 
 
 namespace States::Events
 {
-    using EventDispatcher = eventpp::EventDispatcher<EventID, void(const Event&), EventPolicies>;
+    using EventDispatcher = eventpp::HeterEventDispatcher<EventID, 
+        eventpp::HeterTuple<void(), void(StateID)>>;
 }

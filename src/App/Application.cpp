@@ -8,7 +8,6 @@ https://inversepalindrome.com/
 #include "App/Application.hpp"
 #include "App/Constants.hpp"
 #include "App/ResourceManager.hpp"
-#include "States/Events/ChangeStateEvent.hpp"
 
 #include <SFML/Window/Event.hpp>
 
@@ -88,13 +87,20 @@ void App::Application::render()
 
 void App::Application::addEventListeners()
 {
-    eventDispatcher.appendListener(States::Events::EventID::ChangeState, [this](const auto& event)
+    eventDispatcher.appendListener(States::Events::EventID::PushState,
+        [this](auto stateID)
+        {
+            stateMachine.pushState(stateFactory.createState(stateID));
+        });
+    eventDispatcher.appendListener(States::Events::EventID::PopState,
+        [this]()
+        {
+            stateMachine.popState();
+        });
+    eventDispatcher.appendListener(States::Events::EventID::ChangeState, 
+    [this](auto stateID)
     {
-        const auto& changeStateEvent = dynamic_cast<const States::Events::ChangeStateEvent&>(event);
-
-        gui.removeAllWidgets();
-
         stateMachine.popState();
-        stateMachine.pushState(stateFactory.createState(changeStateEvent.transitionState));
+        stateMachine.pushState(stateFactory.createState(stateID));
     });
 }

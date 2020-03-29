@@ -6,7 +6,6 @@ https://inversepalindrome.com/
 
 
 #include "States/SplashState.hpp"
-#include "States/Events/ChangeStateEvent.hpp"
 #include "App/ResourceManager.hpp"
 
 
@@ -33,8 +32,7 @@ void States::SplashState::update(const App::Seconds& deltaTime)
 
     if (splashTime <= std::chrono::nanoseconds::zero())
     {
-        eventDispatcher.dispatch(Events::ChangeStateEvent
-        (Events::EventID::ChangeState, StateID::Menu));
+        eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
     }
 }
 
