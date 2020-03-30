@@ -6,6 +6,7 @@ https://inversepalindrome.com/
 
 
 #include "States/GameState.hpp"
+#include "App/Constants.hpp"
 #include "ECS/Parsers/LevelParser.hpp"
 #include "ECS/Systems/AudioSystem.hpp"
 #include "ECS/Systems/InputSystem.hpp"
@@ -116,6 +117,7 @@ void States::GameState::initializePauseMenu()
     pauseMenuLayout->setVisible(false);
 
     auto resumeButton = tgui::Button::create("Resume");
+    resumeButton->setTextSize(App::FONT_SIZE);
     resumeButton->connect("pressed", [this]() 
         {
             isPaused = false;
@@ -123,12 +125,14 @@ void States::GameState::initializePauseMenu()
         });
 
     auto settingsButton = tgui::Button::create("Settings");
+    settingsButton->setTextSize(App::FONT_SIZE);
     settingsButton->connect("pressed", [this]() 
         {
             eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });
 
     auto quitButton = tgui::Button::create("Quit");
+    quitButton->setTextSize(App::FONT_SIZE);
     quitButton->connect("pressed", [this]() 
         { 
             eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);

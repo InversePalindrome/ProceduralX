@@ -11,6 +11,7 @@ https://inversepalindrome.com/
 #include "States/State.hpp"
 
 #include <TGUI/Widgets/Button.hpp>
+#include <TGUI/Widgets/VerticalLayout.hpp>
 
 
 namespace States
@@ -30,5 +31,6 @@ namespace States
 
     private:
         tgui::Button::Ptr backButton;
+        tgui::VerticalLayout::Ptr settingsLayout;
     };
 }

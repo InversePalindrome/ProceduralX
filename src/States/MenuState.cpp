@@ -6,6 +6,7 @@ https://inversepalindrome.com/
 
 
 #include "States/MenuState.hpp"
+#include "App/Constants.hpp"
 
 #include <TGUI/SignalImpl.hpp>
 #include <TGUI/Widgets/Button.hpp>
@@ -15,19 +16,21 @@ States::MenuState::MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::E
     State(window, gui, eventDispatcher)
 {
     auto playButton = tgui::Button::create("Play");
-    
+    playButton->setTextSize(App::FONT_SIZE);
     playButton->connect("pressed", [&gui, &eventDispatcher]()
         { 
             eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Game);
         });
 
     auto settingsButton = tgui::Button::create("Settings");
+    settingsButton->setTextSize(App::FONT_SIZE);
     settingsButton->connect("pressed", [&gui, &eventDispatcher]() 
         {
             eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });
 
     auto quitButton = tgui::Button::create("Quit");
+    quitButton->setTextSize(App::FONT_SIZE);
     quitButton->connect("pressed", [&window]() { window.close(); });
 
     menuLayout = tgui::VerticalLayout::create();
