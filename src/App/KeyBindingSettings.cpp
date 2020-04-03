@@ -8,6 +8,13 @@ https://inversepalindrome.com/
 #include "App/KeyBindingSettings.hpp"
 
 
+App::KeyBindingSettings& App::KeyBindingSettings::getInstance()
+{
+    static KeyBindingSettings instance;
+
+    return instance;
+}
+
 void App::KeyBindingSettings::addKeyBinding(Action action, KeyBinding keyBinding)
 {
     actionKeyBindingMap[action] = keyBinding;

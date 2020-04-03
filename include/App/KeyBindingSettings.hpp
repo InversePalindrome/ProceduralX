@@ -25,10 +25,14 @@ namespace App
     class KeyBindingSettings
     {
     public:
+        static KeyBindingSettings& getInstance();
+
         void addKeyBinding(Action action, KeyBinding keyBinding);
         void removeKeyBinding(Action action);
 
     private:
+        KeyBindingSettings() = default;
+
         std::unordered_map<Action, KeyBinding> actionKeyBindingMap;
     };
 }

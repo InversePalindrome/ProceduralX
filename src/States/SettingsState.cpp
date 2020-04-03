@@ -7,6 +7,8 @@ https://inversepalindrome.com/
 
 #include "States/SettingsState.hpp"
 #include "App/Constants.hpp"
+#include "App/AudioSettings.hpp"
+#include "App/KeyBindingSettings.hpp"
 
 #include <TGUI/SignalImpl.hpp>
 #include <TGUI/Widgets/Label.hpp>
@@ -28,31 +30,49 @@ States::SettingsState::SettingsState(sf::RenderWindow& window, tgui::Gui& gui, E
     soundVolumeLabel->setTextSize(App::FONT_SIZE);
     soundVolumeLabel->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
    
-    auto soundSlider = tgui::Slider::create();
-    soundSlider->connect("ValueChanged", []() {});
+    auto& audioSettings = App::AudioSettings::getInstance();
+
+    auto soundVolumeSlider = tgui::Slider::create();
+    soundVolumeSlider->setValue(audioSettings.getSoundVolume());
+    soundVolumeSlider->connect("ValueChanged", [&audioSettings, soundVolumeSlider]() 
+        { 
+            audioSettings.setSoundVolume(soundVolumeSlider->getValue());
+        });
 
     auto musicVolumeLabel = tgui::Label::create("Music Volume");
     musicVolumeLabel->setTextSize(App::FONT_SIZE);
     musicVolumeLabel->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Center);
 
-    auto musicSlider = tgui::Slider::create();
-    musicSlider->connect("ValueChanged", []() {});
+    auto musicVolumeSlider = tgui::Slider::create();
+    musicVolumeSlider->setValue(audioSettings.getMusicVolume());
+    musicVolumeSlider->connect("ValueChanged", [&audioSettings, musicVolumeSlider]()
+        {
+            audioSettings.setMusicVolume(musicVolumeSlider->getValue());
+        });
 
-    auto moveUpLabel = tgui::Label::create("Move Up");
+    moveUpButton = tgui::Button::create("Move Up");
+    moveUpButton->setTextSize(App::FONT_SIZE);
 
-    auto moveDownLabel = tgui::Label::create("Move Down");
+    moveDownButton = tgui::Button::create("Move Down");
+    moveDownButton->setTextSize(App::FONT_SIZE);
 
-    auto moveRightLabel = tgui::Label::create("Move Right");
-
-    auto moveLeftLabel = tgui::Label::create("Move Left");
+    moveRightButton = tgui::Button::create("Move Right");
+    moveRightButton->setTextSize(App::FONT_SIZE);
+    
+    moveLeftButton = tgui::Button::create("Move Left");
+    moveLeftButton->setTextSize(App::FONT_SIZE);
 
     settingsLayout = tgui::VerticalLayout::create();
     settingsLayout->setSize("50%", "50%");
     settingsLayout->setPosition("(parent.size - size) / 2");
     settingsLayout->add(soundVolumeLabel);
-    settingsLayout->add(soundSlider);
+    settingsLayout->add(soundVolumeSlider);
     settingsLayout->add(musicVolumeLabel);
-    settingsLayout->add(musicSlider);
+    settingsLayout->add(musicVolumeSlider);
+    settingsLayout->add(moveUpButton);
+    settingsLayout->add(moveDownButton);
+    settingsLayout->add(moveRightButton);
+    settingsLayout->add(moveLeftButton);
 
     gui.add(backButton);
     gui.add(settingsLayout);
@@ -61,11 +81,34 @@ States::SettingsState::SettingsState(sf::RenderWindow& window, tgui::Gui& gui, E
 States::SettingsState::~SettingsState()
 {
     gui.remove(backButton);
+    gui.remove(settingsLayout);
 }
 
 void States::SettingsState::handleEvent(const sf::Event& event)
 {
+    if (event.type == sf::Event::KeyPressed)
+    {
+        auto& keyBindingSettings = App::KeyBindingSettings::getInstance();
 
+        auto mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        
+        if (moveUpButton->mouseOnWidget(mousePosition))
+        {
+      
+        }
+        else if (moveDownButton->mouseOnWidget(mousePosition))
+        {
+
+        }
+        else if (moveRightButton->mouseOnWidget(mousePosition))
+        {
+ 
+        }
+        else if (moveLeftButton->mouseOnWidget(mousePosition))
+        {
+  
+        }
+    }
 }
 
 void States::SettingsState::update(const App::Seconds& deltaTime)

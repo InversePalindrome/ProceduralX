@@ -13,14 +13,23 @@ namespace App
     class AudioSettings
     {
     public:
-        float getVolume() const;
-        void setVolume(float volume);
+        static AudioSettings& getInstance();
 
-        float getPitch() const;
-        void setPitch(float pitch);
+        AudioSettings(const AudioSettings&) = delete;
+        AudioSettings& operator=(const AudioSettings&) = delete;
+        AudioSettings(AudioSettings&&) = delete;
+        AudioSettings& operator=(AudioSettings&&) = delete;
+
+        float getSoundVolume() const;
+        void setSoundVolume(float soundVolume);
+
+        float getMusicVolume() const;
+        void setMusicVolume(float musicVolume);
 
     private:
-        float volume;
-        float pitch;
+        AudioSettings();
+
+        float soundVolume;
+        float musicVolume;
     };
 }

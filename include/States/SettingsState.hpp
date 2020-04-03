@@ -31,6 +31,10 @@ namespace States
 
     private:
         tgui::Button::Ptr backButton;
+        tgui::Button::Ptr moveUpButton;
+        tgui::Button::Ptr moveDownButton;
+        tgui::Button::Ptr moveRightButton;
+        tgui::Button::Ptr moveLeftButton;
         tgui::VerticalLayout::Ptr settingsLayout;
     };
 }

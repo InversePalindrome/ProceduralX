@@ -8,22 +8,35 @@ https://inversepalindrome.com/
 #include "App/AudioSettings.hpp"
 
 
-float App::AudioSettings::getVolume() const
+App::AudioSettings& App::AudioSettings::getInstance()
 {
-    return volume;
+    static AudioSettings instance;
+
+    return instance;
 }
 
-void App::AudioSettings::setVolume(float volume)
+float App::AudioSettings::getSoundVolume() const
 {
-    this->volume = volume;
+    return soundVolume;
 }
 
-float App::AudioSettings::getPitch() const
+void App::AudioSettings::setSoundVolume(float soundVolume)
 {
-    return pitch;
+    this->soundVolume = soundVolume;
 }
 
-void App::AudioSettings::setPitch(float pitch)
+float App::AudioSettings::getMusicVolume() const
 {
-    this->pitch = pitch;
+    return musicVolume;
+}
+
+void App::AudioSettings::setMusicVolume(float musicVolume)
+{
+    this->musicVolume = musicVolume;
+}
+
+App::AudioSettings::AudioSettings() :
+    soundVolume(100.f),
+    musicVolume(100.f)
+{
 }
