@@ -27,9 +27,9 @@ namespace App
         void setMusicVolume(float musicVolume);
 
     private:
-        AudioSettings();
-
         float soundVolume;
         float musicVolume;
+
+        AudioSettings();
     };
 }

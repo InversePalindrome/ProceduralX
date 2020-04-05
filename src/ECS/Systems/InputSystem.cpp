@@ -12,9 +12,9 @@ https://inversepalindrome.com/
 ECS::Systems::InputSystem::InputSystem(entt::registry& registry, entt::dispatcher& dispatcher,
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory),
+    mousePosition(0.f, 0.f),
     actions(nullptr),
     window(nullptr)
-
 {
 }
 
@@ -28,6 +28,7 @@ void ECS::Systems::InputSystem::handleEvent(const sf::Event& event)
     switch (event.type)
     {
     case sf::Event::MouseMoved:
+        updateMousePosition({ event.mouseMove.x, event.mouseMove.y });
         sendMouseMovedEvent();
         break;
     case sf::Event::MouseButtonPressed:
@@ -66,17 +67,17 @@ void ECS::Systems::InputSystem::updateActions()
     }
 }
 
+void ECS::Systems::InputSystem::updateMousePosition(const sf::Vector2i& mousePosition)
+{
+    this->mousePosition = window->mapPixelToCoords(mousePosition);
+}
+
 void ECS::Systems::InputSystem::sendMouseMovedEvent()
 {
-    dispatcher.trigger(MouseMoved{ getMousePosition() });
+    dispatcher.trigger(MouseMoved{ mousePosition });
 }
 
 void ECS::Systems::InputSystem::sendMousePressedEvent()
 {
-    dispatcher.trigger(MousePressed{ getMousePosition() });
-}
-
-sf::Vector2f ECS::Systems::InputSystem::getMousePosition() const
-{
-    return window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+    dispatcher.trigger(MousePressed{ mousePosition });
 }

@@ -30,13 +30,14 @@ namespace ECS::Systems
         void setWindow(sf::RenderWindow* window);
 
     private:
+        sf::Vector2f mousePosition;
+
         thor::ActionMap<Action>* actions;
         sf::RenderWindow* window;
 
         void updateActions();
+        void updateMousePosition(const sf::Vector2i& mousePosition);
         void sendMouseMovedEvent();
         void sendMousePressedEvent();
-
-        sf::Vector2f getMousePosition() const;
     };
 }

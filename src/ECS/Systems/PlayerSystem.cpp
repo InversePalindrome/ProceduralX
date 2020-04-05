@@ -53,7 +53,7 @@ void ECS::Systems::PlayerSystem::movePlayer(const ActionTriggered& event)
 
 void ECS::Systems::PlayerSystem::rotatePlayer(const MouseMoved& event)
 {
-    auto worldPosition = Utility::graphicsToPhysicsPosition(event.position);
+    auto worldPosition = Utility::graphicsToPhysicsPosition(event.mousePosition);
 
     dispatcher.trigger(RotateEntity{ playerEntity, worldPosition });
 }

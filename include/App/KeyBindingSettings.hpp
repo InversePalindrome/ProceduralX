@@ -31,8 +31,8 @@ namespace App
         void removeKeyBinding(Action action);
 
     private:
-        KeyBindingSettings() = default;
-
         std::unordered_map<Action, KeyBinding> actionKeyBindingMap;
+
+        KeyBindingSettings() = default;
     };
 }

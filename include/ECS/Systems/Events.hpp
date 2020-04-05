@@ -37,12 +37,12 @@ namespace ECS::Systems
 
     struct MouseMoved
     {
-        sf::Vector2f position;
+        sf::Vector2f mousePosition;
     };
 
     struct MousePressed
     {
-        sf::Vector2f position;
+        sf::Vector2f mousePosition;
     };
 
     struct ChangeState

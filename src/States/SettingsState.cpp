@@ -89,24 +89,24 @@ void States::SettingsState::handleEvent(const sf::Event& event)
     if (event.type == sf::Event::KeyPressed)
     {
         auto& keyBindingSettings = App::KeyBindingSettings::getInstance();
-
-        auto mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         
+        auto mousePosition = window.mapPixelToCoords({ sf::Mouse::getPosition(window) });
+       
         if (moveUpButton->mouseOnWidget(mousePosition))
         {
-      
+            
         }
         else if (moveDownButton->mouseOnWidget(mousePosition))
         {
-
+            
         }
         else if (moveRightButton->mouseOnWidget(mousePosition))
         {
- 
+            
         }
         else if (moveLeftButton->mouseOnWidget(mousePosition))
         {
-  
+            
         }
     }
 }
