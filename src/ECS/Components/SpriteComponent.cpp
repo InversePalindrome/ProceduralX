@@ -33,16 +33,19 @@ const sf::Sprite& ECS::Components::SpriteComponent::getSprite() const
     return sprite;
 }
 
+void ECS::Components::SpriteComponent::setTexture(sf::Texture& texture)
+{
+    sprite.setTexture(texture);
+}
+
 App::TextureID ECS::Components::SpriteComponent::getTextureID() const
 {
     return textureID;
 }
 
-void ECS::Components::SpriteComponent::setTexture(App::TextureID textureID, const sf::Texture& texture) 
+void ECS::Components::SpriteComponent::setTextureID(App::TextureID textureID) 
 {
     this->textureID = textureID;
-
-    sprite.setTexture(texture, true);
 }
 
 sf::IntRect ECS::Components::SpriteComponent::getTextureRect() const

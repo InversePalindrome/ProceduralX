@@ -18,7 +18,7 @@ namespace States
     class MenuState : public State
     {
     public:
-        MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
+        explicit MenuState(StateData& stateData);
         
         virtual ~MenuState() override;
 

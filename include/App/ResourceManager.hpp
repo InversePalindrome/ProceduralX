@@ -26,15 +26,10 @@ https://inversepalindrome.com/
 
 namespace App
 {
-    class ResourceManager
+    class ResourceManager 
     {
     public:
-        static ResourceManager& getInstance();
-
-        ResourceManager(const ResourceManager&) = delete;
-        ResourceManager& operator=(const ResourceManager&) = delete;
-        ResourceManager(ResourceManager&&) = delete;
-        ResourceManager& operator=(ResourceManager&&) = delete;
+        ResourceManager();
 
         void loadResources(const std::string& filename);
 
@@ -51,8 +46,6 @@ namespace App
 
         std::unordered_map<std::string, std::function<void(std::size_t, const std::string&,
             const pugi::xml_node&)>> resourceLoaders;
-
-        ResourceManager();
 
         template<typename ResourceType>
         void loadResources(const pugi::xml_node& resourcesNode, const std::string& resourceType);

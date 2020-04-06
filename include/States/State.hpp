@@ -8,12 +8,9 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "App/Seconds.hpp"
-#include "States/Events/EventDispatcher.hpp"
-
-#include <TGUI/Gui.hpp>
+#include "States/StateData.hpp"
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
 
 
 namespace States
@@ -21,7 +18,7 @@ namespace States
     class State
     {
     public:
-        State(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
+        explicit State(StateData& stateData);
         State(const State&) = delete;
         State& operator=(const State&) = delete;
         State(State&&) = delete;
@@ -37,8 +34,6 @@ namespace States
         virtual void onExit() {};
 
     protected:
-        sf::RenderWindow& window;
-        tgui::Gui& gui;
-        Events::EventDispatcher& eventDispatcher;
+        StateData& stateData;
     };
 }

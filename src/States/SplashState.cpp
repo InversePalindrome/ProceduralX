@@ -6,19 +6,18 @@ https://inversepalindrome.com/
 
 
 #include "States/SplashState.hpp"
-#include "App/ResourceManager.hpp"
 
 
 using namespace std::chrono_literals;
 
-States::SplashState::SplashState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
-    State(window, gui, eventDispatcher),
-    splashScreen(App::ResourceManager::getInstance().getTexture(App::TextureID::SplashLogo)),
+States::SplashState::SplashState(StateData& stateData) :
+    State(stateData),
+    splashScreen(stateData.resourceManager.getTexture(App::TextureID::SplashLogo)),
     splashTime(3s)
 {
     splashScreen.setScale(0.3f, 0.3f);
     splashScreen.setOrigin(splashScreen.getLocalBounds().width / 2.f, splashScreen.getLocalBounds().height / 2.f);
-    splashScreen.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+    splashScreen.setPosition(stateData.window.getSize().x / 2.f, stateData.window.getSize().y / 2.f);
 }
 
 void States::SplashState::handleEvent(const sf::Event& event)
@@ -32,11 +31,11 @@ void States::SplashState::update(const App::Seconds& deltaTime)
 
     if (splashTime <= std::chrono::nanoseconds::zero())
     {
-        eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
+        stateData.eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
     }
 }
 
 void States::SplashState::render()
 {
-    window.draw(splashScreen);
+    stateData.window.draw(splashScreen);
 }

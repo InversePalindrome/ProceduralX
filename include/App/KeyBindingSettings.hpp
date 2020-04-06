@@ -24,15 +24,29 @@ namespace App
 
     class KeyBindingSettings
     {
+        using ActionKeyMap = std::unordered_map<Action, KeyBinding>;
+        using Iterator = ActionKeyMap::iterator;
+        using ConstIterator = ActionKeyMap::const_iterator;
+
     public:
-        static KeyBindingSettings& getInstance();
+        KeyBindingSettings();
+
+        void loadKeyBindingSettings(const std::string& filename);
+        void saveKeyBindingSettings(const std::string& filename);
+
+        KeyBinding& operator[](Action action);
+        const KeyBinding& operator[](Action action) const;
 
         void addKeyBinding(Action action, KeyBinding keyBinding);
         void removeKeyBinding(Action action);
 
-    private:
-        std::unordered_map<Action, KeyBinding> actionKeyBindingMap;
+        Iterator begin();
+        Iterator end();
 
-        KeyBindingSettings() = default;
+        ConstIterator begin() const;
+        ConstIterator end() const;
+
+    private:
+        ActionKeyMap actionKeyBindingMap;
     };
 }

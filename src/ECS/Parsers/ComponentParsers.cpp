@@ -18,7 +18,7 @@ https://inversepalindrome.com/
 #include <vector>
 
 
-ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node& spriteNode)
+ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node& spriteNode, App::ResourceManager& resourceManager)
 {
     Components::SpriteComponent sprite;
 
@@ -28,7 +28,8 @@ ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node&
  
         if (textureID.has_value())
         {
-            sprite.setTexture(textureID.value(), App::ResourceManager::getInstance().getTexture(textureID.value()));
+            sprite.setTextureID(textureID.value());
+            sprite.setTexture(resourceManager.getTexture(textureID.value()));
         }
     }
     if (auto textureLeftAttribute = spriteNode.attribute("textureLeft"),
@@ -126,7 +127,7 @@ ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml
     return animation;
 }
 
-ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& soundNode)
+ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& soundNode, App::ResourceManager& resourceManager)
 {
     Components::SoundComponent soundComponent;
 
@@ -137,7 +138,7 @@ ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& s
 
         if (stateOptional.has_value() && soundOptional.has_value())
         {
-            sf::Sound sound(App::ResourceManager::getInstance().getSoundBuffer(soundOptional.value()));
+            sf::Sound sound(resourceManager.getSoundBuffer(soundOptional.value()));
 
             if (auto loopAttribute = stateNode.attribute("loop"))
             {

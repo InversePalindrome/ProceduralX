@@ -12,26 +12,26 @@ https://inversepalindrome.com/
 #include <TGUI/Widgets/Button.hpp>
 
 
-States::MenuState::MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
-    State(window, gui, eventDispatcher)
+States::MenuState::MenuState(StateData& stateData) :
+    State(stateData)
 {
     auto playButton = tgui::Button::create("Play");
     playButton->setTextSize(App::FONT_SIZE);
-    playButton->connect("pressed", [&gui, &eventDispatcher]()
+    playButton->connect("pressed", [&stateData]()
         { 
-            eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Game);
+            stateData.eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Game);
         });
 
     auto settingsButton = tgui::Button::create("Settings");
     settingsButton->setTextSize(App::FONT_SIZE);
-    settingsButton->connect("pressed", [&gui, &eventDispatcher]() 
+    settingsButton->connect("pressed", [&stateData]() 
         {
-            eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
+            stateData.eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });
 
     auto quitButton = tgui::Button::create("Quit");
     quitButton->setTextSize(App::FONT_SIZE);
-    quitButton->connect("pressed", [&window]() { window.close(); });
+    quitButton->connect("pressed", [&stateData]() { stateData.window.close(); });
 
     menuLayout = tgui::VerticalLayout::create();
     menuLayout->setSize("20%", "20%");
@@ -40,12 +40,12 @@ States::MenuState::MenuState(sf::RenderWindow& window, tgui::Gui& gui, Events::E
     menuLayout->add(settingsButton);
     menuLayout->add(quitButton);
 
-    gui.add(menuLayout);
+    stateData.gui.add(menuLayout);
 }
 
 States::MenuState::~MenuState()
 {
-    gui.remove(menuLayout);
+    stateData.gui.remove(menuLayout);
 }
 
 void States::MenuState::handleEvent(const sf::Event& event)

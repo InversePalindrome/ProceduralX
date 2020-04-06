@@ -10,11 +10,44 @@ https://inversepalindrome.com/
 #include <Thor/Resources/SfmlLoaders.hpp>
 
 
-App::ResourceManager& App::ResourceManager::getInstance()
-{
-    static ResourceManager instance;
+App::ResourceManager::ResourceManager() :
+    resourceLoaders
+    ({
+        {"Textures", [this](auto integerID, const auto& filename, const auto& textureNode)
+        {
+            sf::IntRect frameRect;
 
-    return instance;
+            if (auto leftAttribute = textureNode.attribute("left"),
+                topAttribute = textureNode.attribute("top"),
+                widthAttribute = textureNode.attribute("width"),
+                heightAttribute = textureNode.attribute("height");
+                leftAttribute && topAttribute && widthAttribute && heightAttribute)
+            {
+                frameRect = { leftAttribute.as_int(), topAttribute.as_int(),
+                    widthAttribute.as_int(), heightAttribute.as_int() };
+            }
+
+            auto& texture = textures.acquire(TextureID{ integerID }, thor::Resources::fromFile<sf::Texture>(filename, frameRect));
+
+            if (auto repeatAttribute = textureNode.attribute("repeat"))
+            {
+                texture.setRepeated(repeatAttribute.as_bool());
+            }
+        } },
+        {"Images", [this](auto integerID, const auto& filename, const auto&)
+        {
+            images.acquire(ImageID{ integerID }, thor::Resources::fromFile<sf::Image>(filename));
+        } } ,
+        {"Fonts", [this](auto integerID, const auto& filename, const auto&)
+        {
+            fonts.acquire(FontID{ integerID }, thor::Resources::fromFile<sf::Font>(filename));
+        } } ,
+        {"Sounds", [this](auto integerID, const auto& filename, const auto&)
+        {
+            sounds.acquire(SoundID{ integerID }, thor::Resources::fromFile<sf::SoundBuffer>(filename));
+        } }
+        })
+{
 }
 
 void App::ResourceManager::loadResources(const std::string& filename)
@@ -61,44 +94,4 @@ sf::Font& App::ResourceManager::getFont(FontID fontID)
 sf::SoundBuffer& App::ResourceManager::getSoundBuffer(SoundID soundID)
 {
     return sounds[soundID];
-}
-
-App::ResourceManager::ResourceManager() :
-    resourceLoaders
-    ({ 
-        {"Textures", [this](auto integerID, const auto& filename, const auto& textureNode) 
-        {
-            sf::IntRect frameRect;
-            
-            if (auto leftAttribute = textureNode.attribute("left"),
-                topAttribute = textureNode.attribute("top"),
-                widthAttribute = textureNode.attribute("width"),
-                heightAttribute = textureNode.attribute("height");
-                leftAttribute && topAttribute && widthAttribute && heightAttribute)
-            {
-                frameRect = { leftAttribute.as_int(), topAttribute.as_int(),
-                    widthAttribute.as_int(), heightAttribute.as_int() };
-            }
-
-            auto& texture = textures.acquire(TextureID{ integerID }, thor::Resources::fromFile<sf::Texture>(filename, frameRect));
-            
-            if (auto repeatAttribute = textureNode.attribute("repeat"))
-            {
-                texture.setRepeated(repeatAttribute.as_bool());
-            }
-        } },
-        {"Images", [this](auto integerID, const auto& filename, const auto&)
-        {
-            images.acquire(ImageID{ integerID }, thor::Resources::fromFile<sf::Image>(filename));
-        } } ,
-        {"Fonts", [this](auto integerID, const auto& filename, const auto&)
-        {
-            fonts.acquire(FontID{ integerID }, thor::Resources::fromFile<sf::Font>(filename));
-        } } ,
-        {"Sounds", [this](auto integerID, const auto& filename, const auto&)
-        {
-            sounds.acquire(SoundID{ integerID }, thor::Resources::fromFile<sf::SoundBuffer>(filename));
-        } } 
-    })
-{
 }

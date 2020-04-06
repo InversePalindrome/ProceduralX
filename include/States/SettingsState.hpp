@@ -13,13 +13,16 @@ https://inversepalindrome.com/
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/Widgets/VerticalLayout.hpp>
 
+#include <tuple>
+#include <vector>
+
 
 namespace States
 {
     class SettingsState : public State
     {
     public:
-        SettingsState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
+        explicit SettingsState(StateData& stateData);
 
         virtual ~SettingsState() override;
 
@@ -31,10 +34,10 @@ namespace States
 
     private:
         tgui::Button::Ptr backButton;
-        tgui::Button::Ptr moveUpButton;
-        tgui::Button::Ptr moveDownButton;
-        tgui::Button::Ptr moveRightButton;
-        tgui::Button::Ptr moveLeftButton;
+        std::vector<std::tuple<tgui::Button::Ptr, Action, std::string, bool>> keyBindingWidgets;
         tgui::VerticalLayout::Ptr settingsLayout;
+
+        void initializeAudioWidgets();
+        void initializeKeyBindingWidgets();
     };
 }

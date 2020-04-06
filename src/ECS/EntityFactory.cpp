@@ -11,8 +11,9 @@ https://inversepalindrome.com/
 #include <magic_enum.hpp>
 
 
-ECS::EntityFactory::EntityFactory(entt::registry& registry) :
-    registry(registry)
+ECS::EntityFactory::EntityFactory(entt::registry& registry, App::ResourceManager& resourceManager) :
+    registry(registry),
+    resourceManager(resourceManager)
 {
 }
 
@@ -52,5 +53,5 @@ void ECS::EntityFactory::clearEntities()
 
 entt::entity ECS::EntityFactory::createEntity(EntityID entityID)
 {
-    return Parsers::parseEntity(registry, entityFiles.at(entityID));
+    return Parsers::parseEntity(registry, resourceManager, entityFiles.at(entityID));
 }

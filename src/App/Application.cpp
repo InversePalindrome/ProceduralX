@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #include "App/Application.hpp"
 #include "App/Constants.hpp"
 #include "App/ResourceManager.hpp"
+#include "States/StateData.hpp"
 
 #include <SFML/Window/Event.hpp>
 
@@ -15,16 +16,21 @@ https://inversepalindrome.com/
 using namespace std::chrono_literals;
 
 App::Application::Application() :
-    window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-        APP_NAME, sf::Style::Titlebar | sf::Style::Close),
+    window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), APP_NAME, sf::Style::Titlebar | sf::Style::Close),
     gui(window),
-    stateFactory(window, gui, eventDispatcher)
+    stateData(window, gui, eventDispatcher, resourceManager, audioSettings, keyBindingSettings),
+    stateFactory(stateData)
 {
-    ResourceManager::getInstance().loadResources("Resources/XML/Resources.xml");
+    loadStartupData();
 
     addEventListeners();
 
     stateMachine.pushState(stateFactory.createState(States::StateID::Splash));
+}
+
+App::Application::~Application()
+{
+    saveStartupData();
 }
 
 void App::Application::run()
@@ -83,6 +89,19 @@ void App::Application::render()
     gui.draw();
 
     window.display();
+}
+
+void App::Application::loadStartupData()
+{
+    resourceManager.loadResources("Resources/XML/Resources.xml");
+    audioSettings.loadAudioSettings("Settings/AudioSettings.xml");
+    keyBindingSettings.loadKeyBindingSettings("Settings/KeyBindingSettings.xml");
+}
+
+void App::Application::saveStartupData()
+{
+    audioSettings.saveAudioSettings("Settings/AudioSettings.xml");
+    keyBindingSettings.saveKeyBindingSettings("Settings/KeyBindingSettings.xml");
 }
 
 void App::Application::addEventListeners()

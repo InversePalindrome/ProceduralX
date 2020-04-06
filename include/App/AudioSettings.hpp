@@ -7,18 +7,18 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include <string>
+
 
 namespace App
 {
     class AudioSettings
     {
     public:
-        static AudioSettings& getInstance();
+        AudioSettings();
 
-        AudioSettings(const AudioSettings&) = delete;
-        AudioSettings& operator=(const AudioSettings&) = delete;
-        AudioSettings(AudioSettings&&) = delete;
-        AudioSettings& operator=(AudioSettings&&) = delete;
+        void loadAudioSettings(const std::string& filename);
+        void saveAudioSettings(const std::string& filename);
 
         float getSoundVolume() const;
         void setSoundVolume(float soundVolume);
@@ -29,7 +29,5 @@ namespace App
     private:
         float soundVolume;
         float musicVolume;
-
-        AudioSettings();
     };
 }

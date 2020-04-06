@@ -7,6 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "App/ResourceManager.hpp"
+
 #include <entt/entt.hpp>
 
 #include <pugixml.hpp>
@@ -16,5 +18,6 @@ https://inversepalindrome.com/
 
 namespace ECS::Parsers
 {
-    void parseLevel(entt::registry& registry, const std::string& filename);
+    void parseLevel(entt::registry& registry, App::ResourceManager& resourceManager,
+        const std::string& filename);
 }

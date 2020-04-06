@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "ECS/EntityID.hpp"
+#include "App/ResourceManager.hpp"
 
 #include <entt/entt.hpp>
 
@@ -19,7 +20,7 @@ namespace ECS
     class EntityFactory
     {
     public:
-        explicit EntityFactory(entt::registry& registry);
+        EntityFactory(entt::registry& registry, App::ResourceManager& resourceManager);
         EntityFactory(const EntityFactory&) = delete;
         EntityFactory& operator=(const EntityFactory&) = delete;
         EntityFactory(EntityFactory&&) = delete;
@@ -37,5 +38,6 @@ namespace ECS
         std::unordered_map<EntityID, std::string> entityFiles;
 
         entt::registry& registry;
+        App::ResourceManager& resourceManager;
     };
 }

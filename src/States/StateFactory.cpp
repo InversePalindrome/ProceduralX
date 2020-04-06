@@ -12,10 +12,8 @@ https://inversepalindrome.com/
 #include "States/SettingsState.hpp"
 
 
-States::StateFactory::StateFactory(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
-    window(window),
-    gui(gui),
-    eventDispatcher(eventDispatcher)
+States::StateFactory::StateFactory(StateData& stateData) :
+    stateData(stateData)
 {
     registerState<SplashState>(StateID::Splash);
     registerState<SettingsState>(StateID::Settings);
@@ -23,7 +21,7 @@ States::StateFactory::StateFactory(sf::RenderWindow& window, tgui::Gui& gui, Eve
     registerState<GameState>(StateID::Game);
 }
 
-States::StatePtr States::StateFactory::createState(StateID stateID)
+States::StateFactory::StatePtr States::StateFactory::createState(StateID stateID)
 {
     return factory.find(stateID)->second();
 }

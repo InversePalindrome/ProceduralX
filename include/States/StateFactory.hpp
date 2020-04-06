@@ -17,12 +17,12 @@ https://inversepalindrome.com/
 
 namespace States
 {
-    using StatePtr = std::unique_ptr<State>;
-
     class StateFactory
     {
+        using StatePtr = std::unique_ptr<State>;
+
     public:
-        StateFactory(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
+        explicit StateFactory(StateData& stateData);
         StateFactory(const StateFactory&) = delete;
         StateFactory& operator=(const StateFactory&) = delete;
         StateFactory(StateFactory&&) = delete;
@@ -32,9 +32,7 @@ namespace States
 
     private:
         std::unordered_map<StateID, std::function<StatePtr()>> factory;
-        sf::RenderWindow& window;
-        tgui::Gui& gui;
-        Events::EventDispatcher& eventDispatcher;
+        StateData& stateData;
 
         template<typename T>
         void registerState(StateID stateID);
@@ -43,6 +41,6 @@ namespace States
     template<typename T>
     void StateFactory::registerState(StateID stateID)
     {
-        factory[stateID] = [this]() { return std::make_unique<T>(window, gui, eventDispatcher); };
+        factory[stateID] = [this]() { return std::make_unique<T>(stateData); };
     }
 }

@@ -18,58 +18,59 @@ namespace
     using namespace ECS::Parsers;
     using namespace ECS::Components;
 
-    std::unordered_map<std::string, std::function<void(entt::registry&, entt::entity, const pugi::xml_node&)>>
+    std::unordered_map<std::string, std::function<void(entt::registry&, App::ResourceManager&,
+        entt::entity, const pugi::xml_node&)>>
         componentParser =
     { 
-            {"Sprite", [](auto& registry, auto entity, const auto& node) 
+            {"Sprite", [](auto& registry, auto& resourceManager, auto entity, const auto& node) 
             {
-                registry.assign<ECS::Components::SpriteComponent>(entity, parseSprite(node)); 
+                registry.assign<ECS::Components::SpriteComponent>(entity, parseSprite(node, resourceManager)); 
             } },
-            {"Animation", [](auto& registry, auto entity, const auto& node) 
+            {"Animation", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<AnimationComponent>(entity, parseAnimation(node)); 
             } },
-            {"Sound", [](auto& registry, auto entity, const auto& node) 
+            {"Sound", [](auto& registry, auto& resourceManager, auto entity, const auto& node) 
             { 
-                registry.assign<SoundComponent>(entity, parseSound(node)); 
+                registry.assign<SoundComponent>(entity, parseSound(node, resourceManager)); 
             } },
-            {"Transform", [](auto& registry, auto entity, const auto& node) 
+            {"Transform", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<TransformComponent>(entity, parseTransform(node)); 
             }},
-            {"Body", [](auto& registry, auto entity, const auto& node) 
+            {"Body", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<BodyComponent>(entity, parseBody(node)); 
             }},
-            {"Speed", [](auto& registry, auto entity, const auto& node) 
+            {"Speed", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<SpeedComponent>(entity, parseSpeed(node));
             }},
-            {"Acceleration", [](auto& registry, auto entity, const auto& node) 
+            {"Acceleration", [](auto& registry, auto&, auto entity, const auto& node) 
             {
                 registry.assign<AccelerationComponent>(entity, parseAcceleration(node));
             }},
-            {"Object", [](auto& registry, auto entity, const auto& node) 
+            {"Object", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<ObjectComponent>(entity, parseObject(node)); 
             }},
-            {"State", [](auto& registry, auto entity, const auto& node) 
+            {"State", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<StateComponent>(entity, parseState(node)); 
             }},
-            {"Weapon", [](auto& registry, auto entity, const auto& node) 
+            {"Weapon", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<WeaponComponent>(entity, parseWeapon(node));
             }},
-            {"Damage", [](auto& registry, auto entity, const auto& node) 
+            {"Damage", [](auto& registry, auto&, auto entity, const auto& node) 
             { 
                 registry.assign<DamageComponent>(entity, parseDamage(node)); 
             }},
-            {"Health", [](auto& registry, auto entity, const auto& node)
+            {"Health", [](auto& registry, auto&, auto entity, const auto& node)
             {
                 registry.assign<HealthComponent>(entity, parseHealth(node));
             }},
-            {"Player", [](auto& registry, auto entity, const auto&)
+            {"Player", [](auto& registry, auto&, auto entity, const auto&)
             { 
                 registry.assign<ECS::Components::Player>(entity);
             }
@@ -77,7 +78,8 @@ namespace
     };
 }
 
-entt::entity ECS::Parsers::parseEntity(entt::registry& registry, const std::string& filename)
+entt::entity ECS::Parsers::parseEntity(entt::registry& registry, App::ResourceManager& resourceManager,
+    const std::string& filename)
 {
     auto entity = registry.create();
  
@@ -85,17 +87,18 @@ entt::entity ECS::Parsers::parseEntity(entt::registry& registry, const std::stri
     {
         if (auto entityNode = doc.child("Entity"))
         {
-            parseEntity(entity, registry, entityNode);
+            parseEntity(entity, registry, resourceManager, entityNode);
         }
     }
 
     return entity;
 }
 
-void ECS::Parsers::parseEntity(entt::entity entity, entt::registry& registry, const pugi::xml_node& entityNode)
+void ECS::Parsers::parseEntity(entt::entity entity, entt::registry& registry, 
+    App::ResourceManager& resourceManager, const pugi::xml_node& entityNode)
 {
     for (auto componentNode : entityNode.children())
     {
-        componentParser.at(componentNode.name())(registry, entity, componentNode);
+        componentParser.at(componentNode.name())(registry, resourceManager, entity, componentNode);
     }
 }

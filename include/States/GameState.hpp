@@ -23,7 +23,7 @@ namespace States
     class GameState : public State
     {
     public:
-        GameState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher);
+        explicit GameState(StateData& stateData);
 
         virtual ~GameState() override;
 

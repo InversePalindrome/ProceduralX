@@ -21,23 +21,22 @@ https://inversepalindrome.com/
 #include <TGUI/Widgets/Button.hpp>
 
 
-States::GameState::GameState(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
-    State(window, gui, eventDispatcher),
-    entityFactory(registry),
+States::GameState::GameState(StateData& stateData) :
+    State(stateData),
+    entityFactory(registry, stateData.resourceManager),
     systems(registry, dispatcher, entityFactory),
     isPaused(false)
 {
     initializeSystems();
-    initializeActions();
     initializePauseMenu();
 
     entityFactory.loadEntities("Resources/XML/Entities.xml");
-    ECS::Parsers::parseLevel(registry, "Resources/XML/SpaceLevel.xml");
+    ECS::Parsers::parseLevel(registry, stateData.resourceManager, "Resources/XML/SpaceLevel.xml");
 }
 
 States::GameState::~GameState()
 {
-    gui.remove(pauseMenuLayout);
+    stateData.gui.remove(pauseMenuLayout);
 }
 
 void States::GameState::handleEvent(const sf::Event& event)
@@ -50,7 +49,7 @@ void States::GameState::handleEvent(const sf::Event& event)
 
 void States::GameState::update(const App::Seconds& deltaTime)
 {
-    actions.update(window);
+    actions.update(stateData.window);
 
     if (!isPaused)
     {
@@ -71,6 +70,8 @@ void States::GameState::render()
 
 void States::GameState::onEnter()
 {
+    initializeActions();
+
     if (isPaused)
     {
         pauseMenuLayout->setVisible(true);
@@ -95,18 +96,17 @@ void States::GameState::initializeSystems()
 
     auto* inputSystem = systems.getSystem<ECS::Systems::InputSystem>();
     inputSystem->setActions(&actions);
-    inputSystem->setWindow(&window);
+    inputSystem->setWindow(&stateData.window);
    
-    systems.getSystem<ECS::Systems::RenderSystem>()->setWindow(&window);
+    systems.getSystem<ECS::Systems::RenderSystem>()->setWindow(&stateData.window);
 }
 
 void States::GameState::initializeActions()
 {
-    actions[Action::MoveUp] = thor::Action(sf::Keyboard::W, thor::Action::Hold);
-    actions[Action::MoveDown] = thor::Action(sf::Keyboard::S, thor::Action::Hold);
-    actions[Action::MoveRight] = thor::Action(sf::Keyboard::D, thor::Action::Hold);
-    actions[Action::MoveLeft] = thor::Action(sf::Keyboard::A, thor::Action::Hold);
-    actions[Action::Pause] = thor::Action(sf::Keyboard::Escape, thor::Action::Hold);
+    for (const auto& [action, keyBinding] : stateData.keyBindingSettings)
+    {
+        actions[action] = thor::Action(keyBinding.key, keyBinding.actionType);
+    }
 }
 
 void States::GameState::initializePauseMenu()
@@ -128,19 +128,19 @@ void States::GameState::initializePauseMenu()
     settingsButton->setTextSize(App::FONT_SIZE);
     settingsButton->connect("pressed", [this]() 
         {
-            eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
+            stateData.eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });
 
     auto quitButton = tgui::Button::create("Quit");
     quitButton->setTextSize(App::FONT_SIZE);
     quitButton->connect("pressed", [this]() 
         { 
-            eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
+            stateData.eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
         });
 
     pauseMenuLayout->add(resumeButton);
     pauseMenuLayout->add(settingsButton);
     pauseMenuLayout->add(quitButton);
 
-    gui.add(pauseMenuLayout);
+    stateData.gui.add(pauseMenuLayout);
 }

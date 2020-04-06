@@ -28,9 +28,10 @@ namespace ECS::Components
         sf::Sprite& getSprite();
         const sf::Sprite& getSprite() const;
 
-        App::TextureID getTextureID() const;
+        void setTexture(sf::Texture& texture);
 
-        void setTexture(App::TextureID textureID, const sf::Texture& texture);
+        App::TextureID getTextureID() const;
+        void setTextureID(App::TextureID textureID);
 
         sf::IntRect getTextureRect() const;
         void setTextureRect(const sf::IntRect& textureRect);

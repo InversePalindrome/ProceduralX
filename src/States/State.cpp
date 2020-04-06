@@ -8,9 +8,7 @@ https://inversepalindrome.com/
 #include "States/State.hpp"
 
 
-States::State::State(sf::RenderWindow& window, tgui::Gui& gui, Events::EventDispatcher& eventDispatcher) :
-    window(window),
-    gui(gui),
-    eventDispatcher(eventDispatcher)
+States::State::State(StateData& stateData) :
+    stateData(stateData)
 {
 }
