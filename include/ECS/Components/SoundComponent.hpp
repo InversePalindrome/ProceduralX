@@ -31,10 +31,10 @@ namespace ECS::Components
         void addSound(State state, App::SoundID soundID, const sf::Sound& sound);
         void removeSound(State state);
 
+        bool hasSound(State state) const;
+
         sf::Sound& operator[](State state);
         const sf::Sound& operator[](State state) const;
-
-        bool hasSound(State state) const;
 
         Iterator begin();
         Iterator end();

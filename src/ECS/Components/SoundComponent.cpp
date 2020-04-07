@@ -28,6 +28,11 @@ void ECS::Components::SoundComponent::removeSound(State state)
     sounds.erase(state);
 }
 
+bool ECS::Components::SoundComponent::hasSound(State state) const
+{
+    return sounds.count(state);
+}
+
 sf::Sound& ECS::Components::SoundComponent::operator[](State state)
 {
     return sounds[state].second;
@@ -36,11 +41,6 @@ sf::Sound& ECS::Components::SoundComponent::operator[](State state)
 const sf::Sound& ECS::Components::SoundComponent::operator[](State state) const
 {
     return sounds.at(state).second;
-}
-
-bool ECS::Components::SoundComponent::hasSound(State state) const
-{
-    return sounds.count(state);
 }
 
 ECS::Components::SoundComponent::Iterator ECS::Components::SoundComponent::begin()

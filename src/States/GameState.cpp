@@ -99,6 +99,7 @@ void States::GameState::initializeSystems()
     inputSystem->setWindow(&stateData.window);
    
     systems.getSystem<ECS::Systems::RenderSystem>()->setWindow(&stateData.window);
+    systems.getSystem<ECS::Systems::AudioSystem>()->setAudioSettings(&stateData.audioSettings);
 }
 
 void States::GameState::initializeActions()

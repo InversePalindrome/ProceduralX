@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Systems/System.hpp"
 #include "ECS/Systems/Events.hpp"
+#include "App/AudioSettings.hpp"
 
 
 namespace ECS::Systems
@@ -20,7 +21,15 @@ namespace ECS::Systems
 
         virtual void update(const App::Seconds& deltaTime) override;
 
+        void setAudioSettings(const App::AudioSettings* audioSettings);
+
     private:
+        entt::entity playerEntity;
+        const App::AudioSettings* audioSettings;
+
+        void onPlayerAdded(entt::entity entity);
         void onStateChanged(const StateChanged& event);
+
+        void updateListenerPosition();
     };
 }
