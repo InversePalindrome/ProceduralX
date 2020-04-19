@@ -8,4 +8,4 @@ https://inversepalindrome.com/
 #pragma once
 
 
-enum class Action { MoveUp, MoveDown, MoveRight, MoveLeft, Pause };
+enum class Action { Undefined, MoveUp, MoveDown, MoveRight, MoveLeft, Pause };

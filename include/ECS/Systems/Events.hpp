@@ -7,7 +7,6 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "ECS/Direction.hpp"
 #include "ECS/Action.hpp"
 #include "ECS/State.hpp"
 
@@ -18,18 +17,6 @@ https://inversepalindrome.com/
 
 namespace ECS::Systems
 {
-    struct MoveEntity
-    {
-        entt::entity entity;
-        Direction direction;
-    };
-
-    struct RotateEntity
-    {
-        entt::entity entity;
-        sf::Vector2f targetPosition;
-    };
-
     struct ActionTriggered
     {
         Action actionType;

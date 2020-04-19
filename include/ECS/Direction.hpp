@@ -10,5 +10,5 @@ https://inversepalindrome.com/
 
 namespace ECS
 {
-    enum class Direction { Up, Down, Right, Left };
+    enum class Direction { Undefined, Up, Down, Right, Left };
 }

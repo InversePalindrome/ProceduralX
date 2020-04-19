@@ -7,7 +7,6 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "ECS/Systems/Events.hpp"
 #include "ECS/Systems/System.hpp"
 #include "ECS/CollisionManager.hpp"
 
@@ -30,8 +29,6 @@ namespace ECS::Systems
         CollisionManager collisionManager;
         std::vector<b2Body*> bodiesToRemove;
 
-        void onMoveEntity(const MoveEntity& event);
-        void onRotateEntity(const RotateEntity& event);
         void onBodyAdded(entt::entity entity);
         void onBodyRemoved(entt::entity entity);
 
