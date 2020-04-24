@@ -7,7 +7,6 @@ https://inversepalindrome.com/
 
 #include "ECS/Action.hpp"
 #include "ECS/Systems/PlayerSystem.hpp"
-#include "ECS/Components/ComponentTags.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
@@ -21,7 +20,7 @@ ECS::Systems::PlayerSystem::PlayerSystem(entt::registry& registry, entt::dispatc
     System(registry, dispatcher, entityFactory),
     playerEntity(entt::null)
 {
-    registry.on_construct<Components::Player>().connect<&PlayerSystem::onPlayerAdded>(this);
+    registry.on_construct<entt::tag<"Player"_hs>>().connect<&PlayerSystem::onPlayerAdded>(this);
     dispatcher.sink<ActionTriggered>().connect<&PlayerSystem::movePlayer>(this);
     dispatcher.sink<MouseMoved>().connect<&PlayerSystem::rotatePlayer>(this);
     dispatcher.sink<MousePressed>().connect<&PlayerSystem::shootProjectile>(this);
@@ -29,7 +28,6 @@ ECS::Systems::PlayerSystem::PlayerSystem(entt::registry& registry, entt::dispatc
 
 void ECS::Systems::PlayerSystem::update(const App::Seconds& deltaTime)
 {
-
 }
 
 void ECS::Systems::PlayerSystem::onPlayerAdded(entt::entity entity)

@@ -6,7 +6,6 @@ https://inversepalindrome.com/
 
 
 #include "ECS/Parsers/EntityParser.hpp"
-#include "ECS/Components/ComponentTags.hpp"
 #include "ECS/Parsers/ComponentParsers.hpp"
 
 #include <functional>
@@ -72,7 +71,7 @@ namespace
             }},
             {"Player", [](auto& registry, auto&, auto entity, const auto&)
             { 
-                registry.assign<ECS::Components::Player>(entity);
+                registry.assign<entt::tag<"Player"_hs>>(entity);
             }
     }
     };

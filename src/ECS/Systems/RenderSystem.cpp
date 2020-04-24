@@ -6,7 +6,6 @@ https://inversepalindrome.com/
 
 
 #include "ECS/Systems/RenderSystem.hpp"
-#include "ECS/Components/ComponentTags.hpp"
 #include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Utility/PositionConversions.hpp"
 #include "ECS/Utility/SizeConversions.hpp"
@@ -20,7 +19,7 @@ ECS::Systems::RenderSystem::RenderSystem(entt::registry& registry, entt::dispatc
     map(200.f, 200.f)
 {
     registry.on_construct<Components::SpriteComponent>().connect<&RenderSystem::onSpriteAdded>(this);
-    registry.on_construct<Components::Player>().connect<&RenderSystem::onPlayerAdded>(this);
+    registry.on_construct<entt::tag<"Player"_hs>>().connect<&RenderSystem::onPlayerAdded>(this);
 }
 
 void ECS::Systems::RenderSystem::update(const App::Seconds& deltaTime)

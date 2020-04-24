@@ -8,7 +8,6 @@ https://inversepalindrome.com/
 #include "ECS/Systems/AudioSystem.hpp"
 #include "ECS/Components/SoundComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
-#include "ECS/Components/ComponentTags.hpp"
 #include "ECS/Utility/PositionConversions.hpp"
 
 #include <SFML/Audio/Listener.hpp>
@@ -20,7 +19,7 @@ ECS::Systems::AudioSystem::AudioSystem(entt::registry& registry, entt::dispatche
     playerEntity(entt::null),
     audioSettings(nullptr)
 {
-    registry.on_construct<Components::Player>().connect<&AudioSystem::onPlayerAdded>(this);
+    registry.on_construct<entt::tag<"Player"_hs>>().connect<&AudioSystem::onPlayerAdded>(this);
     dispatcher.sink<StateChanged>().connect<&AudioSystem::onStateChanged>(this);
 }
 
