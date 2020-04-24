@@ -28,7 +28,6 @@ ECS::Systems::CombatSystem::CombatSystem(entt::registry& registry, entt::dispatc
 
 void ECS::Systems::CombatSystem::update(const App::Seconds& deltaTime)
 {
-
 }
 
 void ECS::Systems::CombatSystem::onWeaponAdded(entt::entity entity)

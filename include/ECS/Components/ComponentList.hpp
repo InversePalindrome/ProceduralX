@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "ECS/Components/BodyComponent.hpp"
+#include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
 #include "ECS/Components/StateComponent.hpp"
 #include "ECS/Components/SoundComponent.hpp"
@@ -25,7 +26,7 @@ https://inversepalindrome.com/
 
 namespace ECS::Components
 {
-    using ComponentList = brigand::list<BodyComponent, SpeedComponent, StateComponent, SoundComponent,
+    using ComponentList = brigand::list<BodyComponent, JointComponent, SpeedComponent, StateComponent, SoundComponent,
     SpriteComponent, ObjectComponent, WeaponComponent, DamageComponent, HealthComponent, AnimationComponent,
     AccelerationComponent, TransformComponent, entt::tag<"Player"_hs>>;
 }

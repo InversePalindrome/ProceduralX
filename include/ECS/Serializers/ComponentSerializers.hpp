@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "ECS/Components/BodyComponent.hpp"
+#include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
 #include "ECS/Components/StateComponent.hpp"
 #include "ECS/Components/SoundComponent.hpp"
@@ -27,9 +28,10 @@ namespace ECS::Serializers
 {
     void serializeSprite(const Components::SpriteComponent& sprite, pugi::xml_node& spriteNode);
     void serializeAnimation(const Components::AnimationComponent& animation, pugi::xml_node& animationNode);
-    void serializeSound(const Components::SoundComponent& sound, pugi::xml_node& soundNode);
+    void serializeSound(const Components::SoundComponent& soundComponent, pugi::xml_node& soundNode);
     void serializeTransform(const Components::TransformComponent& transform, pugi::xml_node& transformNode);
     void serializeBody(const Components::BodyComponent& body, pugi::xml_node& bodyNode);
+    void serializeJoint(const Components::JointComponent& joint, pugi::xml_node& jointNode);
     void serializeSpeed(const Components::SpeedComponent& speed, pugi::xml_node& speedNode);
     void serializeAcceleration(const Components::AccelerationComponent& acceleration, pugi::xml_node& accelerationNode);
     void serializeObject(const Components::ObjectComponent& object, pugi::xml_node& objectNode);

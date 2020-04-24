@@ -18,10 +18,8 @@ https://inversepalindrome.com/
 #include <vector>
 
 
-ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node& spriteNode, App::ResourceManager& resourceManager)
+void ECS::Parsers::parseSprite(Components::SpriteComponent& sprite, const pugi::xml_node& spriteNode, App::ResourceManager& resourceManager)
 {
-    Components::SpriteComponent sprite;
-
     if (auto textureAttribute = spriteNode.attribute("texture"))
     {
         auto textureID = magic_enum::enum_cast<App::TextureID>(textureAttribute.as_string());
@@ -57,14 +55,10 @@ ECS::Components::SpriteComponent ECS::Parsers::parseSprite(const pugi::xml_node&
     {
         sprite.setZOrder(zOrderAttribute.as_int());
     }
-
-    return sprite;
 }
 
-ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml_node& animationNode)
+void ECS::Parsers::parseAnimation(Components::AnimationComponent& animation, const pugi::xml_node& animationNode)
 {
-    Components::AnimationComponent animation;
-
     for (auto frameAnimationNode : animationNode.children("FrameAnimation"))
     {
         auto state = State::Idle;
@@ -123,14 +117,10 @@ ECS::Components::AnimationComponent ECS::Parsers::parseAnimation(const pugi::xml
 
         animation.addAnimation(state, frameAnimation, { frames, App::Seconds(duration.asSeconds()), loop});
     }
-
-    return animation;
 }
 
-ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& soundNode, App::ResourceManager& resourceManager)
+void ECS::Parsers::parseSound(Components::SoundComponent& soundComponent, const pugi::xml_node& soundNode, App::ResourceManager& resourceManager)
 {
-    Components::SoundComponent soundComponent;
-
     for (auto stateNode : soundNode.children())
     {
         auto stateOptional = magic_enum::enum_cast<State>(stateNode.name());
@@ -174,14 +164,10 @@ ECS::Components::SoundComponent ECS::Parsers::parseSound(const pugi::xml_node& s
             soundComponent.addSound(stateOptional.value(), soundOptional.value(), sound);
         }
     }
-
-    return soundComponent;
 }
 
-ECS::Components::TransformComponent ECS::Parsers::parseTransform(const pugi::xml_node& transformNode)
+void ECS::Parsers::parseTransform(Components::TransformComponent& transform, const pugi::xml_node& transformNode)
 {
-    Components::TransformComponent transform;
-
     if (auto xAttribute = transformNode.attribute("x"))
     {
         transform.setPosition({ xAttribute.as_float(), transform.getPosition().y });
@@ -194,50 +180,59 @@ ECS::Components::TransformComponent ECS::Parsers::parseTransform(const pugi::xml
     {
         transform.setAngle(angleAttribute.as_float());
     }
-
-    return transform;
 }
 
-ECS::Components::BodyComponent ECS::Parsers::parseBody(const pugi::xml_node& bodyNode)
+void ECS::Parsers::parseBody(Components::BodyComponent& body, const pugi::xml_node& bodyNode)
 {
-    Components::BodyComponent body;
-
-    auto bodyDef = parseBodyDef(bodyNode);
+    b2BodyDef bodyDef;
+    parseBodyDef(bodyDef, bodyNode);
 
     Components::BodyComponent::Fixtures fixtureDefs;
     Components::BodyComponent::Shapes shapes;
 
     for (auto fixtureNode : bodyNode.children())
     {
-        fixtureDefs.push_back(parseFixtureDef(fixtureNode));
+        b2FixtureDef fixtureDef;
+        parseFixtureDef(fixtureDef, fixtureNode);
+        fixtureDefs.push_back(fixtureDef);
 
         if (std::strcmp(fixtureNode.name(), "Circle") == 0)
         {
-            shapes.push_back(parseCircle(fixtureNode));
+            b2CircleShape circle;
+            parseCircle(circle, fixtureNode);
+            shapes.push_back(circle);
         }
         else if (std::strcmp(fixtureNode.name(), "Edge") == 0)
         {
-            shapes.push_back(parseEdge(fixtureNode));
+            b2EdgeShape edge;
+            parseEdge(edge, fixtureNode);
+            shapes.push_back(edge);
         }
         else if (std::strcmp(fixtureNode.name(), "Polygon") == 0)
         {
-            shapes.push_back(parsePolygon(fixtureNode));
+            b2PolygonShape polygon;
+            parsePolygon(polygon, fixtureNode);
+            shapes.push_back(polygon);
         }
         else if (std::strcmp(fixtureNode.name(), "Chain") == 0)
         {
-            shapes.push_back(parseChain(fixtureNode));
+            b2ChainShape chain;
+            parseChain(chain, fixtureNode);
+            shapes.push_back(chain);
         }
     }
 
     body.setInitializationParameters(bodyDef, fixtureDefs, shapes);
-
-    return body;
 }
 
-ECS::Components::SpeedComponent ECS::Parsers::parseSpeed(const pugi::xml_node& speedNode)
+void ECS::Parsers::parseJoint(Components::JointComponent& joint, const pugi::xml_node& jointNode)
 {
-    Components::SpeedComponent speed;
+    
 
+}
+
+void ECS::Parsers::parseSpeed(Components::SpeedComponent& speed, const pugi::xml_node& speedNode)
+{
     if (auto linearSpeedAttribute = speedNode.attribute("linearSpeed"))
     {
         speed.setLinearSpeed(linearSpeedAttribute.as_float());
@@ -246,14 +241,10 @@ ECS::Components::SpeedComponent ECS::Parsers::parseSpeed(const pugi::xml_node& s
     {
         speed.setAngularSpeed(angularSpeedAttribute.as_float());
     }
-
-    return speed;
 }
 
-ECS::Components::AccelerationComponent ECS::Parsers::parseAcceleration(const pugi::xml_node& accelerationNode)
+void ECS::Parsers::parseAcceleration(Components::AccelerationComponent& acceleration, const pugi::xml_node& accelerationNode)
 {
-    Components::AccelerationComponent acceleration;
-
     if (auto linearAccelerationAttribute = accelerationNode.attribute("linearAcceleration"))
     {
         acceleration.setLinearAcceleration(linearAccelerationAttribute.as_float());
@@ -262,42 +253,30 @@ ECS::Components::AccelerationComponent ECS::Parsers::parseAcceleration(const pug
     {
         acceleration.setAngularAcceleration(angularAccelerationAttribute.as_float());
     }
-
-    return acceleration;
 }
 
-ECS::Components::ObjectComponent ECS::Parsers::parseObject(const pugi::xml_node& objectNode)
+void ECS::Parsers::parseObject(Components::ObjectComponent& object, const pugi::xml_node& objectNode)
 {
-    Components::ObjectComponent object;
-
     auto objectTypeOptional = magic_enum::enum_cast<ObjectType>(objectNode.text().as_string());
 
     if (objectTypeOptional.has_value())
     {
         object.setObjectType(objectTypeOptional.value());
     }
-
-    return object;
 }
 
-ECS::Components::StateComponent ECS::Parsers::parseState(const pugi::xml_node& stateNode)
+void ECS::Parsers::parseState(Components::StateComponent& state, const pugi::xml_node& stateNode)
 {
-    Components::StateComponent state;
-
     auto entityStateOptional = magic_enum::enum_cast<State>(stateNode.text().as_string());
 
     if (entityStateOptional.has_value())
     {
         state.setState(entityStateOptional.value());
     }
-
-    return state;
 }
 
-ECS::Components::WeaponComponent ECS::Parsers::parseWeapon(const pugi::xml_node& weaponNode)
+void ECS::Parsers::parseWeapon(Components::WeaponComponent& weapon, const pugi::xml_node& weaponNode)
 {
-    Components::WeaponComponent weapon;
-
     auto entityOptional = magic_enum::enum_cast<EntityID>(weaponNode.text().as_string());
 
     if (entityOptional.has_value())
@@ -309,24 +288,14 @@ ECS::Components::WeaponComponent ECS::Parsers::parseWeapon(const pugi::xml_node&
     {
         weapon.setReloadTime(App::Seconds(reloadTimeAttribute.as_float()));
     }
-
-    return weapon;
 }
 
-ECS::Components::DamageComponent ECS::Parsers::parseDamage(const pugi::xml_node& damageNode)
+void ECS::Parsers::parseDamage(Components::DamageComponent& damage, const pugi::xml_node& damageNode)
 {
-    Components::DamageComponent damage;
-
     damage.setDamage(damageNode.text().as_float());
-
-    return damage;
 }
 
-ECS::Components::HealthComponent ECS::Parsers::parseHealth(const pugi::xml_node& healthNode)
+void ECS::Parsers::parseHealth(Components::HealthComponent& health, const pugi::xml_node& healthNode)
 {
-    Components::HealthComponent health;
-
     health.setHealth(healthNode.text().as_float());
-
-    return health;
 }

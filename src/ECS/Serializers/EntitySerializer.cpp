@@ -42,6 +42,10 @@ namespace
             {
                 serializeBody(registry.get<BodyComponent>(entity), node);
             }),
+        hana::make_pair(hana::type_c<JointComponent>, [](const auto& registry, auto entity, auto& node)
+            {
+                serializeJoint(registry.get<JointComponent>(entity), node);
+            }),
         hana::make_pair(hana::type_c<SpeedComponent>, [](const auto& registry, auto entity, auto& node)
             {
                 serializeSpeed(registry.get<SpeedComponent>(entity), node);

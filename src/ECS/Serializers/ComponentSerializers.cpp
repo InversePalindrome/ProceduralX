@@ -117,6 +117,11 @@ void ECS::Serializers::serializeBody(const Components::BodyComponent& body, pugi
     }
 }
 
+void ECS::Serializers::serializeJoint(const Components::JointComponent& joint, pugi::xml_node& jointNode)
+{
+    jointNode.set_name("Joint");
+}
+
 void ECS::Serializers::serializeSpeed(const Components::SpeedComponent& speed, pugi::xml_node& speedNode)
 {
     speedNode.set_name("Speed");

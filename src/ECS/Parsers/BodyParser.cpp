@@ -8,10 +8,8 @@ https://inversepalindrome.com/
 #include "ECS/Parsers/BodyParser.hpp"
 
 
-b2BodyDef ECS::Parsers::parseBodyDef(const pugi::xml_node& bodyNode)
+void ECS::Parsers::parseBodyDef(b2BodyDef& bodyDef, const pugi::xml_node& bodyNode)
 {
-    b2BodyDef bodyDef;
-    
     if (auto bodyTypeAttribute = bodyNode.attribute("type"))
     {
         bodyDef.type = static_cast<b2BodyType>(bodyTypeAttribute.as_int());
@@ -42,14 +40,10 @@ b2BodyDef ECS::Parsers::parseBodyDef(const pugi::xml_node& bodyNode)
     {
         bodyDef.bullet = bulletAttribute.as_bool();
     }
-
-    return bodyDef;
 }
 
-b2FixtureDef ECS::Parsers::parseFixtureDef(const pugi::xml_node& fixtureNode)
+void ECS::Parsers::parseFixtureDef(b2FixtureDef& fixtureDef, const pugi::xml_node& fixtureNode)
 {
-    b2FixtureDef fixtureDef;
-
     if(auto densityAttribute = fixtureNode.attribute("density"))
     {
         fixtureDef.density = densityAttribute.as_float();
@@ -66,14 +60,10 @@ b2FixtureDef ECS::Parsers::parseFixtureDef(const pugi::xml_node& fixtureNode)
     {
         fixtureDef.isSensor = sensorAttribute.as_bool();
     }
-
-    return fixtureDef;
 }
 
-b2CircleShape ECS::Parsers::parseCircle(const pugi::xml_node& circleNode)
+void ECS::Parsers::parseCircle(b2CircleShape& circle, const pugi::xml_node& circleNode)
 {
-    b2CircleShape circle;
-
     if (auto xAttribute = circleNode.attribute("x"))
     {
         circle.m_p.x = xAttribute.as_float();
@@ -86,14 +76,10 @@ b2CircleShape ECS::Parsers::parseCircle(const pugi::xml_node& circleNode)
     {
         circle.m_radius = radiusAttribute.as_float();
     }
-
-    return circle;
 }
 
-b2EdgeShape ECS::Parsers::parseEdge(const pugi::xml_node& edgeNode)
+void ECS::Parsers::parseEdge(b2EdgeShape& edge, const pugi::xml_node& edgeNode)
 {
-    b2EdgeShape edge;
-
     if (auto hasVertex0Attribute = edgeNode.attribute("hasVertex0"))
     {
         if (hasVertex0Attribute.as_bool())
@@ -152,15 +138,12 @@ b2EdgeShape ECS::Parsers::parseEdge(const pugi::xml_node& edgeNode)
             edge.m_hasVertex3 = false;
         }
     }
-
-    return edge;
 }
 
-b2PolygonShape ECS::Parsers::parsePolygon(const pugi::xml_node& polygonNode)
+void ECS::Parsers::parsePolygon(b2PolygonShape& polygon, const pugi::xml_node& polygonNode)
 {
-    b2PolygonShape polygon;
-
-    auto vertices = parseVertices(polygonNode);
+    std::vector<b2Vec2> vertices;
+    parseVertices(vertices, polygonNode);
 
     if (!vertices.empty())
     {
@@ -172,25 +155,18 @@ b2PolygonShape ECS::Parsers::parsePolygon(const pugi::xml_node& polygonNode)
     {
         polygon.SetAsBox(widthAttribute.as_float(1.f), heightAttribute.as_float(1.f));
     }
-
-    return polygon;
 }
 
-b2ChainShape ECS::Parsers::parseChain(const pugi::xml_node& chainNode)
-{
-    b2ChainShape chain;
-
-    auto vertices = parseVertices(chainNode);
-
-    chain.CreateChain(vertices.data(), vertices.size());
-
-    return chain;
-}
-
-std::vector<b2Vec2> ECS::Parsers::parseVertices(const pugi::xml_node& verticesNode)
+void ECS::Parsers::parseChain(b2ChainShape& chain, const pugi::xml_node& chainNode)
 {
     std::vector<b2Vec2> vertices;
+    parseVertices(vertices, chainNode);
 
+    chain.CreateChain(vertices.data(), vertices.size());
+}
+
+void ECS::Parsers::parseVertices(std::vector<b2Vec2>& vertices, const pugi::xml_node& verticesNode)
+{
     for (const auto pointNode : verticesNode.children("Vertex"))
     {
         b2Vec2 vertex(0.f, 0.f);
@@ -206,6 +182,4 @@ std::vector<b2Vec2> ECS::Parsers::parseVertices(const pugi::xml_node& verticesNo
 
         vertices.push_back(vertex);
     }
-
-    return vertices;
 }

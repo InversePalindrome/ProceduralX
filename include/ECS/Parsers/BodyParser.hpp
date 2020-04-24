@@ -22,13 +22,13 @@ https://inversepalindrome.com/
 
 namespace ECS::Parsers
 {
-    b2BodyDef parseBodyDef(const pugi::xml_node& bodyNode);
-    b2FixtureDef parseFixtureDef(const pugi::xml_node& fixtureNode);
+    void parseBodyDef(b2BodyDef& bodyDef, const pugi::xml_node& bodyNode);
+    void parseFixtureDef(b2FixtureDef& fixtureDef, const pugi::xml_node& fixtureNode);
+    
+    void parseCircle(b2CircleShape& circle, const pugi::xml_node& circleNode);
+    void parseEdge(b2EdgeShape& edge, const pugi::xml_node& edgeNode);
+    void parsePolygon(b2PolygonShape& polygon, const pugi::xml_node& polygonNode);
+    void parseChain(b2ChainShape& chain, const pugi::xml_node& chainNode);
 
-    b2CircleShape parseCircle(const pugi::xml_node& circleNode);
-    b2EdgeShape parseEdge(const pugi::xml_node& edgeNode);
-    b2PolygonShape parsePolygon(const pugi::xml_node& polygonNode);
-    b2ChainShape parseChain(const pugi::xml_node& chainNode);
-
-    std::vector<b2Vec2> parseVertices(const pugi::xml_node& verticesNode);
+    void parseVertices(std::vector<b2Vec2>& vertices, const pugi::xml_node& verticesNode);
 }
