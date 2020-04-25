@@ -22,7 +22,7 @@ void ECS::Systems::StateSystem::update(const App::Seconds& deltaTime)
 
 }
 
-void ECS::Systems::StateSystem::onStateAdded(entt::entity entity)
+void ECS::Systems::StateSystem::onStateAdded(entt::registry&, entt::entity entity)
 {
     const auto& state = registry.get<Components::StateComponent>(entity);
 

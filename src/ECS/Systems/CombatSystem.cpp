@@ -30,12 +30,12 @@ void ECS::Systems::CombatSystem::update(const App::Seconds& deltaTime)
 {
 }
 
-void ECS::Systems::CombatSystem::onWeaponAdded(entt::entity entity)
+void ECS::Systems::CombatSystem::onWeaponAdded(entt::registry&, entt::entity entity)
 {
     reloadStatusMap[entity] = true;
 }
 
-void ECS::Systems::CombatSystem::onWeaponRemoved(entt::entity entity)
+void ECS::Systems::CombatSystem::onWeaponRemoved(entt::registry&, entt::entity entity)
 {
     reloadStatusMap.erase(entity);
 }

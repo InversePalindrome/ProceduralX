@@ -21,7 +21,7 @@ namespace ECS::Systems
         virtual void update(const App::Seconds& deltaTime) override;
 
     private:
-        void onStateAdded(entt::entity entity);
+        void onStateAdded(entt::registry&, entt::entity entity);
         void onChangeState(const ChangeState& event);
     };
 }

@@ -120,6 +120,9 @@ void ECS::Serializers::serializeBody(const Components::BodyComponent& body, pugi
 void ECS::Serializers::serializeJoint(const Components::JointComponent& joint, pugi::xml_node& jointNode)
 {
     jointNode.set_name("Joint");
+
+    jointNode.append_attribute("entityA") = static_cast<std::size_t>(joint.getEntityA());
+    jointNode.append_attribute("entityB") = static_cast<std::size_t>(joint.getEntityB());
 }
 
 void ECS::Serializers::serializeSpeed(const Components::SpeedComponent& speed, pugi::xml_node& speedNode)

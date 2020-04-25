@@ -29,8 +29,8 @@ namespace ECS::Systems
 
         CppTime::Timer reloadTimer;
 
-        void onWeaponAdded(entt::entity entity);
-        void onWeaponRemoved(entt::entity entity);
+        void onWeaponAdded(entt::registry&, entt::entity entity);
+        void onWeaponRemoved(entt::registry&, entt::entity entity);
         void onCombatOccurred(const CombatOccurred& event);
         void onShootProjectile(const ShootProjectile& event);
     };

@@ -30,7 +30,7 @@ void ECS::Systems::PlayerSystem::update(const App::Seconds& deltaTime)
 {
 }
 
-void ECS::Systems::PlayerSystem::onPlayerAdded(entt::entity entity)
+void ECS::Systems::PlayerSystem::onPlayerAdded(entt::registry&, entt::entity entity)
 {
     playerEntity = entity;
 }

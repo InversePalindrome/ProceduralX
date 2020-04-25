@@ -38,7 +38,7 @@ namespace ECS::Systems
 
         void updateViewPosition();
 
-        void onSpriteAdded(entt::entity);
-        void onPlayerAdded(entt::entity entity);
+        void onSpriteAdded(entt::registry&, entt::entity);
+        void onPlayerAdded(entt::registry&, entt::entity entity);
     };
 }

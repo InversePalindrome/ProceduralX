@@ -23,7 +23,7 @@ namespace ECS::Systems
     private:
         entt::entity playerEntity;
 
-        void onPlayerAdded(entt::entity entity);
+        void onPlayerAdded(entt::registry&, entt::entity entity);
 
         void movePlayer(const ActionTriggered& event);
         void rotatePlayer(const MouseMoved& event);

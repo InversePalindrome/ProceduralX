@@ -227,8 +227,14 @@ void ECS::Parsers::parseBody(Components::BodyComponent& body, const pugi::xml_no
 
 void ECS::Parsers::parseJoint(Components::JointComponent& joint, const pugi::xml_node& jointNode)
 {
-    
-
+    if (auto entityAAttribute = jointNode.attribute("entityA"))
+    {
+        joint.setEntityA(entt::entity{ entityAAttribute.as_uint() });
+    }
+    if (auto entityBAttribute = jointNode.attribute("entityB"))
+    {
+        joint.setEntityB(entt::entity{ entityBAttribute.as_uint() });
+    }
 }
 
 void ECS::Parsers::parseSpeed(Components::SpeedComponent& speed, const pugi::xml_node& speedNode)

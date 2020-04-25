@@ -18,8 +18,17 @@ void ECS::Parsers::parseLevel(entt::registry& registry, App::ResourceManager& re
         {
             for (auto entityNode : levelNode.children("Entity"))
             {
-                auto entity = registry.create();
+                entt::entity entity;
 
+                if (auto idAttribute = entityNode.attribute("id"))
+                {
+                    entity = registry.create(entt::entity{ idAttribute.as_int() });
+                }
+                else
+                {
+                    entity = registry.create();
+                }
+                
                 if (auto filenameAttribute = entityNode.attribute("filename"))
                 {
                     parseEntity(entity, registry, resourceManager, filenameAttribute.as_string());

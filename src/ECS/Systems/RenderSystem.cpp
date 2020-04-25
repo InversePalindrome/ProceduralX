@@ -78,13 +78,13 @@ void ECS::Systems::RenderSystem::updateViewPosition()
     window->setView(cameraView);
 }
 
-void ECS::Systems::RenderSystem::onSpriteAdded(entt::entity)
+void ECS::Systems::RenderSystem::onSpriteAdded(entt::registry&, entt::entity)
 {
     registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs) 
         { return lhs.getZOrder() < rhs.getZOrder(); });
 }
 
-void ECS::Systems::RenderSystem::onPlayerAdded(entt::entity entity)
+void ECS::Systems::RenderSystem::onPlayerAdded(entt::registry&, entt::entity entity)
 {
     playerEntity = entity;
 }

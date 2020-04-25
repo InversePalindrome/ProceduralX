@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Systems/PhysicsSystem.hpp"
 #include "ECS/Components/BodyComponent.hpp"
+#include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Utility/AngleConversions.hpp"
 
@@ -21,6 +22,8 @@ ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispa
 
     registry.on_construct<Components::BodyComponent>().connect<&PhysicsSystem::onBodyAdded>(this);
     registry.on_destroy<Components::BodyComponent>().connect<&PhysicsSystem::onBodyRemoved>(this);
+    registry.on_construct<Components::JointComponent>().connect<&PhysicsSystem::onJointAdded>(this);
+    registry.on_destroy<Components::JointComponent>().connect<&PhysicsSystem::onJointRemoved>(this);
 }
 
 void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
@@ -30,19 +33,29 @@ void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
     updateWorld(deltaTime);
 }
 
-void ECS::Systems::PhysicsSystem::onBodyAdded(entt::entity entity)
+void ECS::Systems::PhysicsSystem::onBodyAdded(entt::registry&, entt::entity entity)
 {
     auto& body = registry.get<Components::BodyComponent>(entity);
-
+    
     body.initialize(world);
     body.setUserData(reinterpret_cast<void*>(entity));
 }
 
-void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::entity entity)
+void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::registry&, entt::entity entity)
 {
     auto& body = registry.get<Components::BodyComponent>(entity);
     
     bodiesToRemove.push_back(body.getBody());
+}
+
+void ECS::Systems::PhysicsSystem::onJointAdded(entt::registry&, entt::entity entity)
+{
+
+}
+
+void ECS::Systems::PhysicsSystem::onJointRemoved(entt::registry&, entt::entity entity)
+{
+
 }
 
 void ECS::Systems::PhysicsSystem::updateEntityRemoval()

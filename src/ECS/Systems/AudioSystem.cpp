@@ -33,7 +33,7 @@ void ECS::Systems::AudioSystem::setAudioSettings(const App::AudioSettings* audio
     this->audioSettings = audioSettings;
 }
 
-void ECS::Systems::AudioSystem::onPlayerAdded(entt::entity entity)
+void ECS::Systems::AudioSystem::onPlayerAdded(entt::registry&, entt::entity entity)
 {
     this->playerEntity = entity;
 }
