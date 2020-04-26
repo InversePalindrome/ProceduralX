@@ -16,9 +16,11 @@ ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispa
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory),
     world({0.0f, 0.0f}),
-    collisionManager(registry, dispatcher)
+    collisionManager(registry, dispatcher),
+    destructionManager(registry)
 {
     world.SetContactListener(&collisionManager);
+    world.SetDestructionListener(&destructionManager);
 
     registry.on_construct<Components::BodyComponent>().connect<&PhysicsSystem::onBodyAdded>(this);
     registry.on_destroy<Components::BodyComponent>().connect<&PhysicsSystem::onBodyRemoved>(this);

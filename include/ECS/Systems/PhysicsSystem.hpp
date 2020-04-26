@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Systems/System.hpp"
 #include "ECS/CollisionManager.hpp"
+#include "ECS/DestructionManager.hpp"
 
 #include <box2d/b2_world.h>
 
@@ -27,6 +28,7 @@ namespace ECS::Systems
     private:
         b2World world;
         CollisionManager collisionManager;
+        DestructionManager destructionManager;
         std::vector<b2Body*> bodiesToRemove;
 
         void onBodyAdded(entt::registry&, entt::entity entity);

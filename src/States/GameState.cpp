@@ -11,6 +11,7 @@ https://inversepalindrome.com/
 #include "ECS/Systems/AudioSystem.hpp"
 #include "ECS/Systems/InputSystem.hpp"
 #include "ECS/Systems/StateSystem.hpp"
+#include "ECS/Systems/OrbitalSystem.hpp"
 #include "ECS/Systems/RenderSystem.hpp"
 #include "ECS/Systems/CombatSystem.hpp"
 #include "ECS/Systems/PlayerSystem.hpp"
@@ -91,6 +92,7 @@ void States::GameState::initializeSystems()
     systems.addSystem<ECS::Systems::AudioSystem>();
     systems.addSystem<ECS::Systems::PhysicsSystem>();
     systems.addSystem<ECS::Systems::PlayerSystem>();
+    systems.addSystem<ECS::Systems::OrbitalSystem>();
     systems.addSystem<ECS::Systems::CombatSystem>();
     systems.addSystem<ECS::Systems::StateSystem>();
 
