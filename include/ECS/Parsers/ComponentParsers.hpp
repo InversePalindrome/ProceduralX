@@ -21,6 +21,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/AnimationComponent.hpp"
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
+#include "ECS/Components/SatelliteComponent.hpp"
 
 #include <pugixml.hpp>
 
@@ -40,4 +41,5 @@ namespace ECS::Parsers
     void parseWeapon(Components::WeaponComponent& weapon, const pugi::xml_node& weaponNode);
     void parseDamage(Components::DamageComponent& damage, const pugi::xml_node& damageNode);
     void parseHealth(Components::HealthComponent& health, const pugi::xml_node& healthNode);
+    void parseSatellite(Components::SatelliteComponent& satellite, const pugi::xml_node& satelliteNode);
 }

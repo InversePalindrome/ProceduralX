@@ -74,6 +74,10 @@ namespace
             {
                 serializeHealth(registry.get<HealthComponent>(entity), node);
             }),
+        hana::make_pair(hana::type_c<SatelliteComponent>, [](const auto& registry, auto entity, auto& node)
+            {
+                serializeSatellite(registry.get<SatelliteComponent>(entity), node);
+            }),
         hana::make_pair(hana::type_c<entt::tag<"Player"_hs>>, [](const auto& registry, auto, auto& node)
             {
                 node.set_name("Player");

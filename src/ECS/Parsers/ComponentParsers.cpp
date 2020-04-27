@@ -7,7 +7,6 @@ https://inversepalindrome.com/
 
 #include "ECS/Parsers/BodyParser.hpp"
 #include "ECS/Parsers/ComponentParsers.hpp"
-#include "App/ResourceManager.hpp"
 
 #include <thor/Animations/FrameAnimation.hpp>
 
@@ -304,4 +303,21 @@ void ECS::Parsers::parseDamage(Components::DamageComponent& damage, const pugi::
 void ECS::Parsers::parseHealth(Components::HealthComponent& health, const pugi::xml_node& healthNode)
 {
     health.setHealth(healthNode.text().as_float());
+}
+
+void ECS::Parsers::parseSatellite(Components::SatelliteComponent& satellite, const pugi::xml_node& satelliteNode)
+{
+    if (auto primaryEntityAttribute = satelliteNode.attribute("primaryEntity"))
+    {
+        satellite.setPrimaryEntity(entt::entity{ primaryEntityAttribute.as_uint() });
+    }
+    if (auto directionAttribute = satelliteNode.attribute("direction"))
+    {
+        auto directionOptional = magic_enum::enum_cast<RotationDirection>(directionAttribute.as_string());
+
+        if (directionOptional.has_value())
+        {
+            satellite.setDirection(directionOptional.value());
+        }
+    }
 }

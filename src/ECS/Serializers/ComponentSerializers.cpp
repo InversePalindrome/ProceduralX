@@ -177,3 +177,11 @@ void ECS::Serializers::serializeHealth(const Components::HealthComponent& health
 
     healthNode.text().set(health.getHealth());
 }
+
+void ECS::Serializers::serializeSatellite(const Components::SatelliteComponent& satellite, pugi::xml_node& satelliteNode)
+{
+    satelliteNode.set_name("Satellite");
+
+    satelliteNode.append_attribute("primaryEntity") = static_cast<std::size_t>(satellite.getPrimaryEntity());
+    satelliteNode.append_attribute("direction") = std::string(magic_enum::enum_name(satellite.getDirection())).c_str();
+}

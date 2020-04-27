@@ -112,6 +112,13 @@ namespace
 
                 registry.assign<HealthComponent>(entity, health);
             }},
+            {"Satellite", [](auto& registry, auto&, auto entity, const auto& node)
+            {
+                SatelliteComponent satellite;
+                parseSatellite(satellite, node);
+
+                registry.assign<SatelliteComponent>(entity, satellite);
+            }},
             {"Player", [](auto& registry, auto&, auto entity, const auto&)
             { 
                 registry.assign<entt::tag<"Player"_hs>>(entity);
