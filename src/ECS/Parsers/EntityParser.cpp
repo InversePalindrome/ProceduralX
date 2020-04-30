@@ -119,6 +119,13 @@ namespace
 
                 registry.assign<SatelliteComponent>(entity, satellite);
             }},
+            {"Path", [](auto& registry, auto&, auto entity, const auto& node)
+            {
+                PathComponent path;
+                parsePath(path, node);
+
+                registry.assign<PathComponent>(entity, path);
+            }},
             {"Player", [](auto& registry, auto&, auto entity, const auto&)
             { 
                 registry.assign<entt::tag<"Player"_hs>>(entity);

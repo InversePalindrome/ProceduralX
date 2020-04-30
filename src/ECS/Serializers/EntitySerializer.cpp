@@ -78,6 +78,10 @@ namespace
             {
                 serializeSatellite(registry.get<SatelliteComponent>(entity), node);
             }),
+        hana::make_pair(hana::type_c<PathComponent>, [](const auto& registry, auto entity, auto& node)
+            {
+                serializePath(registry.get<PathComponent>(entity), node);
+            }),
         hana::make_pair(hana::type_c<entt::tag<"Player"_hs>>, [](const auto& registry, auto, auto& node)
             {
                 node.set_name("Player");

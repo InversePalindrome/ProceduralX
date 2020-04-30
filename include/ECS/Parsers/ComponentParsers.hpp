@@ -22,6 +22,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Components/SatelliteComponent.hpp"
+#include "ECS/Components/PathComponent.hpp"
 
 #include <pugixml.hpp>
 
@@ -42,4 +43,5 @@ namespace ECS::Parsers
     void parseDamage(Components::DamageComponent& damage, const pugi::xml_node& damageNode);
     void parseHealth(Components::HealthComponent& health, const pugi::xml_node& healthNode);
     void parseSatellite(Components::SatelliteComponent& satellite, const pugi::xml_node& satelliteNode);
+    void parsePath(Components::PathComponent& path, const pugi::xml_node& pathNode);
 }

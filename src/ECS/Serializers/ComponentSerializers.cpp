@@ -185,3 +185,16 @@ void ECS::Serializers::serializeSatellite(const Components::SatelliteComponent& 
     satelliteNode.append_attribute("primaryEntity") = static_cast<std::size_t>(satellite.getPrimaryEntity());
     satelliteNode.append_attribute("direction") = std::string(magic_enum::enum_name(satellite.getDirection())).c_str();
 }
+
+void ECS::Serializers::serializePath(const Components::PathComponent& path, pugi::xml_node& pathNode)
+{
+    pathNode.set_name("Path");
+
+    for (const auto& pathPoint : path)
+    {
+        auto pointNode = pathNode.append_child("Point");
+
+        pointNode.append_attribute("x") = pathPoint.x;
+        pointNode.append_attribute("y") = pathPoint.y;
+    }
+}

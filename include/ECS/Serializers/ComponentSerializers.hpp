@@ -21,6 +21,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/AccelerationComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
 #include "ECS/Components/SatelliteComponent.hpp"
+#include "ECS/Components/PathComponent.hpp"
 
 #include <pugixml.hpp>
 
@@ -41,4 +42,5 @@ namespace ECS::Serializers
     void serializeDamage(const Components::DamageComponent& damage, pugi::xml_node& damageNode);
     void serializeHealth(const Components::HealthComponent& health, pugi::xml_node& healthNode);
     void serializeSatellite(const Components::SatelliteComponent& satellite, pugi::xml_node& satelliteNode);
+    void serializePath(const Components::PathComponent& path, pugi::xml_node& pathNode);
 }

@@ -321,3 +321,16 @@ void ECS::Parsers::parseSatellite(Components::SatelliteComponent& satellite, con
         }
     }
 }
+
+void ECS::Parsers::parsePath(Components::PathComponent& path, const pugi::xml_node& pathNode)
+{
+    for (auto pointNode : pathNode.children("Point"))
+    {
+        if (auto xPositionAttribute = pointNode.attribute("x"),
+            yPositionAttribute = pointNode.attribute("y");
+            xPositionAttribute && yPositionAttribute)
+        {
+            path.addPoint({ xPositionAttribute.as_float(), yPositionAttribute.as_float() });
+        }
+    }
+}

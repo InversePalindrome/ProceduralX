@@ -7,7 +7,6 @@ https://inversepalindrome.com/
 
 #pragma once
 
-
 #include "States/State.hpp"
 
 #include <TGUI/Widgets/Button.hpp>
