@@ -8,8 +8,8 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "ECS/Map.hpp"
+#include "ECS/Events.hpp"
 #include "ECS/Systems/System.hpp"
-#include "ECS/Systems/Events.hpp"
 #include "ECS/Components/SpriteComponent.hpp"
 
 #include <SFML/Graphics/View.hpp>

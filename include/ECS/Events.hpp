@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2020 Inverse Palindrome
-ProceduralX - ECS/Systems/Events.hpp
+ProceduralX - ECS/Events.hpp
 https://inversepalindrome.com/
 */
 
@@ -15,7 +15,7 @@ https://inversepalindrome.com/
 #include <entt/entt.hpp>
 
 
-namespace ECS::Systems
+namespace ECS
 {
     struct ActionTriggered
     {
@@ -53,5 +53,11 @@ namespace ECS::Systems
     {
         entt::entity attacker;
         entt::entity victim;
+    };
+
+    struct CrossedPathPoint
+    {
+        entt::entity crossingEntity;
+        entt::entity pathEntity;
     };
 }

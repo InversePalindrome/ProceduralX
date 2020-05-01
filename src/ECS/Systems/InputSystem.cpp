@@ -5,7 +5,7 @@ https://inversepalindrome.com/
 */
 
 
-#include "ECS/Systems/Events.hpp"
+#include "ECS/Events.hpp"
 #include "ECS/Systems/InputSystem.hpp"
 
 

@@ -52,12 +52,24 @@ void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::registry&, entt::entity en
 
 void ECS::Systems::PhysicsSystem::onJointAdded(entt::registry&, entt::entity entity)
 {
+    auto& joint = registry.get<Components::JointComponent>(entity);
 
+    auto entityA = joint.getEntityA();
+    auto entityB = joint.getEntityB();
+
+    if (registry.valid(entityA) && registry.valid(entityB) && registry.has<Components::BodyComponent>(entityA) &&
+        registry.has<Components::BodyComponent>(entityB))
+    {
+        auto& bodyA = registry.get<Components::BodyComponent>(entityA);
+        auto& bodyB = registry.get<Components::BodyComponent>(entityB);
+    }
 }
 
 void ECS::Systems::PhysicsSystem::onJointRemoved(entt::registry&, entt::entity entity)
 {
+    auto& joint = registry.get<Components::JointComponent>(entity);
 
+    jointsToRemove.push_back(joint.getJoint());
 }
 
 void ECS::Systems::PhysicsSystem::updateEntityRemoval()
@@ -68,6 +80,13 @@ void ECS::Systems::PhysicsSystem::updateEntityRemoval()
     }
 
     bodiesToRemove.clear();
+
+    for (auto* joint : jointsToRemove)
+    {
+        world.DestroyJoint(joint);
+    }
+
+    jointsToRemove.clear();
 }
 
 void ECS::Systems::PhysicsSystem::updateEntityTransforms()

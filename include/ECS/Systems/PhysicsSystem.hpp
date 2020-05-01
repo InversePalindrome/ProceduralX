@@ -30,6 +30,7 @@ namespace ECS::Systems
         CollisionManager collisionManager;
         DestructionManager destructionManager;
         std::vector<b2Body*> bodiesToRemove;
+        std::vector<b2Joint*> jointsToRemove;
 
         void onBodyAdded(entt::registry&, entt::entity entity);
         void onBodyRemoved(entt::registry&, entt::entity entity);

@@ -43,4 +43,8 @@ namespace ECS
     std::optional<std::pair<entt::entity, entt::entity>> getCollisionPair(entt::entity entityA, entt::entity entityB,
         flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB,
         flags::flags<ObjectType> orderedObjectTypeA, flags::flags<ObjectType> orderedObjectTypeB);
+
+    entt::entity castUserDataToEntity(void* userData);
+
+    bool isCollisionPairValid(const entt::registry& registry, entt::entity entityA, entt::entity entityB);
 }

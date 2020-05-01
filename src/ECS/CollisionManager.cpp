@@ -5,9 +5,9 @@ https://inversepalindrome.com/
 */
 
 
-#include "ECS/Components/ObjectComponent.hpp"
-#include "ECS/Systems/Events.hpp"
+#include "ECS/Events.hpp"
 #include "ECS/CollisionManager.hpp"
+#include "ECS/Components/ObjectComponent.hpp"
 
 
 ECS::CollisionManager::CollisionManager(entt::registry& registry, entt::dispatcher& dispatcher) :
@@ -18,34 +18,37 @@ ECS::CollisionManager::CollisionManager(entt::registry& registry, entt::dispatch
 
 void ECS::CollisionManager::BeginContact(b2Contact* contact)
 {
-    auto entityA = static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>
-        (contact->GetFixtureA()->GetBody()->GetUserData()));
-    auto entityB = static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>
-        (contact->GetFixtureB()->GetBody()->GetUserData()));
+    auto entityA = castUserDataToEntity(contact->GetFixtureA()->GetBody()->GetUserData());
+    auto entityB = castUserDataToEntity(contact->GetFixtureB()->GetBody()->GetUserData());
 
-    if (!registry.valid(entityA) || !registry.valid(entityB) || !registry.has
-        <Components::ObjectComponent>(entityA) || !registry.has<Components::ObjectComponent>(entityB))
+    if (isCollisionPairValid(registry, entityA, entityB))
     {
-        return;
-    }
+        auto objectA = registry.get<Components::ObjectComponent>(entityA).getObjectType();
+        auto objectB = registry.get<Components::ObjectComponent>(entityB).getObjectType();;
 
-    auto objectA = registry.get<Components::ObjectComponent>(entityA).getObjectType();
-    auto objectB = registry.get<Components::ObjectComponent>(entityB).getObjectType();;
+        if (auto collisionPair = getCollisionPair(entityA, entityB, objectA, objectB,
+            ObjectType::Projectile, ObjectType::Player | ObjectType::Enemy))
+        {
+            auto [projectile, victim] = *collisionPair;
 
-    if (auto collisionPair = getCollisionPair(entityA, entityB, objectA, objectB,
-        ObjectType::Projectile, ObjectType::Player | ObjectType::Enemy))
-    {
-        auto [projectile, victim] = *collisionPair;
+            dispatcher.trigger(CombatOccurred{ projectile, victim });
+        }
+        if (auto collisionPair = getCollisionPair(entityA, entityB, objectA, objectB,
+            ObjectType::Enemy | ObjectType::Planet, ObjectType::PathPoint))
+        {
+            auto [crossingEntity, pathEntity] = *collisionPair;
 
-        dispatcher.trigger(ECS::Systems::CombatOccurred{ projectile, victim });
-    }
-    if (objectA & ObjectType::Projectile)
-    {
-        registry.destroy(entityA);
-    }
-    if (objectB & ObjectType::Projectile)
-    {
-        registry.destroy(entityB);
+            dispatcher.trigger(CrossedPathPoint{ crossingEntity, pathEntity });
+
+        }
+        if (objectA & ObjectType::Projectile)
+        {
+            registry.destroy(entityA);
+        }
+        if (objectB & ObjectType::Projectile)
+        {
+            registry.destroy(entityB);
+        }
     }
 }
 
@@ -78,4 +81,15 @@ std::optional<std::pair<entt::entity, entt::entity>> ECS::getCollisionPair(entt:
     }
 
     return {};
+}
+
+entt::entity ECS::castUserDataToEntity(void* userData)
+{
+    return static_cast<entt::registry::entity_type>(reinterpret_cast<std::uint32_t>(userData));
+}
+
+bool ECS::isCollisionPairValid(const entt::registry& registry, entt::entity entityA, entt::entity entityB)
+{
+    return registry.valid(entityA) && registry.valid(entityB) && registry.has<Components::ObjectComponent>(entityA)
+        && registry.has<Components::ObjectComponent>(entityB);
 }

@@ -7,8 +7,8 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "ECS/Events.hpp"
 #include "ECS/Systems/System.hpp"
-#include "ECS/Systems/Events.hpp"
 
 #include <cpptime.h>
 
