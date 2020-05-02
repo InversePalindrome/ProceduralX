@@ -33,6 +33,87 @@ namespace ECS::Parsers
     void parseMouseJointDef(b2MouseJointDef& mouseJointDef, const pugi::xml_node& mouseJointNode);
 
     template<typename JointDef>
+    void parseFrequency(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto frequencyAttribute = jointNode.attribute("frequency"))
+        {
+            jointDef.frequencyHz = frequencyAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseDampingRatio(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto dampingRatioAttribute = jointNode.attribute("dampingRatio"))
+        {
+            jointDef.dampingRatio = dampingRatioAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseMaxForce(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto maxForceAttribute = jointNode.attribute("maxForce"))
+        {
+            jointDef.maxForce = maxForceAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseMaxTorque(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto maxTorqueAttribute = jointNode.attribute("maxTorque"))
+        {
+            jointDef.maxTorque = maxTorqueAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseMotorSpeed(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto motorSpeedAttribute = jointNode.attribute("motorSpeed"))
+        {
+            jointDef.motorSpeed = motorSpeedAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseReferenceAngle(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto referenceAngleAttribute = jointNode.attribute("referenceAngle"))
+        {
+            jointDef.referenceAngle = referenceAngleAttribute.as_float();
+        }
+    }
+
+    template<typename JointDef>
+    void parseCollideConnected(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto collideConnectedAttribute = jointNode.attribute("collideConnected"))
+        {
+            jointDef.collideConnected = collideConnectedAttribute.as_bool();
+        }
+    }
+
+    template<typename JointDef>
+    void parseEnableLimit(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto enableLimitAttribute = jointNode.attribute("enableLimit"))
+        {
+            jointDef.enableLimit = enableLimitAttribute.as_bool();
+        }
+    }
+
+    template<typename JointDef>
+    void parseEnableMotor(JointDef& jointDef, const pugi::xml_node& jointNode)
+    {
+        if (auto enableMotorAttribute = jointNode.attribute("enableMotor"))
+        {
+            jointDef.enableMotor = enableMotorAttribute.as_bool();
+        }
+    }
+
+    template<typename JointDef>
     void parseAnchorPoints(JointDef& jointDef, const pugi::xml_node& jointNode)
     {
         if (auto anchorAXAttribute = jointNode.attribute("anchorAX"),
