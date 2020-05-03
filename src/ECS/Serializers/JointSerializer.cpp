@@ -10,14 +10,14 @@ https://inversepalindrome.com/
 
 void ECS::Serializers::serializeJoint(const b2Joint* joint, pugi::xml_node& jointNode)
 {
-    jointNode.set_name("Joint");
+    jointNode.append_attribute("type") = "Joint";
 
     serializeCollideConnected(joint, jointNode);
 }
 
 void ECS::Serializers::serializeDistanceJoint(const b2DistanceJoint* distanceJoint, pugi::xml_node& distanceJointNode)
 {
-    distanceJointNode.set_name("DistanceJoint");
+    distanceJointNode.append_attribute("type") = "DistanceJoint";
     
     serializeCollideConnected(distanceJoint, distanceJointNode);
     serializeFrequency(distanceJoint, distanceJointNode);
@@ -27,7 +27,7 @@ void ECS::Serializers::serializeDistanceJoint(const b2DistanceJoint* distanceJoi
 
 void ECS::Serializers::serializeWeldJoint(const b2WeldJoint* weldJoint, pugi::xml_node& weldJointNode)
 {
-    weldJointNode.set_name("WeldJoint");
+    weldJointNode.append_attribute("type") = "WeldJoint";
     
     serializeCollideConnected(weldJoint, weldJointNode);
     serializeFrequency(weldJoint, weldJointNode);
@@ -38,7 +38,7 @@ void ECS::Serializers::serializeWeldJoint(const b2WeldJoint* weldJoint, pugi::xm
 
 void ECS::Serializers::serializeRevoluteJoint(const b2RevoluteJoint* revoluteJoint, pugi::xml_node& revoluteJointNode)
 {
-    revoluteJointNode.set_name("RevoluteJoint");
+    revoluteJointNode.append_attribute("type") = "RevoluteJoint";
 
     serializeCollideConnected(revoluteJoint, revoluteJointNode);
     serializeReferenceAngle(revoluteJoint, revoluteJointNode);
@@ -53,7 +53,7 @@ void ECS::Serializers::serializeRevoluteJoint(const b2RevoluteJoint* revoluteJoi
 
 void ECS::Serializers::serializeFrictionJoint(const b2FrictionJoint* frictionJoint, pugi::xml_node& frictionJointNode)
 {
-    frictionJointNode.set_name("FrictionJoint");
+    frictionJointNode.append_attribute("type") = "FrictionJoint";
     
     serializeCollideConnected(frictionJoint, frictionJointNode);
     serializeMaxForce(frictionJoint, frictionJointNode);
@@ -63,7 +63,7 @@ void ECS::Serializers::serializeFrictionJoint(const b2FrictionJoint* frictionJoi
 
 void ECS::Serializers::serializePrismaticJoint(const b2PrismaticJoint* prismaticJoint, pugi::xml_node& prismaticJointNode)
 {
-    prismaticJointNode.set_name("PrismaticJoint");
+    prismaticJointNode.append_attribute("type") = "PrismaticJoint";
     
     serializeCollideConnected(prismaticJoint, prismaticJointNode);
     serializeReferenceAngle(prismaticJoint, prismaticJointNode);
@@ -80,7 +80,7 @@ void ECS::Serializers::serializePrismaticJoint(const b2PrismaticJoint* prismatic
 
 void ECS::Serializers::serializeGearJoint(const b2GearJoint* gearJoint, pugi::xml_node& gearJointNode)
 {
-    gearJointNode.set_name("GearJoint");
+    gearJointNode.append_attribute("type") = "GearJoint";
     
     serializeCollideConnected(gearJoint, gearJointNode);
 
@@ -89,7 +89,7 @@ void ECS::Serializers::serializeGearJoint(const b2GearJoint* gearJoint, pugi::xm
 
 void ECS::Serializers::serializeMotorJoint(const b2MotorJoint* motorJoint, pugi::xml_node& motorJointNode)
 {
-    motorJointNode.set_name("MotorJoint");
+    motorJointNode.append_attribute("type") = "MotorJoint";
     
     serializeCollideConnected(motorJoint, motorJointNode);
     serializeMaxForce(motorJoint, motorJointNode);
@@ -103,7 +103,7 @@ void ECS::Serializers::serializeMotorJoint(const b2MotorJoint* motorJoint, pugi:
 
 void ECS::Serializers::serializeMouseJoint(const b2MouseJoint* mouseJoint, pugi::xml_node& mouseJointNode)
 {
-    mouseJointNode.set_name("MouseJoint");
+    mouseJointNode.append_attribute("type") = "MouseJoint";
     
     serializeCollideConnected(mouseJoint, mouseJointNode);
     serializeFrequency(mouseJoint, mouseJointNode);

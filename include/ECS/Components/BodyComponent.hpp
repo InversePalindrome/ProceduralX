@@ -31,6 +31,7 @@ namespace ECS::Components
         explicit BodyComponent(b2Body* body);
 
         void initialize(b2World& world);
+
         void setInitializationParameters(const b2BodyDef& bodyDef, const Fixtures& fixtureDefs, const Shapes& shapes);
 
         b2Body* getBody();

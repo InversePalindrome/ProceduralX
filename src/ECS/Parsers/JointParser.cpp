@@ -106,7 +106,7 @@ void ECS::Parsers::parseMotorJointDef(b2MotorJointDef& motorJointDef, const pugi
     parseCollideConnected(motorJointDef, motorJointNode);
     parseMaxForce(motorJointDef, motorJointNode);
     parseMaxTorque(motorJointDef, motorJointNode);
-
+    
     if (auto correctionFactorAttribute = motorJointNode.attribute("correctionFactor"))
     {
         motorJointDef.correctionFactor = correctionFactorAttribute.as_float();

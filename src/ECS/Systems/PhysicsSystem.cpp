@@ -62,6 +62,8 @@ void ECS::Systems::PhysicsSystem::onJointAdded(entt::registry&, entt::entity ent
     {
         auto& bodyA = registry.get<Components::BodyComponent>(entityA);
         auto& bodyB = registry.get<Components::BodyComponent>(entityB);
+
+        joint.initialize(world, bodyA.getBody(), bodyB.getBody());
     }
 }
 

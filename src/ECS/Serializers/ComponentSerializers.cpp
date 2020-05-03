@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Serializers/ComponentSerializers.hpp"
 #include "ECS/Serializers/BodySerializer.hpp"
+#include "ECS/Serializers/JointSerializer.hpp"
 
 #include <magic_enum.hpp>
 
@@ -123,6 +124,38 @@ void ECS::Serializers::serializeJoint(const Components::JointComponent& joint, p
 
     jointNode.append_attribute("entityA") = static_cast<std::size_t>(joint.getEntityA());
     jointNode.append_attribute("entityB") = static_cast<std::size_t>(joint.getEntityB());
+
+    const auto* jointPtr = joint.getJoint();
+
+    switch (jointPtr->GetType())
+    {
+    case b2JointType::e_distanceJoint:
+        serializeDistanceJoint(static_cast<const b2DistanceJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_weldJoint:
+        serializeWeldJoint(static_cast<const b2WeldJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_revoluteJoint:
+        serializeRevoluteJoint(static_cast<const b2RevoluteJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_frictionJoint:
+        serializeFrictionJoint(static_cast<const b2FrictionJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_prismaticJoint:
+        serializePrismaticJoint(static_cast<const b2PrismaticJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_gearJoint:
+        serializeGearJoint(static_cast<const b2GearJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_motorJoint:
+        serializeMotorJoint(static_cast<const b2MotorJoint*>(jointPtr), jointNode);
+        break;
+    case b2JointType::e_mouseJoint:
+        serializeMouseJoint(static_cast<const b2MouseJoint*>(jointPtr), jointNode);
+        break;
+    default:
+        serializeJoint(static_cast<const b2Joint*>(jointPtr), jointNode);
+    }
 }
 
 void ECS::Serializers::serializeSpeed(const Components::SpeedComponent& speed, pugi::xml_node& speedNode)

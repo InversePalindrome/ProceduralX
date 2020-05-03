@@ -6,6 +6,7 @@ https://inversepalindrome.com/
 
 
 #include "ECS/Parsers/BodyParser.hpp"
+#include "ECS/Parsers/JointParser.hpp"
 #include "ECS/Parsers/ComponentParsers.hpp"
 
 #include <thor/Animations/FrameAnimation.hpp>
@@ -195,25 +196,27 @@ void ECS::Parsers::parseBody(Components::BodyComponent& body, const pugi::xml_no
         parseFixtureDef(fixtureDef, fixtureNode);
         fixtureDefs.push_back(fixtureDef);
 
-        if (std::strcmp(fixtureNode.name(), "Circle") == 0)
+        auto fixtureName = fixtureNode.name();
+
+        if (std::strcmp(fixtureName, "Circle") == 0)
         {
             b2CircleShape circle;
             parseCircle(circle, fixtureNode);
             shapes.push_back(circle);
         }
-        else if (std::strcmp(fixtureNode.name(), "Edge") == 0)
+        else if (std::strcmp(fixtureName, "Edge") == 0)
         {
             b2EdgeShape edge;
             parseEdge(edge, fixtureNode);
             shapes.push_back(edge);
         }
-        else if (std::strcmp(fixtureNode.name(), "Polygon") == 0)
+        else if (std::strcmp(fixtureName, "Polygon") == 0)
         {
             b2PolygonShape polygon;
             parsePolygon(polygon, fixtureNode);
             shapes.push_back(polygon);
         }
-        else if (std::strcmp(fixtureNode.name(), "Chain") == 0)
+        else if (std::strcmp(fixtureName, "Chain") == 0)
         {
             b2ChainShape chain;
             parseChain(chain, fixtureNode);
@@ -233,6 +236,70 @@ void ECS::Parsers::parseJoint(Components::JointComponent& joint, const pugi::xml
     if (auto entityBAttribute = jointNode.attribute("entityB"))
     {
         joint.setEntityB(entt::entity{ entityBAttribute.as_uint() });
+    }
+
+    if (auto typeAttribute = jointNode.attribute("type"))
+    {
+        auto type = typeAttribute.as_string();
+
+        Components::JointComponent::JointDefVariant jointDefVariant;
+
+        if (std::strcmp(type, "Joint") == 0)
+        {
+            b2JointDef jointDef;
+            parseJointDef(jointDef, jointNode);
+            jointDefVariant = jointDef;
+        }
+        else if (std::strcmp(type, "DistanceJoint") == 0)
+        {
+            b2DistanceJointDef distanceJointDef;
+            parseDistanceJointDef(distanceJointDef, jointNode);
+            jointDefVariant = distanceJointDef;
+        }
+        else if (std::strcmp(type, "WeldJoint") == 0)
+        {
+            b2WeldJointDef weldJointDef;
+            parseWeldJointDef(weldJointDef, jointNode);
+            jointDefVariant = weldJointDef;
+        }
+        else if (std::strcmp(type, "RevoluteJoint") == 0)
+        {
+            b2RevoluteJointDef revoluteJointDef;
+            parseRevoluteJointDef(revoluteJointDef, jointNode);
+            jointDefVariant = revoluteJointDef;
+        }
+        else if (std::strcmp(type, "FrictionJoint") == 0)
+        {
+            b2FrictionJointDef frictionJointDef;
+            parseFrictionJointDef(frictionJointDef, jointNode);
+            jointDefVariant = frictionJointDef;
+        }
+        else if (std::strcmp(type, "PrismaticJoint") == 0)
+        {
+            b2PrismaticJointDef prismaticJointDef;
+            parsePrismaticJointDef(prismaticJointDef, jointNode);
+            jointDefVariant = prismaticJointDef;
+        }
+        else if (std::strcmp(type, "GearJoint") == 0)
+        {
+            b2GearJointDef gearJointDef;
+            parseGearJointDef(gearJointDef, jointNode);
+            jointDefVariant = gearJointDef;
+        }
+        else if (std::strcmp(type, "MotorJoint") == 0)
+        {
+            b2MotorJointDef motorJointDef;
+            parseMotorJointDef(motorJointDef, jointNode);
+            jointDefVariant = motorJointDef;
+        }
+        else if (std::strcmp(type, "MouseJoint") == 0)
+        {
+            b2MouseJointDef mouseJointDef;
+            parseMouseJointDef(mouseJointDef, jointNode);
+            jointDefVariant = mouseJointDef;
+        }
+
+        joint.setInitializationParameter(jointDefVariant);
     }
 }
 
