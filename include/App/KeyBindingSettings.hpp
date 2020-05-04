@@ -7,7 +7,7 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "ECS/Action.hpp"
+#include "App/Action.hpp"
 
 #include <Thor/Input/Action.hpp>
 

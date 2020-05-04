@@ -21,6 +21,13 @@ namespace
         entt::entity, const pugi::xml_node&)>>
         componentParser =
     { 
+            {"ID", [](auto& registry, auto& resourceManager, auto entity, const auto& node)
+            {
+                IDComponent id;
+                parseID(id, node);
+
+                registry.assign<IDComponent>(entity, id);
+            } },
             {"Sprite", [](auto& registry, auto& resourceManager, auto entity, const auto& node) 
             {
                 SpriteComponent sprite;

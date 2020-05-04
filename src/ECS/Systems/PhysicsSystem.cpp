@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
+#include "ECS/Utility/IDConversions.hpp"
 #include "ECS/Utility/AngleConversions.hpp"
 
 
@@ -54,8 +55,11 @@ void ECS::Systems::PhysicsSystem::onJointAdded(entt::registry&, entt::entity ent
 {
     auto& joint = registry.get<Components::JointComponent>(entity);
 
-    auto entityA = joint.getEntityA();
-    auto entityB = joint.getEntityB();
+    auto entityIDA = joint.getEntityIDA();
+    auto entityIDB = joint.getEntityIDB();
+
+    auto entityA = Utility::getEntity(registry, entityIDA);
+    auto entityB = Utility::getEntity(registry, entityIDB);
 
     if (registry.valid(entityA) && registry.valid(entityB) && registry.has<Components::BodyComponent>(entityA) &&
         registry.has<Components::BodyComponent>(entityB))

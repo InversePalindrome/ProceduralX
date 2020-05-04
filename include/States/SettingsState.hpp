@@ -33,7 +33,7 @@ namespace States
 
     private:
         tgui::Button::Ptr backButton;
-        std::vector<std::tuple<tgui::Button::Ptr, Action, std::string, bool>> keyBindingWidgets;
+        std::vector<std::tuple<tgui::Button::Ptr, App::Action, std::string, bool>> keyBindingWidgets;
         tgui::VerticalLayout::Ptr settingsLayout;
 
         void initializeAudioWidgets();

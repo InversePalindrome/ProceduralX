@@ -9,7 +9,7 @@ https://inversepalindrome.com/
 
 #include "ECS/Direction.hpp"
 
-#include <entt/entt.hpp>
+#include <cstddef>
 
 
 namespace ECS::Components
@@ -19,14 +19,14 @@ namespace ECS::Components
     public:
         SatelliteComponent();
 
-        entt::entity getPrimaryEntity() const;
-        void setPrimaryEntity(entt::entity primaryEntity);
+        std::size_t getPrimaryEntityID() const;
+        void setPrimaryEntityID(std::size_t primaryEntityID);
 
         RotationDirection getDirection() const;
         void setDirection(RotationDirection direction);
 
     private:
-        entt::entity primaryEntity;
+        std::size_t primaryEntityID;
         RotationDirection direction;
     };
 }

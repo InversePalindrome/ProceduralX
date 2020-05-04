@@ -10,8 +10,8 @@ https://inversepalindrome.com/
 
 ECS::Components::JointComponent::JointComponent() :
     joint(nullptr),
-    entityA(entt::null),
-    entityB(entt::null)
+    entityIDA(0),
+    entityIDB(0)
 {
 }
 
@@ -61,24 +61,24 @@ const b2Body* ECS::Components::JointComponent::getBodyB() const
     return joint->GetBodyB();
 }
 
-entt::entity ECS::Components::JointComponent::getEntityA() const
+std::size_t ECS::Components::JointComponent::getEntityIDA() const
 {
-    return entityA;
+    return entityIDA;
 }
 
-void ECS::Components::JointComponent::setEntityA(entt::entity entityA)
+void ECS::Components::JointComponent::setEntityIDA(std::size_t entityIDA)
 {
-    this->entityA = entityA;
+    this->entityIDA = entityIDA;
 }
 
-entt::entity ECS::Components::JointComponent::getEntityB() const
+std::size_t ECS::Components::JointComponent::getEntityIDB() const
 {
-    return entityB;
+    return entityIDB;
 }
 
-void ECS::Components::JointComponent::setEntityB(entt::entity entityB)
+void ECS::Components::JointComponent::setEntityIDB(std::size_t entityIDB)
 {
-    this->entityB = entityB;
+    this->entityIDB = entityIDB;
 }
 
 b2Vec2 ECS::Components::JointComponent::getAnchorA() const

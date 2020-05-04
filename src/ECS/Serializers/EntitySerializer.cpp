@@ -22,6 +22,10 @@ namespace
     using namespace ECS::Components;
 
     constexpr auto componentMap = hana::make_map(
+        hana::make_pair(hana::type_c<IDComponent>, [](const auto& registry, auto entity, auto& node)
+            {
+                serializeID(registry.get<IDComponent>(entity), node);
+            }),
         hana::make_pair(hana::type_c<SpriteComponent>, [](const auto& registry, auto entity, auto& node)
             {
                 serializeSprite(registry.get<SpriteComponent>(entity), node);

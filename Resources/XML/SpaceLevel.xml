@@ -3,7 +3,8 @@
     <Entity>
         <Sprite texture="SpaceBackground" textureLeft="0" textureTop="0" textureWidth="8192" textureHeight ="8192"></Sprite>
     </Entity>
-    <Entity id ="3">
+    
+    <Entity>
         <Sprite texture="UFO" textureLeft="0" textureTop="0" textureWidth="64" textureHeight="64"
                 originScaleX="0.5" originScaleY="0.5" scaleX="2" scaleY="2" zOrder="1"></Sprite>
         <Animation>
@@ -40,15 +41,8 @@
         <Weapon>>Laser</Weapon>
         <Health>5</Health>
     </Entity>
-    <Entity id="5">
-        <Transform></Transform>
-        <Body type="0" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false" x="50" y="-40">
-            <Circle density="0" friction="0.200000003" restitution="0" sensor="false" radius="6.61" />
-        </Body>
-        <Sprite scaleX="0.25" scaleY="0.25" texture="Planet1" originScaleX="0.5" originScaleY="0.5" zOrder="1" />
-        <Object>Planet</Object>
-    </Entity>
-    <Entity id="1">
+    
+    <Entity>
         <Transform></Transform>
         <Sprite texture="Spaceships" originScaleX="0.5" originScaleY="0.5" textureLeft="0"
                 textureTop="181" textureWidth="82" textureHeight="82" zOrder="1"></Sprite>
@@ -58,14 +52,31 @@
         <Health>5</Health>
         <Object>Enemy</Object>
     </Entity>
+    
     <Entity>
+        <ID>0</ID>
+        <Transform></Transform>
+        <Body type="0" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false" x="50" y="-40">
+            <Circle density="0" friction="0.200000003" restitution="0" sensor="false" radius="6.61" />
+        </Body>
+        <Sprite scaleX="0.25" scaleY="0.25" texture="Planet1" originScaleX="0.5" originScaleY="0.5" zOrder="1" />
+        <Object>Planet</Object>
+    </Entity>
+    
+    <Entity>
+        <ID>1</ID>
         <Transform></Transform>
         <Body type="2" linearDamping="0" angularDamping="0" fixedRotation="false" bullet="false" x="60" y="-60">
             <Circle density="0.1" friction="0.200000003" restitution="0" sensor="false" radius="6.61" />
         </Body>
         <Sprite scaleX="0.25" scaleY="0.25" texture="Planet2" originScaleX="0.5" originScaleY="0.5" zOrder="1" />
         <Object>Planet</Object>
-        <Satellite primaryEntity="5"></Satellite>
-        <Speed linearSpeed="5"></Speed>
+        <Satellite primaryEntityID="0" direction="clockwise"></Satellite>
+        <Speed linearSpeed="12" angularSpeed="2"></Speed>
     </Entity>
+    
+    <Entity>
+        <Joint type="DistanceJoint" entityIDA="0" entityIDB="1" length="30"></Joint>
+    </Entity>
+
 </Level>

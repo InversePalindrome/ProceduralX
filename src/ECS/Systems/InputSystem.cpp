@@ -37,7 +37,7 @@ void ECS::Systems::InputSystem::handleEvent(const sf::Event& event)
     }
 }
 
-void ECS::Systems::InputSystem::setActions(thor::ActionMap<Action>* actions)
+void ECS::Systems::InputSystem::setActions(thor::ActionMap<App::Action>* actions)
 {
     this->actions = actions;
 }
@@ -49,21 +49,21 @@ void ECS::Systems::InputSystem::setWindow(sf::RenderWindow* window)
 
 void ECS::Systems::InputSystem::updateActions()
 {
-    if (actions->isActive(Action::MoveUp))
+    if (actions->isActive(App::Action::MoveUp))
     {
-        dispatcher.trigger(ActionTriggered{ Action::MoveUp });
+        dispatcher.trigger(ActionTriggered{ App::Action::MoveUp });
     }
-    if (actions->isActive(Action::MoveDown))
+    if (actions->isActive(App::Action::MoveDown))
     {
-        dispatcher.trigger(ActionTriggered{ Action::MoveDown });
+        dispatcher.trigger(ActionTriggered{ App::Action::MoveDown });
     }
-    if (actions->isActive( Action::MoveRight))
+    if (actions->isActive( App::Action::MoveRight))
     {
-        dispatcher.trigger(ActionTriggered{ Action::MoveRight });
+        dispatcher.trigger(ActionTriggered{ App::Action::MoveRight });
     }
-    if (actions->isActive(Action::MoveLeft))
+    if (actions->isActive(App::Action::MoveLeft))
     {
-        dispatcher.trigger(ActionTriggered{ Action::MoveLeft });
+        dispatcher.trigger(ActionTriggered{ App::Action::MoveLeft });
     }
 }
 

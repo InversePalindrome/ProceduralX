@@ -26,11 +26,11 @@ States::SettingsState::SettingsState(StateData& stateData) :
             stateData.eventDispatcher.dispatch(Events::EventID::PopState);
         });
 
-    keyBindingWidgets.push_back({ tgui::Button::create(), Action::MoveUp, "Move Up", false });
-    keyBindingWidgets.push_back({ tgui::Button::create(), Action::MoveDown, "Move Down", false });
-    keyBindingWidgets.push_back({ tgui::Button::create(), Action::MoveRight, "Move Right", false });
-    keyBindingWidgets.push_back({ tgui::Button::create(), Action::MoveLeft, "Move Left", false });
-    keyBindingWidgets.push_back({ tgui::Button::create(), Action::Pause, "Pause", false });
+    keyBindingWidgets.push_back({ tgui::Button::create(), App::Action::MoveUp, "Move Up", false });
+    keyBindingWidgets.push_back({ tgui::Button::create(), App::Action::MoveDown, "Move Down", false });
+    keyBindingWidgets.push_back({ tgui::Button::create(), App::Action::MoveRight, "Move Right", false });
+    keyBindingWidgets.push_back({ tgui::Button::create(), App::Action::MoveLeft, "Move Left", false });
+    keyBindingWidgets.push_back({ tgui::Button::create(), App::Action::Pause, "Pause", false });
 
     settingsLayout = tgui::VerticalLayout::create();
     settingsLayout->setSize("50%", "50%");

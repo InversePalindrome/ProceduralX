@@ -8,6 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "App/ResourceManager.hpp"
+#include "ECS/Components/IDComponent.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
@@ -29,6 +30,7 @@ https://inversepalindrome.com/
 
 namespace ECS::Parsers
 {
+    void parseID(Components::IDComponent& id, const pugi::xml_node& idNode);
     void parseSprite(Components::SpriteComponent& sprite, const pugi::xml_node& spriteNode, App::ResourceManager& resourceManager);
     void parseAnimation(Components::AnimationComponent& animation, const pugi::xml_node& animationNode);
     void parseSound(Components::SoundComponent& sound, const pugi::xml_node& soundNode, App::ResourceManager& resourceManager);

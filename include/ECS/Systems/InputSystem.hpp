@@ -7,7 +7,7 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "ECS/Action.hpp"
+#include "App/Action.hpp"
 #include "ECS/Systems/System.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -26,13 +26,13 @@ namespace ECS::Systems
 
         void handleEvent(const sf::Event& event);
 
-        void setActions(thor::ActionMap<Action>* actions);
+        void setActions(thor::ActionMap<App::Action>* actions);
         void setWindow(sf::RenderWindow* window);
 
     private:
         sf::Vector2f mousePosition;
 
-        thor::ActionMap<Action>* actions;
+        thor::ActionMap<App::Action>* actions;
         sf::RenderWindow* window;
 
         void updateActions();

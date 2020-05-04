@@ -7,7 +7,7 @@ https://inversepalindrome.com/
 
 #pragma once
 
-#include "ECS/Action.hpp"
+#include "App/Action.hpp"
 #include "ECS/State.hpp"
 
 #include <SFML/System/Vector2.hpp>
@@ -19,7 +19,7 @@ namespace ECS
 {
     struct ActionTriggered
     {
-        Action actionType;
+        App::Action action;
     };
 
     struct MouseMoved

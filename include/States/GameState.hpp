@@ -8,7 +8,7 @@ https://inversepalindrome.com/
 #pragma once
 
 #include "States/State.hpp"
-#include "ECS/Action.hpp"
+#include "App/Action.hpp"
 #include "ECS/Systems/SystemManager.hpp"
 
 #include <TGUI/Widgets/VerticalLayout.hpp>
@@ -39,7 +39,7 @@ namespace States
         ECS::EntityFactory entityFactory;
         ECS::Systems::SystemManager systems;
 
-        thor::ActionMap<Action> actions;
+        thor::ActionMap<App::Action> actions;
 
         tgui::VerticalLayout::Ptr pauseMenuLayout;
         bool isPaused;

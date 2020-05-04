@@ -18,6 +18,11 @@ https://inversepalindrome.com/
 #include <vector>
 
 
+void ECS::Parsers::parseID(Components::IDComponent& id, const pugi::xml_node& idNode)
+{
+    id.setID(idNode.text().as_uint());
+}
+
 void ECS::Parsers::parseSprite(Components::SpriteComponent& sprite, const pugi::xml_node& spriteNode, App::ResourceManager& resourceManager)
 {
     if (auto textureAttribute = spriteNode.attribute("texture"))
@@ -229,13 +234,13 @@ void ECS::Parsers::parseBody(Components::BodyComponent& body, const pugi::xml_no
 
 void ECS::Parsers::parseJoint(Components::JointComponent& joint, const pugi::xml_node& jointNode)
 {
-    if (auto entityAAttribute = jointNode.attribute("entityA"))
+    if (auto entityIDAAttribute = jointNode.attribute("entityIDA"))
     {
-        joint.setEntityA(entt::entity{ entityAAttribute.as_uint() });
+        joint.setEntityIDA(entityIDAAttribute.as_uint());
     }
-    if (auto entityBAttribute = jointNode.attribute("entityB"))
+    if (auto entityIDBAttribute = jointNode.attribute("entityIDB"))
     {
-        joint.setEntityB(entt::entity{ entityBAttribute.as_uint() });
+        joint.setEntityIDB(entityIDBAttribute.as_uint());
     }
 
     if (auto typeAttribute = jointNode.attribute("type"))
@@ -374,9 +379,9 @@ void ECS::Parsers::parseHealth(Components::HealthComponent& health, const pugi::
 
 void ECS::Parsers::parseSatellite(Components::SatelliteComponent& satellite, const pugi::xml_node& satelliteNode)
 {
-    if (auto primaryEntityAttribute = satelliteNode.attribute("primaryEntity"))
+    if (auto primaryEntityIDAttribute = satelliteNode.attribute("primaryEntityID"))
     {
-        satellite.setPrimaryEntity(entt::entity{ primaryEntityAttribute.as_uint() });
+        satellite.setPrimaryEntityID(primaryEntityIDAttribute.as_uint());
     }
     if (auto directionAttribute = satelliteNode.attribute("direction"))
     {

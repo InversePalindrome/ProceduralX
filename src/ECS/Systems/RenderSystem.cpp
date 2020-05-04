@@ -81,7 +81,9 @@ void ECS::Systems::RenderSystem::updateViewPosition()
 void ECS::Systems::RenderSystem::onSpriteAdded(entt::registry&, entt::entity)
 {
     registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs) 
-        { return lhs.getZOrder() < rhs.getZOrder(); });
+        { 
+            return lhs.getZOrder() < rhs.getZOrder();
+        });
 }
 
 void ECS::Systems::RenderSystem::onPlayerAdded(entt::registry&, entt::entity entity)

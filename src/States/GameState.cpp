@@ -57,7 +57,7 @@ void States::GameState::update(const App::Seconds& deltaTime)
         systems.update(deltaTime);
     }
 
-    if (actions.isActive(Action::Pause))
+    if (actions.isActive(App::Action::Pause))
     {
         pauseMenuLayout->setVisible(!pauseMenuLayout->isVisible());
         isPaused = pauseMenuLayout->isVisible();

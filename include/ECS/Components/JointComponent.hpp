@@ -19,8 +19,6 @@ https://inversepalindrome.com/
 #include <box2d/b2_friction_joint.h>
 #include <box2d/b2_prismatic_joint.h>
 
-#include <entt/entt.hpp>
-
 #include <variant>
 
 
@@ -47,11 +45,11 @@ namespace ECS::Components
         b2Body* getBodyB();
         const b2Body* getBodyB() const;
 
-        entt::entity getEntityA() const;
-        void setEntityA(entt::entity entityA);
+        std::size_t getEntityIDA() const;
+        void setEntityIDA(std::size_t entityIDA);
 
-        entt::entity getEntityB() const;
-        void setEntityB(entt::entity entityB);
+        std::size_t getEntityIDB() const;
+        void setEntityIDB(std::size_t entityIDB);
 
         b2Vec2 getAnchorA() const;
         b2Vec2 getAnchorB() const;
@@ -60,7 +58,7 @@ namespace ECS::Components
         b2Joint* joint;
         JointDefVariant jointDefVariant;
 
-        entt::entity entityA;
-        entt::entity entityB;
+        std::size_t entityIDA;
+        std::size_t entityIDB;
     };
 }

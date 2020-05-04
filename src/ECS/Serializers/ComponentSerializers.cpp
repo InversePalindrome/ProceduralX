@@ -12,6 +12,13 @@ https://inversepalindrome.com/
 #include <magic_enum.hpp>
 
 
+void ECS::Serializers::serializeID(const Components::IDComponent& id, pugi::xml_node& idNode)
+{
+    idNode.set_name("ID");
+
+    idNode.text().set(id.getID());
+}
+
 void ECS::Serializers::serializeSprite(const Components::SpriteComponent& sprite, pugi::xml_node& spriteNode)
 {
     spriteNode.set_name("Sprite");
@@ -122,8 +129,8 @@ void ECS::Serializers::serializeJoint(const Components::JointComponent& joint, p
 {
     jointNode.set_name("Joint");
 
-    jointNode.append_attribute("entityA") = static_cast<std::size_t>(joint.getEntityA());
-    jointNode.append_attribute("entityB") = static_cast<std::size_t>(joint.getEntityB());
+    jointNode.append_attribute("entityIDA") = joint.getEntityIDA();
+    jointNode.append_attribute("entityIDB") = joint.getEntityIDB();
 
     const auto* jointPtr = joint.getJoint();
 
@@ -215,7 +222,7 @@ void ECS::Serializers::serializeSatellite(const Components::SatelliteComponent& 
 {
     satelliteNode.set_name("Satellite");
 
-    satelliteNode.append_attribute("primaryEntity") = static_cast<std::size_t>(satellite.getPrimaryEntity());
+    satelliteNode.append_attribute("primaryEntityID") = satellite.getPrimaryEntityID();
     satelliteNode.append_attribute("direction") = std::string(magic_enum::enum_name(satellite.getDirection())).c_str();
 }
 

@@ -7,6 +7,7 @@ https://inversepalindrome.com/
 
 #pragma once
 
+#include "ECS/Components/IDComponent.hpp"
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/SpeedComponent.hpp"
@@ -28,6 +29,7 @@ https://inversepalindrome.com/
 
 namespace ECS::Serializers
 {
+    void serializeID(const Components::IDComponent& id, pugi::xml_node& idNode);
     void serializeSprite(const Components::SpriteComponent& sprite, pugi::xml_node& spriteNode);
     void serializeAnimation(const Components::AnimationComponent& animation, pugi::xml_node& animationNode);
     void serializeSound(const Components::SoundComponent& soundComponent, pugi::xml_node& soundNode);

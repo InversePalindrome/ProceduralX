@@ -9,19 +9,19 @@ https://inversepalindrome.com/
 
 
 ECS::Components::SatelliteComponent::SatelliteComponent() :
-    primaryEntity(entt::null),
+    primaryEntityID(0),
     direction(RotationDirection::Clockwise)
 {
 }
 
-entt::entity ECS::Components::SatelliteComponent::getPrimaryEntity() const
+std::size_t ECS::Components::SatelliteComponent::getPrimaryEntityID() const
 {
-    return primaryEntity;
+    return primaryEntityID;
 }
 
-void ECS::Components::SatelliteComponent::setPrimaryEntity(entt::entity primaryEntity)
+void ECS::Components::SatelliteComponent::setPrimaryEntityID(std::size_t primaryEntityID)
 {
-    this->primaryEntity = primaryEntity;
+    this->primaryEntityID = primaryEntityID;
 }
 
 ECS::RotationDirection ECS::Components::SatelliteComponent::getDirection() const
