@@ -76,7 +76,12 @@
     </Entity>
     
     <Entity>
-        <Joint type="DistanceJoint" entityIDA="0" entityIDB="1" length="30"></Joint>
+        <Joint type="DistanceJoint" entityIDA="0" entityIDB="1" length="23"></Joint>
+    </Entity>
+
+    <Entity>
+        <Path></Path>
+        <Object>Path</Object>
     </Entity>
 
 </Level>

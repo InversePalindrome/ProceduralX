@@ -15,7 +15,7 @@ namespace ECS
     enum class ObjectType
     { 
         Player = (1 << 0), Enemy = (1 << 1), Projectile = (1 << 2),
-        Planet = (1 << 3), PathPoint = (1 << 4)
+        Planet = (1 << 3), Path = (1 << 4)
     };
 }
 

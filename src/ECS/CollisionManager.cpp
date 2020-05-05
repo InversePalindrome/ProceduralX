@@ -34,7 +34,7 @@ void ECS::CollisionManager::BeginContact(b2Contact* contact)
             dispatcher.trigger(CombatOccurred{ projectile, victim });
         }
         if (auto collisionPair = getCollisionPair(entityA, entityB, objectA, objectB,
-            ObjectType::Enemy | ObjectType::Planet, ObjectType::PathPoint))
+            ObjectType::Enemy | ObjectType::Planet, ObjectType::Path))
         {
             auto [crossingEntity, pathEntity] = *collisionPair;
 

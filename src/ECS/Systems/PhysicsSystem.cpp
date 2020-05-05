@@ -9,6 +9,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/BodyComponent.hpp"
 #include "ECS/Components/JointComponent.hpp"
 #include "ECS/Components/TransformComponent.hpp"
+#include "ECS/Components/PathComponent.hpp"
 #include "ECS/Utility/IDConversions.hpp"
 #include "ECS/Utility/AngleConversions.hpp"
 
@@ -27,6 +28,7 @@ ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispa
     registry.on_destroy<Components::BodyComponent>().connect<&PhysicsSystem::onBodyRemoved>(this);
     registry.on_construct<Components::JointComponent>().connect<&PhysicsSystem::onJointAdded>(this);
     registry.on_destroy<Components::JointComponent>().connect<&PhysicsSystem::onJointRemoved>(this);
+    registry.on_construct<Components::PathComponent>().connect<&PhysicsSystem::onPathAdded>(this);
 }
 
 void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
@@ -76,6 +78,29 @@ void ECS::Systems::PhysicsSystem::onJointRemoved(entt::registry&, entt::entity e
     auto& joint = registry.get<Components::JointComponent>(entity);
 
     jointsToRemove.push_back(joint.getJoint());
+}
+
+void ECS::Systems::PhysicsSystem::onPathAdded(entt::registry&, entt::entity entity)
+{
+    const auto& path = registry.get<Components::PathComponent>(entity);
+
+    b2BodyDef pathBodyDef;
+
+    auto* body = world.CreateBody(&pathBodyDef);
+    body->SetUserData(reinterpret_cast<void*>(entity));
+
+    for (const auto& point : path)
+    {
+        b2CircleShape circle;
+        circle.m_p = point;
+        circle.m_radius = 1.f;
+
+        b2FixtureDef pointFixtureDef;
+        pointFixtureDef.isSensor = true;
+        pointFixtureDef.shape = &circle;
+
+        body->CreateFixture(&pointFixtureDef);
+    }
 }
 
 void ECS::Systems::PhysicsSystem::updateEntityRemoval()

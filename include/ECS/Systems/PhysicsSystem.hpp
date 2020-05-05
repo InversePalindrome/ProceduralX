@@ -38,6 +38,8 @@ namespace ECS::Systems
         void onJointAdded(entt::registry&, entt::entity entity);
         void onJointRemoved(entt::registry&, entt::entity entity);
 
+        void onPathAdded(entt::registry&, entt::entity entity);
+
         void updateEntityRemoval();
         void updateEntityTransforms();
         void updateWorld(const App::Seconds& deltaTime);

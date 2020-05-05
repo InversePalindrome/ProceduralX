@@ -18,7 +18,8 @@ ECS::Systems::RenderSystem::RenderSystem(entt::registry& registry, entt::dispatc
     window(nullptr),
     map(200.f, 200.f)
 {
-    registry.on_construct<Components::SpriteComponent>().connect<&RenderSystem::onSpriteAdded>(this);
+    registry.on_construct<Components::SpriteComponent>().connect<&RenderSystem::sortByZOrder>(this);
+    registry.on_destroy<Components::SpriteComponent>().connect<&RenderSystem::sortByZOrder>(this);
     registry.on_construct<entt::tag<"Player"_hs>>().connect<&RenderSystem::onPlayerAdded>(this);
 }
 
@@ -78,10 +79,10 @@ void ECS::Systems::RenderSystem::updateViewPosition()
     window->setView(cameraView);
 }
 
-void ECS::Systems::RenderSystem::onSpriteAdded(entt::registry&, entt::entity)
+void ECS::Systems::RenderSystem::sortByZOrder(entt::registry&, entt::entity)
 {
-    registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs) 
-        { 
+    registry.sort<Components::SpriteComponent>([](const auto& lhs, const auto& rhs)
+        {
             return lhs.getZOrder() < rhs.getZOrder();
         });
 }
