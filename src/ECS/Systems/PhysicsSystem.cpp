@@ -89,7 +89,7 @@ void ECS::Systems::PhysicsSystem::onPathAdded(entt::registry&, entt::entity enti
     auto* body = world.CreateBody(&pathBodyDef);
     body->SetUserData(reinterpret_cast<void*>(entity));
 
-    for (const auto& point : path)
+    for (const auto& point : path.getPathPoints())
     {
         b2CircleShape circle;
         circle.m_p = point;

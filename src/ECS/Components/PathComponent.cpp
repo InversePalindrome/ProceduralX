@@ -7,6 +7,57 @@ https://inversepalindrome.com/
 
 #include "ECS/Components/PathComponent.hpp"
 
+#include <limits>
+
+
+void ECS::Components::PathComponent::addEntityToPath(std::size_t entityID, std::size_t startingIndex)
+{
+    entityToPointIndexMap.emplace(entityID, startingIndex);
+}
+
+void ECS::Components::PathComponent::removeEntityFromPath(std::size_t entityID)
+{
+    entityToPointIndexMap.erase(entityID);
+}
+
+std::size_t ECS::Components::PathComponent::getCurrentPointIndex(std::size_t entityID) const
+{
+    if (doesEntityUsePath(entityID))
+    {
+        return entityToPointIndexMap.find(entityID)->second;
+    }
+
+    return std::numeric_limits<std::size_t>::max();
+}
+
+void ECS::Components::PathComponent::setCurrentPointIndex(std::size_t entityID, std::size_t pointIndex)
+{
+    entityToPointIndexMap[entityID] = pointIndex;
+}
+
+void ECS::Components::PathComponent::moveToNextPointIndex(std::size_t entityID)
+{
+    auto& currentIndex = entityToPointIndexMap[entityID];
+
+    if (currentIndex == pathPoints.size() - 1)
+    {
+        currentIndex = 0;
+    }
+    else
+    {
+        ++currentIndex;
+    }
+}
+
+const std::unordered_map<std::size_t, std::size_t>& ECS::Components::PathComponent::getEntityIDToPointIndexMap() const
+{
+    return entityToPointIndexMap;
+}
+
+bool ECS::Components::PathComponent::doesEntityUsePath(std::size_t entityID) const
+{
+    return entityToPointIndexMap.find(entityID) != entityToPointIndexMap.end();
+}
 
 void ECS::Components::PathComponent::addPoint(const b2Vec2& position)
 {
@@ -28,42 +79,12 @@ void ECS::Components::PathComponent::clearPoints()
     pathPoints.clear();
 }
 
-b2Vec2& ECS::Components::PathComponent::operator[](std::size_t index)
+const std::vector<b2Vec2>& ECS::Components::PathComponent::getPathPoints() const
 {
-    return pathPoints[index];
-}
-
-const b2Vec2& ECS::Components::PathComponent::operator[](std::size_t index) const
-{
-    return pathPoints[index];
-}
-
-std::size_t ECS::Components::PathComponent::getNumberOfPoints() const
-{
-    return pathPoints.size();
+    return pathPoints;
 }
 
 bool ECS::Components::PathComponent::hasPoints() const
 {
     return !pathPoints.empty();
-}
-
-std::vector<b2Vec2>::iterator ECS::Components::PathComponent::begin()
-{
-    return pathPoints.begin();
-}
-
-std::vector<b2Vec2>::iterator ECS::Components::PathComponent::end()
-{
-    return pathPoints.end();
-}
-
-std::vector<b2Vec2>::const_iterator ECS::Components::PathComponent::begin() const
-{
-    return pathPoints.cbegin();
-}
-
-std::vector<b2Vec2>::const_iterator ECS::Components::PathComponent::end() const
-{
-    return pathPoints.cend();
 }

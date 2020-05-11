@@ -17,6 +17,7 @@ https://inversepalindrome.com/
 #include "ECS/Systems/PlayerSystem.hpp"
 #include "ECS/Systems/PhysicsSystem.hpp"
 #include "ECS/Systems/AnimationSystem.hpp"
+#include "ECS/Systems/PathSystem.hpp"
 
 #include <TGUI/SignalImpl.hpp>
 #include <TGUI/Widgets/Button.hpp>
@@ -95,6 +96,7 @@ void States::GameState::initializeSystems()
     systems.addSystem<ECS::Systems::OrbitalSystem>();
     systems.addSystem<ECS::Systems::CombatSystem>();
     systems.addSystem<ECS::Systems::StateSystem>();
+    systems.addSystem<ECS::Systems::PathSystem>();
 
     auto* inputSystem = systems.getSystem<ECS::Systems::InputSystem>();
     inputSystem->setActions(&actions);

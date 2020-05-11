@@ -10,6 +10,7 @@ https://inversepalindrome.com/
 #include <box2d/b2_math.h>
 
 #include <vector>
+#include <unordered_map>
 
 
 namespace ECS::Components
@@ -17,26 +18,30 @@ namespace ECS::Components
     class PathComponent
     {
     public:
+        void addEntityToPath(std::size_t entityID, std::size_t startingIndex = 0);
+        void removeEntityFromPath(std::size_t entityID);
+
+        std::size_t getCurrentPointIndex(std::size_t entityID) const;
+        void setCurrentPointIndex(std::size_t entityID, std::size_t pointIndex);
+
+        void moveToNextPointIndex(std::size_t entityID);
+
+        const std::unordered_map<std::size_t, std::size_t>& getEntityIDToPointIndexMap() const;
+
+        bool doesEntityUsePath(std::size_t entityID) const;
+
         void addPoint(const b2Vec2& position);
         void insertPoint(const b2Vec2& position, std::size_t index);
 
         void removePoint(std::size_t index);
         void clearPoints();
 
-        b2Vec2& operator[](std::size_t index);
-        const b2Vec2& operator[](std::size_t index) const;
-
-        std::size_t getNumberOfPoints() const;
+        const std::vector<b2Vec2>& getPathPoints() const;
 
         bool hasPoints() const;
 
-        std::vector<b2Vec2>::iterator begin();
-        std::vector<b2Vec2>::iterator end();
-
-        std::vector<b2Vec2>::const_iterator begin() const;
-        std::vector<b2Vec2>::const_iterator end() const;
-
     private:
         std::vector<b2Vec2> pathPoints;
+        std::unordered_map<std::size_t, std::size_t> entityToPointIndexMap;
     };
 }

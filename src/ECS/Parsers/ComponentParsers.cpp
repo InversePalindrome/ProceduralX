@@ -396,6 +396,16 @@ void ECS::Parsers::parseSatellite(Components::SatelliteComponent& satellite, con
 
 void ECS::Parsers::parsePath(Components::PathComponent& path, const pugi::xml_node& pathNode)
 {
+    for (auto entityNode : pathNode.children("Entity"))
+    {
+        if (auto idAttribute = entityNode.attribute("id"),
+            startingPointIndexAttribute = entityNode.attribute("startingPointIndex");
+            idAttribute && startingPointIndexAttribute)
+        {
+            path.addEntityToPath(idAttribute.as_uint(), startingPointIndexAttribute.as_uint());
+        }
+    }
+
     for (auto pointNode : pathNode.children("Point"))
     {
         if (auto xPositionAttribute = pointNode.attribute("x"),

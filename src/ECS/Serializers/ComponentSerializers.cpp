@@ -230,7 +230,15 @@ void ECS::Serializers::serializePath(const Components::PathComponent& path, pugi
 {
     pathNode.set_name("Path");
 
-    for (const auto& pathPoint : path)
+    for (const auto& [entityID, startingIndex] : path.getEntityIDToPointIndexMap())
+    {
+        auto entityNode = pathNode.append_child("Entity");
+
+        entityNode.append_attribute("id") = entityID;
+        entityNode.append_attribute("startingPointIndex") = startingIndex;
+    }
+    
+    for (const auto& pathPoint : path.getPathPoints())
     {
         auto pointNode = pathNode.append_child("Point");
 
