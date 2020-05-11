@@ -46,11 +46,11 @@ void ECS::Serializers::serializeAnimation(const Components::AnimationComponent& 
     for (const auto& [state, animationData] : animation)
     {
         auto frameAnimationNode = animationNode.append_child("FrameAnimation");
-        
+
         frameAnimationNode.append_attribute("state") = std::string(magic_enum::enum_name(state)).c_str();
         frameAnimationNode.append_attribute("duration") = animationData.duration.count();
         frameAnimationNode.append_attribute("loop") = animationData.loop;
-        
+
         for (const auto& frame : animationData.frames)
         {
             auto frameNode = frameAnimationNode.append_child("Frame");
@@ -237,7 +237,7 @@ void ECS::Serializers::serializePath(const Components::PathComponent& path, pugi
         entityNode.append_attribute("id") = entityID;
         entityNode.append_attribute("startingPointIndex") = startingIndex;
     }
-    
+
     for (const auto& pathPoint : path.getPathPoints())
     {
         auto pointNode = pathNode.append_child("Point");

@@ -68,8 +68,8 @@ void ECS::CollisionManager::PostSolve(b2Contact* contact, const b2ContactImpulse
 }
 
 std::optional<std::pair<entt::entity, entt::entity>> ECS::getCollisionPair(entt::entity entityA, entt::entity entityB,
- flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB,
- flags::flags<ObjectType> orderedObjectTypeA, flags::flags<ObjectType> orderedObjectTypeB)
+    flags::flags<ObjectType> objectTypeA, flags::flags<ObjectType> objectTypeB,
+    flags::flags<ObjectType> orderedObjectTypeA, flags::flags<ObjectType> orderedObjectTypeB)
 {
     if (objectTypeA & orderedObjectTypeA && objectTypeB & orderedObjectTypeB)
     {

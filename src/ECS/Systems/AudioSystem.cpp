@@ -13,7 +13,7 @@ https://inversepalindrome.com/
 #include <SFML/Audio/Listener.hpp>
 
 
-ECS::Systems::AudioSystem::AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher, 
+ECS::Systems::AudioSystem::AudioSystem(entt::registry& registry, entt::dispatcher& dispatcher,
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory),
     playerEntity(entt::null),
@@ -42,11 +42,11 @@ void ECS::Systems::AudioSystem::onStateChanged(const StateChanged& event)
 {
     auto entity = event.entity;
     auto state = event.state;
-    
+
     if (registry.has<Components::SoundComponent>(entity))
     {
         auto& soundComponent = registry.get<Components::SoundComponent>(entity);
-    
+
         if (soundComponent.hasSound(state))
         {
             auto& sound = soundComponent[state];

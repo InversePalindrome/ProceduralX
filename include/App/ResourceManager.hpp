@@ -26,7 +26,7 @@ https://inversepalindrome.com/
 
 namespace App
 {
-    class ResourceManager 
+    class ResourceManager
     {
     public:
         ResourceManager();

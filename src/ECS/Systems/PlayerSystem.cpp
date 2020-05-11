@@ -40,8 +40,8 @@ void ECS::Systems::PlayerSystem::movePlayer(const ActionTriggered& event)
     const auto& speed = registry.get<Components::SpeedComponent>(playerEntity);
     const auto& acceleration = registry.get<Components::AccelerationComponent>(playerEntity);
 
-    body.applyLinearImpulse(SteeringBehaviors::move(body.getPosition(), Utility::actionToDirection(event.action), 
-        body.getLinearVelocity(),acceleration.getLinearAcceleration(), speed.getLinearSpeed(), body.getMass()));
+    body.applyLinearImpulse(SteeringBehaviors::move(body.getPosition(), Utility::actionToDirection(event.action),
+        body.getLinearVelocity(), acceleration.getLinearAcceleration(), speed.getLinearSpeed(), body.getMass()));
 }
 
 void ECS::Systems::PlayerSystem::rotatePlayer(const MouseMoved& event)

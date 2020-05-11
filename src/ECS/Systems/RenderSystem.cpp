@@ -75,7 +75,7 @@ void ECS::Systems::RenderSystem::updateViewPosition()
     }
 
     cameraView.setCenter(cameraPosition);
-    
+
     window->setView(cameraView);
 }
 

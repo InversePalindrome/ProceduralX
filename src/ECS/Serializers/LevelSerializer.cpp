@@ -21,7 +21,7 @@ void ECS::Serializers::serializeLevel(const entt::registry& registry, const std:
 
     auto levelNode = doc.append_child("Level");
 
-    registry.each([&registry, &levelNode](auto entity) 
+    registry.each([&registry, &levelNode](auto entity)
         {
             auto entityNode = levelNode.append_child("Entity");
 

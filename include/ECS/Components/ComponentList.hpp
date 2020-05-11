@@ -29,7 +29,7 @@ https://inversepalindrome.com/
 
 namespace ECS::Components
 {
-    using ComponentList = brigand::list<IDComponent, BodyComponent, JointComponent, SpeedComponent, 
+    using ComponentList = brigand::list<IDComponent, BodyComponent, JointComponent, SpeedComponent,
         StateComponent, SoundComponent, SpriteComponent, ObjectComponent, WeaponComponent, DamageComponent,
         HealthComponent, AnimationComponent, AccelerationComponent, TransformComponent, SatelliteComponent,
         PathComponent, entt::tag<"Player"_hs>>;

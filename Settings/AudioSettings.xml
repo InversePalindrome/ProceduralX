@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AudioSettings>
-	<Sound volume="100" />
+	<Sound volume="10" />
 	<Music volume="100" />
 </AudioSettings>

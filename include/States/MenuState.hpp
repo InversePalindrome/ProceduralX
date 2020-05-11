@@ -19,7 +19,7 @@ namespace States
     {
     public:
         explicit MenuState(StateData& stateData);
-        
+
         virtual ~MenuState() override;
 
         virtual void handleEvent(const sf::Event& event) override;

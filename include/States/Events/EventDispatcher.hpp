@@ -15,6 +15,6 @@ https://inversepalindrome.com/
 
 namespace States::Events
 {
-    using EventDispatcher = eventpp::HeterEventDispatcher<EventID, 
+    using EventDispatcher = eventpp::HeterEventDispatcher<EventID,
         eventpp::HeterTuple<void(), void(StateID)>>;
 }

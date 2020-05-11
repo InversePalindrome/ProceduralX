@@ -17,7 +17,7 @@ ECS::Components::JointComponent::JointComponent() :
 
 void ECS::Components::JointComponent::initialize(b2World& world, b2Body* bodyA, b2Body* bodyB)
 {
-    std::visit([this, &world, bodyA, bodyB](auto& jointDef) 
+    std::visit([this, &world, bodyA, bodyB](auto& jointDef)
         {
             jointDef.bodyA = bodyA;
             jointDef.bodyB = bodyB;

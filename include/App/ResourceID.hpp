@@ -12,7 +12,7 @@ https://inversepalindrome.com/
 
 namespace App
 {
-    enum class TextureID : std::size_t 
+    enum class TextureID : std::size_t
     {
         Null, SplashLogo, Spaceships, UFO, SpaceBackground, Planet1,
         Planet2, Planet3, Planet4, Meteor, RedProjectiles

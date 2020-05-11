@@ -24,7 +24,7 @@ namespace ECS::Parsers
 {
     void parseBodyDef(b2BodyDef& bodyDef, const pugi::xml_node& bodyNode);
     void parseFixtureDef(b2FixtureDef& fixtureDef, const pugi::xml_node& fixtureNode);
-    
+
     void parseCircle(b2CircleShape& circle, const pugi::xml_node& circleNode);
     void parseEdge(b2EdgeShape& edge, const pugi::xml_node& edgeNode);
     void parsePolygon(b2PolygonShape& polygon, const pugi::xml_node& polygonNode);

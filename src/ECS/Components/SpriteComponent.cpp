@@ -43,7 +43,7 @@ App::TextureID ECS::Components::SpriteComponent::getTextureID() const
     return textureID;
 }
 
-void ECS::Components::SpriteComponent::setTextureID(App::TextureID textureID) 
+void ECS::Components::SpriteComponent::setTextureID(App::TextureID textureID)
 {
     this->textureID = textureID;
 }
@@ -83,6 +83,6 @@ void ECS::Components::SpriteComponent::setZOrder(int zOrder)
 void ECS::Components::SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    
+
     target.draw(sprite, states);
 }

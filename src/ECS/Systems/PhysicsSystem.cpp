@@ -17,7 +17,7 @@ https://inversepalindrome.com/
 ECS::Systems::PhysicsSystem::PhysicsSystem(entt::registry& registry, entt::dispatcher& dispatcher,
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory),
-    world({0.0f, 0.0f}),
+    world({ 0.0f, 0.0f }),
     collisionManager(registry, dispatcher),
     destructionManager(registry)
 {
@@ -41,7 +41,7 @@ void ECS::Systems::PhysicsSystem::update(const App::Seconds& deltaTime)
 void ECS::Systems::PhysicsSystem::onBodyAdded(entt::registry&, entt::entity entity)
 {
     auto& body = registry.get<Components::BodyComponent>(entity);
-    
+
     body.initialize(world);
     body.setUserData(reinterpret_cast<void*>(entity));
 }
@@ -49,7 +49,7 @@ void ECS::Systems::PhysicsSystem::onBodyAdded(entt::registry&, entt::entity enti
 void ECS::Systems::PhysicsSystem::onBodyRemoved(entt::registry&, entt::entity entity)
 {
     auto& body = registry.get<Components::BodyComponent>(entity);
-    
+
     bodiesToRemove.push_back(body.getBody());
 }
 

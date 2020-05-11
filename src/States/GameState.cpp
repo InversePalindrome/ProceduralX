@@ -101,7 +101,7 @@ void States::GameState::initializeSystems()
     auto* inputSystem = systems.getSystem<ECS::Systems::InputSystem>();
     inputSystem->setActions(&actions);
     inputSystem->setWindow(&stateData.window);
-   
+
     systems.getSystem<ECS::Systems::RenderSystem>()->setWindow(&stateData.window);
     systems.getSystem<ECS::Systems::AudioSystem>()->setAudioSettings(&stateData.audioSettings);
 }
@@ -123,23 +123,23 @@ void States::GameState::initializePauseMenu()
 
     auto resumeButton = tgui::Button::create("Resume");
     resumeButton->setTextSize(App::FONT_SIZE);
-    resumeButton->connect("pressed", [this]() 
+    resumeButton->connect("pressed", [this]()
         {
             isPaused = false;
-            pauseMenuLayout->setVisible(false); 
+            pauseMenuLayout->setVisible(false);
         });
 
     auto settingsButton = tgui::Button::create("Settings");
     settingsButton->setTextSize(App::FONT_SIZE);
-    settingsButton->connect("pressed", [this]() 
+    settingsButton->connect("pressed", [this]()
         {
             stateData.eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });
 
     auto quitButton = tgui::Button::create("Quit");
     quitButton->setTextSize(App::FONT_SIZE);
-    quitButton->connect("pressed", [this]() 
-        { 
+    quitButton->connect("pressed", [this]()
+        {
             stateData.eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Menu);
         });
 

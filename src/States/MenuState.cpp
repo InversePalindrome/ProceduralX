@@ -18,13 +18,13 @@ States::MenuState::MenuState(StateData& stateData) :
     auto playButton = tgui::Button::create("Play");
     playButton->setTextSize(App::FONT_SIZE);
     playButton->connect("pressed", [&stateData]()
-        { 
+        {
             stateData.eventDispatcher.dispatch(Events::EventID::ChangeState, StateID::Game);
         });
 
     auto settingsButton = tgui::Button::create("Settings");
     settingsButton->setTextSize(App::FONT_SIZE);
-    settingsButton->connect("pressed", [&stateData]() 
+    settingsButton->connect("pressed", [&stateData]()
         {
             stateData.eventDispatcher.dispatch(Events::EventID::PushState, StateID::Settings);
         });

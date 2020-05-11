@@ -57,7 +57,7 @@ void ECS::Systems::InputSystem::updateActions()
     {
         dispatcher.trigger(ActionTriggered{ App::Action::MoveDown });
     }
-    if (actions->isActive( App::Action::MoveRight))
+    if (actions->isActive(App::Action::MoveRight))
     {
         dispatcher.trigger(ActionTriggered{ App::Action::MoveRight });
     }

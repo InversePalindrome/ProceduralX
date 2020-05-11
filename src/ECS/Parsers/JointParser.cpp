@@ -43,7 +43,7 @@ void ECS::Parsers::parseRevoluteJointDef(b2RevoluteJointDef& revoluteJointDef, c
     parseEnableLimit(revoluteJointDef, revoluteJointNode);
     parseEnableMotor(revoluteJointDef, revoluteJointNode);
     parseAnchorPoints(revoluteJointDef, revoluteJointNode);
-    
+
     if (auto lowerAngleAttribute = revoluteJointNode.attribute("lowerAngle"))
     {
         revoluteJointDef.lowerAngle = lowerAngleAttribute.as_float();
@@ -70,7 +70,7 @@ void ECS::Parsers::parsePrismaticJointDef(b2PrismaticJointDef& prismaticJointDef
     parseEnableLimit(prismaticJointDef, prismaticJointNode);
     parseEnableMotor(prismaticJointDef, prismaticJointNode);
     parseAnchorPoints(prismaticJointDef, prismaticJointNode);
-  
+
     if (auto maxMotorForceAttribute = prismaticJointNode.attribute("maxMotorForce"))
     {
         prismaticJointDef.maxMotorForce = maxMotorForceAttribute.as_float();
@@ -94,7 +94,7 @@ void ECS::Parsers::parsePrismaticJointDef(b2PrismaticJointDef& prismaticJointDef
 void ECS::Parsers::parseGearJointDef(b2GearJointDef& gearJointDef, const pugi::xml_node& gearJointNode)
 {
     parseCollideConnected(gearJointDef, gearJointNode);
-    
+
     if (auto ratioAttribute = gearJointNode.attribute("ratio"))
     {
         gearJointDef.ratio = ratioAttribute.as_float();
@@ -106,7 +106,7 @@ void ECS::Parsers::parseMotorJointDef(b2MotorJointDef& motorJointDef, const pugi
     parseCollideConnected(motorJointDef, motorJointNode);
     parseMaxForce(motorJointDef, motorJointNode);
     parseMaxTorque(motorJointDef, motorJointNode);
-    
+
     if (auto correctionFactorAttribute = motorJointNode.attribute("correctionFactor"))
     {
         motorJointDef.correctionFactor = correctionFactorAttribute.as_float();
@@ -129,7 +129,7 @@ void ECS::Parsers::parseMouseJointDef(b2MouseJointDef& mouseJointDef, const pugi
     parseFrequency(mouseJointDef, mouseJointNode);
     parseDampingRatio(mouseJointDef, mouseJointNode);
     parseMaxForce(mouseJointDef, mouseJointNode);
-    
+
     if (auto targetXAttribute = mouseJointNode.attribute("targetX"),
         targetYAttribute = mouseJointNode.attribute("targetY");
         targetXAttribute && targetYAttribute)

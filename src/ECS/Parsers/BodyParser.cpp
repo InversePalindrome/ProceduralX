@@ -44,7 +44,7 @@ void ECS::Parsers::parseBodyDef(b2BodyDef& bodyDef, const pugi::xml_node& bodyNo
 
 void ECS::Parsers::parseFixtureDef(b2FixtureDef& fixtureDef, const pugi::xml_node& fixtureNode)
 {
-    if(auto densityAttribute = fixtureNode.attribute("density"))
+    if (auto densityAttribute = fixtureNode.attribute("density"))
     {
         fixtureDef.density = densityAttribute.as_float();
     }

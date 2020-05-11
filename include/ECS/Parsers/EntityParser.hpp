@@ -18,9 +18,9 @@ https://inversepalindrome.com/
 
 namespace ECS::Parsers
 {
-     void parseEntity(entt::entity, entt::registry& registry, App::ResourceManager& resourceManager,
-         const std::string& filename);
+    void parseEntity(entt::entity, entt::registry& registry, App::ResourceManager& resourceManager,
+        const std::string& filename);
 
-     void parseEntity(entt::entity entity, entt::registry& registry, App::ResourceManager& resourceManager,
-         const pugi::xml_node& entityNode);
+    void parseEntity(entt::entity entity, entt::registry& registry, App::ResourceManager& resourceManager,
+        const pugi::xml_node& entityNode);
 }

@@ -116,10 +116,10 @@ void App::Application::addEventListeners()
         {
             stateMachine.popState();
         });
-    eventDispatcher.appendListener(States::Events::EventID::ChangeState, 
-    [this](auto stateID)
-    {
-        stateMachine.popState();
-        stateMachine.pushState(stateFactory.createState(stateID));
-    });
+    eventDispatcher.appendListener(States::Events::EventID::ChangeState,
+        [this](auto stateID)
+        {
+            stateMachine.popState();
+            stateMachine.pushState(stateFactory.createState(stateID));
+        });
 }

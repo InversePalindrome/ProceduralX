@@ -28,7 +28,7 @@ void ECS::Parsers::parseSprite(Components::SpriteComponent& sprite, const pugi::
     if (auto textureAttribute = spriteNode.attribute("texture"))
     {
         auto textureID = magic_enum::enum_cast<App::TextureID>(textureAttribute.as_string());
- 
+
         if (textureID.has_value())
         {
             sprite.setTextureID(textureID.value());
@@ -94,7 +94,7 @@ void ECS::Parsers::parseAnimation(Components::AnimationComponent& animation, con
 
         thor::FrameAnimation frameAnimation;
         std::vector<FrameData> frames;
-  
+
         for (auto frameNode : frameAnimationNode.children("Frame"))
         {
             float relativeDuration = 1.f;
@@ -120,7 +120,7 @@ void ECS::Parsers::parseAnimation(Components::AnimationComponent& animation, con
             frames.push_back({ App::Seconds(relativeDuration), frameRect });
         }
 
-        animation.addAnimation(state, frameAnimation, { frames, App::Seconds(duration.asSeconds()), loop});
+        animation.addAnimation(state, frameAnimation, { frames, App::Seconds(duration.asSeconds()), loop });
     }
 }
 

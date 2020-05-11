@@ -21,7 +21,7 @@ b2Vec2 ECS::SteeringBehaviors::move(const b2Vec2& bodyPosition, Direction direct
     case Direction::Up:
         return { 0.f, mass * (b2Min(bodyVelocity.y + acceleration, maxSpeed) - bodyVelocity.y) };
     case Direction::Down:
-        return { 0.f, mass * (b2Max(bodyVelocity.y -acceleration, -maxSpeed) - bodyVelocity.y) };
+        return { 0.f, mass * (b2Max(bodyVelocity.y - acceleration, -maxSpeed) - bodyVelocity.y) };
     case Direction::Right:
         return { mass * (b2Min(bodyVelocity.x + acceleration, maxSpeed) - bodyVelocity.x), 0.f };
     case Direction::Left:
@@ -71,7 +71,7 @@ b2Vec2 ECS::SteeringBehaviors::wander(const b2Vec2& bodyPosition, const b2Vec2& 
     wanderCenter.Normalize();
     wanderCenter *= wanderDistance;
     wanderCenter += { wanderRadius* std::cos(wanderAngle), wanderRadius* std::sin(wanderAngle) };
- 
+
     wanderAngle += App::Random::get(-1.f, 1.f) * wanderRate;
 
     return seek(bodyPosition, bodyPosition + wanderCenter, bodyVelocity, maxSpeed);

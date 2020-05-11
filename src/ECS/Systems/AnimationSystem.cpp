@@ -10,7 +10,7 @@ https://inversepalindrome.com/
 #include "ECS/Components/AnimationComponent.hpp"
 
 
-ECS::Systems::AnimationSystem::AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher, 
+ECS::Systems::AnimationSystem::AnimationSystem(entt::registry& registry, entt::dispatcher& dispatcher,
     EntityFactory& entityFactory) :
     System(registry, dispatcher, entityFactory)
 {

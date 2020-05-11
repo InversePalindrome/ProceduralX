@@ -28,7 +28,7 @@ void ECS::Components::AnimationComponent::stopAnimation()
     animator.stopAnimation();
 }
 
-void ECS::Components::AnimationComponent::addAnimation(State state, const std::function<void(sf::Sprite&, float)>& animation, 
+void ECS::Components::AnimationComponent::addAnimation(State state, const std::function<void(sf::Sprite&, float)>& animation,
     const AnimationData& animationData)
 {
     animationMap[state] = animationData;

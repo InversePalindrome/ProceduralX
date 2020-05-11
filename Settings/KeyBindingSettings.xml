@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KeyBindingSettings>
-	<KeyBinding action="MoveUp" key="Up" type="Hold" />
-	<KeyBinding action="MoveDown" key="Down" type="Hold" />
-	<KeyBinding action="MoveRight" key="Right" type="Hold" />
-	<KeyBinding action="MoveLeft" key="Left" type="Hold" />
+	<KeyBinding action="MoveUp" key="W" type="Hold" />
+	<KeyBinding action="MoveDown" key="S" type="Hold" />
+	<KeyBinding action="MoveRight" key="D" type="Hold" />
+	<KeyBinding action="MoveLeft" key="A" type="Hold" />
 	<KeyBinding action="Pause" key="Escape" type="Hold" />
 </KeyBindingSettings>

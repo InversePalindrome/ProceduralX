@@ -50,48 +50,48 @@ App::ResourceManager::ResourceManager() :
 {
 }
 
-void App::ResourceManager::loadResources(const std::string& filename)
-{
-    if (pugi::xml_document doc; doc.load_file(filename.c_str()))
-    {
-        if (auto resourcesNode = doc.child("Resources"))
+        void App::ResourceManager::loadResources(const std::string& filename)
         {
-            for (auto texturesNode : resourcesNode.children("Textures"))
+            if (pugi::xml_document doc; doc.load_file(filename.c_str()))
             {
-                loadResources<TextureID>(texturesNode, "Textures");
-            }
-            for(auto imagesNode : resourcesNode.children("Images"))
-            {
-                loadResources<ImageID>(imagesNode, "Images");
-            }
-            for(auto fontsNode : resourcesNode.children("Fonts"))
-            {
-                loadResources<FontID>(fontsNode, "Fonts");
-            }
-            for(auto soundsNode : resourcesNode.children("Sounds"))
-            {
-                loadResources<SoundID>(soundsNode, "Sounds");
+                if (auto resourcesNode = doc.child("Resources"))
+                {
+                    for (auto texturesNode : resourcesNode.children("Textures"))
+                    {
+                        loadResources<TextureID>(texturesNode, "Textures");
+                    }
+                    for (auto imagesNode : resourcesNode.children("Images"))
+                    {
+                        loadResources<ImageID>(imagesNode, "Images");
+                    }
+                    for (auto fontsNode : resourcesNode.children("Fonts"))
+                    {
+                        loadResources<FontID>(fontsNode, "Fonts");
+                    }
+                    for (auto soundsNode : resourcesNode.children("Sounds"))
+                    {
+                        loadResources<SoundID>(soundsNode, "Sounds");
+                    }
+                }
             }
         }
-    }
-}
 
-sf::Texture& App::ResourceManager::getTexture(TextureID textureID)
-{
-    return textures[textureID];
-}
+        sf::Texture& App::ResourceManager::getTexture(TextureID textureID)
+        {
+            return textures[textureID];
+        }
 
-sf::Image& App::ResourceManager::getImage(ImageID imageID)
-{
-    return images[imageID];
-}
+        sf::Image& App::ResourceManager::getImage(ImageID imageID)
+        {
+            return images[imageID];
+        }
 
-sf::Font& App::ResourceManager::getFont(FontID fontID)
-{
-    return fonts[fontID];
-}
+        sf::Font& App::ResourceManager::getFont(FontID fontID)
+        {
+            return fonts[fontID];
+        }
 
-sf::SoundBuffer& App::ResourceManager::getSoundBuffer(SoundID soundID)
-{
-    return sounds[soundID];
-}
+        sf::SoundBuffer& App::ResourceManager::getSoundBuffer(SoundID soundID)
+        {
+            return sounds[soundID];
+        }

@@ -21,8 +21,8 @@ States::SettingsState::SettingsState(StateData& stateData) :
     backButton = tgui::Button::create("Back");
     backButton->setSize("10%", "7%");
     backButton->setTextSize(App::FONT_SIZE);
-    backButton->connect("pressed", [&stateData]() 
-        {  
+    backButton->connect("pressed", [&stateData]()
+        {
             stateData.eventDispatcher.dispatch(Events::EventID::PopState);
         });
 

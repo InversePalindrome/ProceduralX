@@ -27,7 +27,7 @@ namespace ECS
         EntityFactory& operator=(EntityFactory&&) = delete;
 
         void loadEntities(const std::string& filename);
-        
+
         void addEntity(EntityID entityID, const std::string& filename);
         void removeEntity(EntityID entityID);
         void clearEntities();

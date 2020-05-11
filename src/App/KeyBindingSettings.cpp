@@ -20,7 +20,7 @@ App::KeyBindingSettings::KeyBindingSettings() :
         {Action::MoveRight, KeyBinding{sf::Keyboard::D, thor::Action::Hold}},
         {Action::MoveLeft, KeyBinding{sf::Keyboard::A, thor::Action::Hold}},
         {Action::Pause, KeyBinding{sf::Keyboard::Escape, thor::Action::Hold}}
-    })
+        })
 {
 }
 
